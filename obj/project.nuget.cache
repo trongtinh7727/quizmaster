@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "VTi7FpiPyfzMaQuhVQpiUvHTi9Ja7uDtn4UAy+Dp+co59lvoirilVOa+3h3repJiLJHfdGPBFEugYPb5j9HfFQ==",
+  "success": true,
+  "projectFilePath": "D:\\University\\2023-2024Term1\\dotNet\\quizmaster\\QuizMaster.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ltphu\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.19.4\\microsoft.visualstudio.azure.containers.tools.targets.1.19.4.nupkg.sha512"
+  ],
+  "logs": []
+}
