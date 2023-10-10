@@ -1,3 +1,12 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using QuizMaster.Areas.Identity.Data;
+using QuizMaster.Data;
+using QuizMaster.Mail;
+using System.Configuration;
+
 namespace QuizMaster
 {
     public class Program
@@ -5,11 +14,25 @@ namespace QuizMaster
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            var connectionString = builder.Configuration.GetConnectionString("QuizMasterContextConnection") ?? throw new InvalidOperationException("Connection string 'QuizMasterContextConnection' not found.");
+            var mailsettings = builder.Configuration.GetSection("MailSettings") ?? throw new InvalidOperationException("mailsettings not found");
+            builder.Services.AddDbContext<QuizMasterContext>(options =>
+            options.UseSqlServer(connectionString));
+
+            builder.Services.AddDefaultIdentity<QuizMasterUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            .AddEntityFrameworkStores<QuizMasterContext>();
+            builder.Services.AddOptions();
+            //Mail
+            builder.Services.Configure<MailSettings>(mailsettings);              
+
+            builder.Services.AddTransient<IEmailSender, SendMailService>();      
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddRazorPages();
 
             var app = builder.Build();
+
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -21,8 +44,8 @@ namespace QuizMaster
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
+            app.UseAuthentication(); ;
 
             app.UseAuthorization();
 
@@ -30,6 +53,7 @@ namespace QuizMaster
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
+            app.MapRazorPages();
             app.Run();
         }
     }
