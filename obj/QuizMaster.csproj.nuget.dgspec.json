@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\University\\2023-2024Term1\\dotNet\\quizmaster\\QuizMaster.csproj": {}
+    "C:\\Users\\TrongTinh\\source\\repos\\QuizMaster\\QuizMaster.csproj": {}
   },
   "projects": {
-    "D:\\University\\2023-2024Term1\\dotNet\\quizmaster\\QuizMaster.csproj": {
+    "C:\\Users\\TrongTinh\\source\\repos\\QuizMaster\\QuizMaster.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\University\\2023-2024Term1\\dotNet\\quizmaster\\QuizMaster.csproj",
+        "projectUniqueName": "C:\\Users\\TrongTinh\\source\\repos\\QuizMaster\\QuizMaster.csproj",
         "projectName": "QuizMaster",
-        "projectPath": "D:\\University\\2023-2024Term1\\dotNet\\quizmaster\\QuizMaster.csproj",
-        "packagesPath": "C:\\Users\\ltphu\\.nuget\\packages\\",
-        "outputPath": "D:\\University\\2023-2024Term1\\dotNet\\quizmaster\\obj\\",
+        "projectPath": "C:\\Users\\TrongTinh\\source\\repos\\QuizMaster\\QuizMaster.csproj",
+        "packagesPath": "C:\\Users\\TrongTinh\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\TrongTinh\\source\\repos\\QuizMaster\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ltphu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\TrongTinh\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -40,9 +40,39 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "MailKit": {
+              "target": "Package",
+              "version": "[4.2.0, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.21, )"
+            },
+            "Microsoft.AspNetCore.Identity.UI": {
+              "target": "Package",
+              "version": "[6.0.21, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[6.0.21, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[6.0.21, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.21, )"
+            },
             "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
               "target": "Package",
               "version": "[1.19.4, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[6.0.16, )"
             }
           },
           "imports": [
@@ -64,7 +94,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }
