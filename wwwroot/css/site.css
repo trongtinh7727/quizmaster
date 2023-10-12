@@ -1,18 +1,106 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+}
+
+
+// Background
+.bg-ghost {
+    background-color: #f8f8ff !important;
+}
+
+.bg-color1 {
+    background-color: #361c14;
+}
+
+.bg-color2 {
+    background-color: #086375;
+}
+
+.bg-color3 {
+    background-color: #1DD3B0;
+}
+
+.bg-color4 {
+    background-color: #AFFC41;
+}
+
+.bg-color5 {
+    background-color: #B2FF9E;
+}
+
+
+// Button
+.mybutton {
+    height: 48px;
+    border-radius: 8px !important;
+    padding: 12px 24px !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+}
+
+.myButton-primary {
+    color: #FFFFFF;
+    background-color: #1DD3B0 !important;
+    border: none;
+}
+
+.myButton-secondary {
+    color: #1DD3B0;
+    background-color: #FFFFFF !important;
+    border: solid #1DD3B0 2px;
+}
+
+
+// Font weight
+.fw-semibold {
+    font-weight: 600 !important;
+}
+
+
+// Text color
+.text-gray-light {
+    color: #CCCCCC;
+}
+
+.text-gray-medium {
+    color: #999999;
+}
+
+.text-gray-dark {
+    color: #666666;
+}
+
+.text-color1 {
+    color: #361c14;
+}
+
+.text-color2 {
+    color: #086375;
+}
+
+.text-color3 {
+    color: #1DD3B0;
+}
+
+.text-color4 {
+    color: #AFFC41;
+}
+
+.text-color5 {
+    color: #B2FF9E;
 }
