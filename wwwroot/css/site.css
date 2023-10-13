@@ -1,5 +1,21 @@
+:root {
+    --color1: #361c14;
+    --color2: #086375;
+    --color3: #1DD3B0;
+    --color4: #AFFC41;
+    --color5: #B2FF9E;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 html {
     font-size: 14px;
+    position: relative;
+    min-height: 100%;
 }
 
 @media (min-width: 768px) {
@@ -8,45 +24,38 @@ html {
     }
 }
 
-html {
-    position: relative;
-    min-height: 100%;
-}
-
 body {
     margin-bottom: 60px;
 }
 
-
-// Background
+/*Background*/
 .bg-ghost {
     background-color: #f8f8ff !important;
 }
 
 .bg-color1 {
-    background-color: #361c14;
+    background-color: var(--color1);
 }
 
 .bg-color2 {
-    background-color: #086375;
+    background-color: var(--color2);
 }
 
 .bg-color3 {
-    background-color: #1DD3B0;
+    background-color: var(--color3);
 }
 
 .bg-color4 {
-    background-color: #AFFC41;
+    background-color: var(--color4);
 }
 
 .bg-color5 {
-    background-color: #B2FF9E;
+    background-color: var(--color5);
 }
 
-
-// Button
-.mybutton {
-    height: 48px;
+/*Button*/
+.myButton {
+    display: inline-block;
     border-radius: 8px !important;
     padding: 12px 24px !important;
     font-size: 16px !important;
@@ -55,24 +64,35 @@ body {
 
 .myButton-primary {
     color: #FFFFFF;
-    background-color: #1DD3B0 !important;
-    border: none;
+    background-color: var(--color2) !important;
+    border: solid var(--color2) 2px;
+    transition: 0.3s ease-in-out;
+}
+
+.myButton-primary:hover {
+    background-color: var(--color3) !important;
+    border: solid var(--color3) 2px;
 }
 
 .myButton-secondary {
-    color: #1DD3B0;
+    color: var(--color2);
     background-color: #FFFFFF !important;
-    border: solid #1DD3B0 2px;
+    border: solid var(--color2) 2px;
+    transition: 0.3s ease-in-out;
 }
 
+.myButton-secondary:hover {
+    color: #FFFFFF;
+    background-color: var(--color3) !important;
+    border: solid var(--color3) 2px;
+}
 
-// Font weight
+/*Font weight*/
 .fw-semibold {
     font-weight: 600 !important;
 }
 
-
-// Text color
+/*Text color*/
 .text-gray-light {
     color: #CCCCCC;
 }
@@ -86,21 +106,77 @@ body {
 }
 
 .text-color1 {
-    color: #361c14;
+    color: var(--color1);
 }
 
 .text-color2 {
-    color: #086375;
+    color: var(--color2);
 }
 
 .text-color3 {
-    color: #1DD3B0;
+    color: var(--color3);
 }
 
 .text-color4 {
-    color: #AFFC41;
+    color: var(--color4);
 }
 
 .text-color5 {
-    color: #B2FF9E;
+    color: var(--color5);
+}
+
+/*Gap*/
+.gap2 {
+    gap: 2px;
+}
+
+.gap4 {
+    gap: 4px;
+}
+
+.gap8 {
+    gap: 8px;
+}
+
+.gap12 {
+    gap: 12px;
+}
+
+.gap24 {
+    gap: 24px;
+}
+
+.gap36 {
+    gap: 36px;
+}
+
+/*a tag - link*/
+.link-primary {
+    color: var(--color2);
+    transition: 0.3s ease-in-out;
+}
+
+.link-primary:hover {
+    color: var(--color3);
+}
+
+/*Form*/
+.form-check-input {
+    border-color: var(--color2);
+}
+
+.form-check-input:checked {
+    background-color: var(--color2);
+    border-color: var(--color2);
+}
+
+/*Input*/
+.myInput {
+    min-height: 52px !important;
+    border-radius: 8px !important;
+}
+
+.myInput:focus {
+    border-color: var(--color2);
+    box-shadow: 0 0 5px var(--color2);
 }

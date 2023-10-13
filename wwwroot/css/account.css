@@ -1,8 +1,4 @@
-﻿.myInput {
-    min-height: 52px !important;
-}
-
-#photo {
+﻿#photo {
     background-image: url(../img/bg-account.svg);
     background-size: cover;
     background-repeat: no-repeat;
