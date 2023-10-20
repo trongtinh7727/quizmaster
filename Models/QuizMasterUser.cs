@@ -12,7 +12,7 @@ public class QuizMasterUser : IdentityUser
 {
     [PersonalData]
     [Column(TypeName = "nvarchar(100)")]
-    public string FristName { get; set; }
+    public string FirstName { get; set; }
 
     [PersonalData]
     [Column(TypeName = "nvarchar(100)")]
