@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using QuizMaster.Areas.Identity.Data;
+using QuizMaster.Models;
 using QuizMaster.Data;
 using QuizMaster.Mail;
 using System.Configuration;

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QuizMaster.Data;
 
@@ -11,9 +12,10 @@ using QuizMaster.Data;
 namespace QuizMaster.Migrations
 {
     [DbContext(typeof(QuizMasterContext))]
-    partial class QuizMasterContextModelSnapshot : ModelSnapshot
+    [Migration("20231018095001_AddUserQuiz")]
+    partial class AddUserQuiz
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -514,13 +516,13 @@ namespace QuizMaster.Migrations
                     b.HasOne("QuizMaster.Models.QuizAnswer", "Answer")
                         .WithMany("TakeAnswers")
                         .HasForeignKey("AnswerId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("QuizMaster.Models.QuizQuestion", "QuizQuestion")
                         .WithMany("TakeAnswers")
                         .HasForeignKey("QuestionId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("QuizMaster.Models.TakeQuiz", "TakeQuiz")
@@ -541,7 +543,7 @@ namespace QuizMaster.Migrations
                     b.HasOne("QuizMaster.Models.Quiz", "Quiz")
                         .WithMany("TakeQuizs")
                         .HasForeignKey("QuizId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("QuizMaster.Models.QuizMasterUser", "User")

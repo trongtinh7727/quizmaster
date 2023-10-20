@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 
-namespace QuizMaster.Areas.Identity.Data;
+namespace QuizMaster.Models;
 
 // Add profile data for application users by adding properties to the QuizMasterUser class
 public class QuizMasterUser : IdentityUser
@@ -17,6 +17,11 @@ public class QuizMasterUser : IdentityUser
     [PersonalData]
     [Column(TypeName = "nvarchar(100)")]
     public string LastName { get; set; }
+
+    public ICollection<Quiz> Quizzes { get; set; }
+
+    public ICollection<TakeQuiz> TakeQuizs { get; set; }
+
 
 }
 
