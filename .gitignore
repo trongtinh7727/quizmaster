@@ -1,5 +1,5 @@
-obj/
-bin/
-.idea/
-ScaffoldingReadMe.txt
-.vs/
+/obj/
+/bin/
+/.idea/
+/ScaffoldingReadMe.txt
+/.vs/
