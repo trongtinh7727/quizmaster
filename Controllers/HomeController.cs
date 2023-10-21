@@ -18,7 +18,12 @@ namespace QuizMaster.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult History()
+        {
+            return View();
+        }
+
+        public IActionResult CreateQuiz()
         {
             return View();
         }
