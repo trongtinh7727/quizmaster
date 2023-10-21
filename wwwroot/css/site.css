@@ -66,26 +66,26 @@ body {
     color: #FFFFFF;
     background-color: var(--color2) !important;
     border: solid var(--color2) 2px;
-    transition: 0.3s ease-in-out;
+    transition: all 0.3s ease;
 }
 
-.myButton-primary:hover {
-    background-color: var(--color3) !important;
-    border: solid var(--color3) 2px;
-}
+    .myButton-primary:hover {
+        background-color: var(--color3) !important;
+        border: solid var(--color3) 2px;
+    }
 
 .myButton-secondary {
     color: var(--color2);
     background-color: #FFFFFF !important;
     border: solid var(--color2) 2px;
-    transition: 0.3s ease-in-out;
+    transition: all 0.3s ease;
 }
 
-.myButton-secondary:hover {
-    color: #FFFFFF;
-    background-color: var(--color3) !important;
-    border: solid var(--color3) 2px;
-}
+    .myButton-secondary:hover {
+        color: #FFFFFF;
+        background-color: var(--color3) !important;
+        border: solid var(--color3) 2px;
+    }
 
 /*Font weight*/
 .fw-semibold {
@@ -150,25 +150,34 @@ body {
     gap: 36px;
 }
 
+/*Rounded*/
+.rounded-4 {
+    border-radius: 1rem;
+}
+
+.rounded-5 {
+    border-radius: 1.25rem;
+}
+
 /*a tag - link*/
 .link-primary {
     color: var(--color2);
     transition: 0.3s ease-in-out;
 }
 
-.link-primary:hover {
-    color: var(--color3);
-}
+    .link-primary:hover {
+        color: var(--color3);
+    }
 
 /*Form*/
 .form-check-input {
     border-color: var(--color2);
 }
 
-.form-check-input:checked {
-    background-color: var(--color2);
-    border-color: var(--color2);
-}
+    .form-check-input:checked {
+        background-color: var(--color2);
+        border-color: var(--color2);
+    }
 
 /*Input*/
 .myInput {
@@ -176,7 +185,34 @@ body {
     border-radius: 8px !important;
 }
 
-.myInput:focus {
-    border-color: var(--color2);
-    box-shadow: 0 0 5px var(--color2);
+    .myInput:focus {
+        border-color: var(--color2);
+        box-shadow: 0 0 5px var(--color2);
+    }
+
+/*Border*/
+.myBorder-bottom {
+    border-bottom: 2px solid #CCCCCC;
+}
+
+.myBorder {
+    border: 2px solid;
+}
+
+.border-gray {
+    border-color: #CCCCCC !important;
+}
+
+/*Card*/
+.myCard {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 3rem;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #FFFFFF;
+    background-clip: border-box;
+    border-radius: 1.5rem;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }

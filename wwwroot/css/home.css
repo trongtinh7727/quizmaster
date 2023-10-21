@@ -1,0 +1,12 @@
+﻿:root {
+    --color1: #361c14;
+    --color2: #086375;
+    --color3: #1DD3B0;
+    --color4: #AFFC41;
+    --color5: #B2FF9E;
+}
+
+.search-container-input input {
+    width: 400px;
+    padding: 12px 24px;
+}
