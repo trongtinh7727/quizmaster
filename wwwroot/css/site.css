@@ -36,23 +36,23 @@ body {
 }
 
 .bg-color1 {
-    background-color: var(--color1);
+    background-color: var(--color1) !important;
 }
 
 .bg-color2 {
-    background-color: var(--color2);
+    background-color: var(--color2) !important;
 }
 
 .bg-color3 {
-    background-color: var(--color3);
+    background-color: var(--color3) !important;
 }
 
 .bg-color4 {
-    background-color: var(--color4);
+    background-color: var(--color4) !important;
 }
 
 .bg-color5 {
-    background-color: var(--color5);
+    background-color: var(--color5) !important;
 }
 
 /*Button*/
