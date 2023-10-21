@@ -4,6 +4,8 @@
     --color3: #1DD3B0;
     --color4: #AFFC41;
     --color5: #B2FF9E;
+    --color2-hover: #054551;
+    --color3-hover: #14937b;
 }
 
 * {
@@ -30,7 +32,7 @@ body {
 
 /*Background*/
 .bg-ghost {
-    background-color: #f8f8ff !important;
+    background-color: #f9f9f9 !important;
 }
 
 .bg-color1 {
@@ -70,21 +72,53 @@ body {
 }
 
     .myButton-primary:hover {
-        background-color: var(--color3) !important;
-        border: solid var(--color3) 2px;
+        background-color: var(--color2-hover) !important;
+        border: solid var(--color2-hover) 2px;
+        box-shadow: rgba(149, 157, 165, 0.5) 0px 8px 16px;
+        transform: translateY(-2px);
     }
 
 .myButton-secondary {
     color: var(--color2);
-    background-color: #FFFFFF !important;
+    background-color: transparent !important;
     border: solid var(--color2) 2px;
     transition: all 0.3s ease;
 }
 
     .myButton-secondary:hover {
         color: #FFFFFF;
-        background-color: var(--color3) !important;
-        border: solid var(--color3) 2px;
+        background-color: var(--color2-hover) !important;
+        border: solid var(--color2-hover) 2px;
+        box-shadow: rgba(149, 157, 165, 0.5) 0px 8px 16px;
+        transform: translateY(-2px);
+    }
+
+.myButton2-primary {
+    color: #FFFFFF;
+    background-color: var(--color3) !important;
+    border: solid var(--color3) 2px;
+    transition: all 0.3s ease;
+}
+    .myButton2-primary:hover {
+        background-color: var(--color3-hover) !important;
+        border: solid var(--color3-hover) 2px;
+        box-shadow: rgba(149, 157, 165, 0.5) 0px 8px 16px;
+        transform: translateY(-2px);
+    }
+
+.myButton2-secondary {
+    color: var(--color3);
+    background-color: #FFFFFF !important;
+    border: solid var(--color3) 2px;
+    transition: all 0.3s ease;
+}
+
+    .myButton2-secondary:hover {
+        color: #FFFFFF;
+        background-color: var(--color3-hover) !important;
+        border: solid var(--color3-hover) 2px;
+        box-shadow: rgba(149, 157, 165, 0.5) 0px 8px 16px;
+        transform: translateY(-2px);
     }
 
 /*Font weight*/
@@ -215,4 +249,15 @@ body {
     background-clip: border-box;
     border-radius: 1.5rem;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+/*Nav link*/
+.myNav-link {
+    color: var(--color3);
+    transition: all 0.3s ease;
+}
+
+.nav-item:hover .myNav-link {
+    color: var(--color3-hover);
+    transform: translateY(-2px);
 }
