@@ -31,4 +31,5 @@
     .browseQuizCard:hover {
         cursor: pointer;
         box-shadow: rgba(149, 157, 165, 0.5) 0px 8px 24px;
+        transform: translateY(-2px);
     }
