@@ -2,33 +2,77 @@
     ViewData["Title"] = "Create your quiz";
 }
 
+@section Styles {
+    <link rel="stylesheet" href="~/css/createquiz.css" />
+}
+
 <div class="container pt-4">
-    <div class="create-quiz myCard bg-color1 text-white rounded-4">
-        <div class="create-quiz-input w-100 text-center fs-5 mb-5">
-            <textarea class="create-quiz-input-question bg-color1 w-100 text-white text-center border-0" placeholder="Type your question here"></textarea>
+    @*<div class="create-quiz myCard bg-color1 text-white rounded-4">
+        <div class="create-quiz-input w-100 text-center fs-4 mb-5">
+            <textarea class="create-quiz-input-question bg-color1 w-100 text-white text-center border-0" placeholder="Type your question here" rows="4"></textarea>
         </div>
 
         <div class="row">
             <div class="col-12 col-xl-3 col-lg-4 col-md-6 mb-4">
-                <div class="myCard-create-quiz myCard-red">
-                    <textarea class="create-quiz-input-answer w-100 h-100 text-white text-center border-0 myCard-red" placeholder="Type your answer here"></textarea>
+                <div class="myCard-create-quiz myCard-red fs-5">
+                    <textarea class="create-quiz-input-answer w-100 h-100 text-white text-center border-0 myCard-red" placeholder="Type your answer here" rows="7"></textarea>
                 </div>
             </div>
             <div class="col-12 col-xl-3 col-lg-4 col-md-6 mb-4">
-                <div class="myCard-create-quiz myCard-blue">
-                    <textarea class="create-quiz-input-answer w-100 h-100 text-white text-center border-0 myCard-blue" placeholder="Type your answer here"></textarea>
+                <div class="myCard-create-quiz myCard-blue fs-5">
+                    <textarea class="create-quiz-input-answer w-100 h-100 text-white text-center border-0 myCard-blue" placeholder="Type your answer here" rows="7"></textarea>
                 </div>
             </div>
             <div class="col-12 col-xl-3 col-lg-4 col-md-6 mb-4">
-                <div class="myCard-create-quiz myCard-green">
-                    <textarea class="create-quiz-input-answer w-100 h-100 text-white text-center border-0 myCard-green" placeholder="Type your answer here"></textarea>
+                <div class="myCard-create-quiz myCard-green fs-5">
+                    <textarea class="create-quiz-input-answer w-100 h-100 text-white text-center border-0 myCard-green" placeholder="Type your answer here" rows="7"></textarea>
                 </div>
             </div>
             <div class="col-12 col-xl-3 col-lg-4 col-md-6 mb-4">
-                <div class="myCard-create-quiz myCard-yellow">
-                    <textarea class="create-quiz-input-answer w-100 h-100 text-white text-center border-0 myCard-yellow" placeholder="Type your answer here"></textarea>
+                <div class="myCard-create-quiz myCard-yellow fs-5">
+                    <textarea class="create-quiz-input-answer w-100 h-100 text-white text-center border-0 myCard-yellow" placeholder="Type your answer here" rows="7"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+    <div id="add-question" class="myButton-floating text-white d-flex">
+        <span>Add Question</span>
+        <i class="fa-solid fa-circle-plus fs-5"></i>
+    </div>
+
+    <div id="question-creating">
+
+        <div class="create-quiz-card myCard mb-5">
+            <div class="delete-icon">
+                <i class="fas fa-trash-alt"></i>
+            </div>
+
+            <textarea class="create-quiz-question w-100 p-3 mb-3 mt-1 border-0" placeholder="Type your question here" rows="1"></textarea>
+
+            <div class="d-flex flex-column gap12 mx-3">
+                <div class="d-flex align-items-center">
+                    <span class="fs-5 mx-2">A. </span>
+                    <textarea class="create-quiz-answer border-0 p-4 w-100" placeholder="Type answer options here" rows="1"></textarea>
+                </div>
+                <div class="d-flex align-items-center">
+                    <span class="fs-5 mx-2">B. </span>
+                    <textarea class="create-quiz-answer border-0 p-4 w-100" placeholder="Type answer options here" rows="1"></textarea>
+                </div>
+                <div class="d-flex align-items-center">
+                    <span class="fs-5 mx-2">C. </span>
+                    <textarea class="create-quiz-answer border-0 p-4 w-100" placeholder="Type answer options here" rows="1"></textarea>
+                </div>
+                <div class="d-flex align-items-center">
+                    <span class="fs-5 mx-2">D. </span>
+                    <textarea class="create-quiz-answer border-0 p-4 w-100" placeholder="Type answer options here" rows="1"></textarea>
                 </div>
             </div>
         </div>
     </div>
+
 </div>
+
+@section Scripts {
+    <script src="~/js/createquiz.js"></script>
+}

@@ -18,6 +18,7 @@ html {
     font-size: 14px;
     position: relative;
     min-height: 100%;
+    background-color: #f9f9f9;
 }
 
 @media (min-width: 768px) {
@@ -118,6 +119,29 @@ body {
         background-color: var(--color3-hover) !important;
         border: solid var(--color3-hover) 2px;
         box-shadow: rgba(149, 157, 165, 0.5) 0px 8px 16px;
+        transform: translateY(-2px);
+    }
+
+/*Floating action button*/
+.myButton-floating {
+    background-color: var(--color2);
+    position: fixed;
+    gap: 8px;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    bottom: 16px;
+    right: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+    .myButton-floating:hover {
+        cursor: pointer;
+        background-color: var(--color2-hover); /* Change color on hover, for feedback */
         transform: translateY(-2px);
     }
 
