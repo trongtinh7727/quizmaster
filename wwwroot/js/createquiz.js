@@ -25,23 +25,33 @@
                 '</div>' +
 
                 '<textarea class="create-quiz-question w-100 p-3 mb-3 mt-1 border-0" placeholder="Type your question here" rows="1"></textarea>' +
-                    '<div class="d-flex flex-column gap12 mx-3">' +
-                        '<div class="d-flex align-items-center">' +
-                            '<span class="fs-5 mx-2">A. </span>' +
-                            '<textarea class="create-quiz-answer border-0 p-3 w-100" placeholder="Type answer options here" rows="1"></textarea>' +
-                        '</div>' +
-                        '<div class="d-flex align-items-center">' +
-                            '<span class="fs-5 mx-2">B. </span>' +
-                            '<textarea class="create-quiz-answer border-0 p-3 w-100" placeholder="Type answer options here" rows="1"></textarea>' +
-                        '</div>' +
-                        '<div class="d-flex align-items-center">' +
-                            '<span class="fs-5 mx-2">C. </span>' +
-                            '<textarea class="create-quiz-answer border-0 p-3 w-100" placeholder="Type answer options here" rows="1"></textarea>' +
-                        '</div>' +
-                        '<div class="d-flex align-items-center">' +
-                            '<span class="fs-5 mx-2">D. </span>' +
-                            '<textarea class="create-quiz-answer border-0 p-3 w-100" placeholder="Type answer options here" rows="1"></textarea>' +
-                        '</div>' +
+                '<div class="d-flex flex-column gap12 mx-3">' +
+                    '<div class="d-flex align-items-center">' +
+                        '<span class="fs-5 mx-2">A. </span>' +
+                        '<textarea class="create-quiz-answer border-0 p-4 w-100" placeholder="Type answer options here" rows="1"></textarea>' +
+                    '</div>' +
+                    '<div class="d-flex align-items-center">' +
+                        '<span class="fs-5 mx-2">B. </span>' +
+                        '<textarea class="create-quiz-answer border-0 p-4 w-100" placeholder="Type answer options here" rows="1"></textarea>' +
+                    '</div>' +
+                    '<div class="d-flex align-items-center">' +
+                        '<span class="fs-5 mx-2">C. </span>' +
+                        '<textarea class="create-quiz-answer border-0 p-4 w-100" placeholder="Type answer options here" rows="1"></textarea>' +
+                    '</div>' +
+                    '<div class="d-flex align-items-center">' +
+                        '<span class="fs-5 mx-2">D. </span>' +
+                        '<textarea class="create-quiz-answer border-0 p-4 w-100" placeholder="Type answer options here" rows="1"></textarea>' +
+                    '</div>' +
+                '</div>' +
+
+                '<div class="create-quiz-correct-answer mt-3">' +
+                    '<label>Correct answer: </label>' +
+                    '<select name="correct-answer" class="border-0 p-3">' +
+                        '<option value="a">A</option>' +
+                        '<option value="b">B</option>' +
+                        '<option value="c">C</option>' +
+                        '<option value="d">D</option>' +
+                    '</select>' +
                 '</div>' +
             '</div>');
 

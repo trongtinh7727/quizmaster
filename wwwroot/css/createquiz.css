@@ -1,45 +1,6 @@
-﻿/*.create-quiz-input-question,
-.create-quiz-input-answer {
-    resize: none;
-    overflow: hidden;
+﻿.question-name-input:focus {
+    outline: none;
 }
-
-    .create-quiz-input-question:focus,
-    .create-quiz-input-answer:focus {
-        outline: none;
-    }
-
-.create-quiz-input-answer::placeholder {
-    color: #FFFFFF;
-}
-
-.myCard-create-quiz {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    word-wrap: break-word;
-    padding: 1.5rem;
-    background-clip: border-box;
-    border-radius: 1rem;
-}
-
-.myCard-red {
-    background-color: #D32F2F !important;
-}
-
-.myCard-blue {
-    background-color: #1976D2 !important;
-}
-
-.myCard-yellow {
-    background-color: #c89924 !important;
-}
-
-.myCard-green {
-    background-color: #388E3C !important;
-}
-*/
 
 .create-quiz-question,
 .create-quiz-answer {
@@ -76,6 +37,10 @@
         background-color: #e4e4e4;
         transform: translateY(-2px);
     }
+
+.create-quiz-correct-answer select:focus-visible{
+    outline: none;
+}
 
 @media (max-width: 575px) {
     .create-quiz-card {

@@ -7,42 +7,16 @@
 }
 
 <div class="container pt-4">
-    @*<div class="create-quiz myCard bg-color1 text-white rounded-4">
-        <div class="create-quiz-input w-100 text-center fs-4 mb-5">
-            <textarea class="create-quiz-input-question bg-color1 w-100 text-white text-center border-0" placeholder="Type your question here" rows="4"></textarea>
-        </div>
-
-        <div class="row">
-            <div class="col-12 col-xl-3 col-lg-4 col-md-6 mb-4">
-                <div class="myCard-create-quiz myCard-red fs-5">
-                    <textarea class="create-quiz-input-answer w-100 h-100 text-white text-center border-0 myCard-red" placeholder="Type your answer here" rows="7"></textarea>
-                </div>
-            </div>
-            <div class="col-12 col-xl-3 col-lg-4 col-md-6 mb-4">
-                <div class="myCard-create-quiz myCard-blue fs-5">
-                    <textarea class="create-quiz-input-answer w-100 h-100 text-white text-center border-0 myCard-blue" placeholder="Type your answer here" rows="7"></textarea>
-                </div>
-            </div>
-            <div class="col-12 col-xl-3 col-lg-4 col-md-6 mb-4">
-                <div class="myCard-create-quiz myCard-green fs-5">
-                    <textarea class="create-quiz-input-answer w-100 h-100 text-white text-center border-0 myCard-green" placeholder="Type your answer here" rows="7"></textarea>
-                </div>
-            </div>
-            <div class="col-12 col-xl-3 col-lg-4 col-md-6 mb-4">
-                <div class="myCard-create-quiz myCard-yellow fs-5">
-                    <textarea class="create-quiz-input-answer w-100 h-100 text-white text-center border-0 myCard-yellow" placeholder="Type your answer here" rows="7"></textarea>
-                </div>
-            </div>
-        </div>
-    </div>*@
-
     <div id="add-question" class="myButton-floating text-white d-flex">
         <span>Add Question</span>
         <i class="fa-solid fa-circle-plus fs-5"></i>
     </div>
 
-    <div id="question-creating">
+    <div class="question-name">
+        <input class="question-name-input w-100 mb-3 fs-5 border-0 bg-transparent text-center" placeholder="Untitled quiz name"/>
+    </div>
 
+    <div id="question-creating">
         <div class="create-quiz-card myCard mb-5">
             <div class="delete-icon">
                 <i class="fas fa-trash-alt"></i>
@@ -67,6 +41,16 @@
                     <span class="fs-5 mx-2">D. </span>
                     <textarea class="create-quiz-answer border-0 p-4 w-100" placeholder="Type answer options here" rows="1"></textarea>
                 </div>
+            </div>
+
+            <div class="create-quiz-correct-answer mt-3">
+                <label>Correct answer: </label>
+                <select name="correct-answer" class="border-0 p-3">
+                    <option value="a">A</option>
+                    <option value="b">B</option>
+                    <option value="c">C</option>
+                    <option value="d">D</option>
+                </select>
             </div>
         </div>
     </div>
