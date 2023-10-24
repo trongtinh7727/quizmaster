@@ -1,9 +1,10 @@
-﻿@{
+﻿@model QuizMaster.ViewModel.QuizViewModel
+@{
     ViewData["Title"] = "Create your quiz";
 }
 
 @section Styles {
-    <link rel="stylesheet" href="~/css/createquiz.css" />
+        <link rel="stylesheet" href="~/css/createquiz.css" />
 }
 
 <div class="container pt-4">
@@ -11,41 +12,45 @@
         <span>Add Question</span>
         <i class="fa-solid fa-circle-plus fs-5"></i>
     </div>
-
+    <div id="submit" class="myButton-floating text-white d-flex">
+        <span>Submit</span>
+        <i class="fa-solid fa-floppy-disk fs-5"></i>
+    </div>
+    <form asp-action="CreateQuiz">
     <div class="question-name">
-        <input class="question-name-input w-100 mb-3 fs-5 border-0 bg-transparent text-center" placeholder="Untitled quiz name"/>
+        <input asp-for="QuizTitle" class="question-name-input w-100 mb-3 fs-5 border-0 bg-transparent text-center" placeholder="Untitled quiz name"/>
     </div>
 
     <div id="question-creating">
-        <div class="create-quiz-card myCard mb-5">
+        <div class="create-quiz-card myCard mb-5" data-question-index="0">
             <div class="delete-icon">
                 <i class="fas fa-trash-alt"></i>
             </div>
 
-            <textarea class="create-quiz-question w-100 p-3 mb-3 mt-1 border-0" placeholder="Type your question here" rows="1"></textarea>
+            <textarea asp-for="Questions[0].QuestionText" class="create-quiz-question w-100 p-3 mb-3 mt-1 border-0" placeholder="Type your question here" rows="1"></textarea>
 
             <div class="d-flex flex-column gap12 mx-3">
                 <div class="d-flex align-items-center">
                     <span class="fs-5 mx-2">A. </span>
-                    <textarea class="create-quiz-answer border-0 p-4 w-100" placeholder="Type answer options here" rows="1"></textarea>
+                    <textarea asp-for="Questions[0].Answers[0]" class="create-quiz-answer border-0 p-4 w-100" placeholder="Type answer options here" rows="1"></textarea>
                 </div>
                 <div class="d-flex align-items-center">
                     <span class="fs-5 mx-2">B. </span>
-                    <textarea class="create-quiz-answer border-0 p-4 w-100" placeholder="Type answer options here" rows="1"></textarea>
+                    <textarea asp-for="Questions[0].Answers[1]" class="create-quiz-answer border-0 p-4 w-100" placeholder="Type answer options here" rows="1"></textarea>
                 </div>
                 <div class="d-flex align-items-center">
                     <span class="fs-5 mx-2">C. </span>
-                    <textarea class="create-quiz-answer border-0 p-4 w-100" placeholder="Type answer options here" rows="1"></textarea>
+                    <textarea asp-for="Questions[0].Answers[2]" class="create-quiz-answer border-0 p-4 w-100" placeholder="Type answer options here" rows="1"></textarea>
                 </div>
                 <div class="d-flex align-items-center">
                     <span class="fs-5 mx-2">D. </span>
-                    <textarea class="create-quiz-answer border-0 p-4 w-100" placeholder="Type answer options here" rows="1"></textarea>
+                    <textarea asp-for="Questions[0].Answers[3]" class="create-quiz-answer border-0 p-4 w-100" placeholder="Type answer options here" rows="1"></textarea>
                 </div>
             </div>
 
             <div class="create-quiz-correct-answer mt-3">
                 <label>Correct answer: </label>
-                <select name="correct-answer" class="border-0 p-3">
+                <select asp-for="Questions[0].CorrectAnswer" class="border-0 p-3">
                     <option value="a">A</option>
                     <option value="b">B</option>
                     <option value="c">C</option>
@@ -54,9 +59,27 @@
             </div>
         </div>
     </div>
-
+    <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+    </form>
+    @if (!ViewData.ModelState.IsValid)
+    {
+            <div class="alert alert-danger">
+                <h4>Error(s) occurred:</h4>
+                <ul>
+                @foreach (var value in ViewData.ModelState.Values)
+                {
+                    foreach (var error in value.Errors)
+                    {
+                                            <li>@error.ErrorMessage</li>
+                    }
+                }
+                </ul>
+            </div>
+    }
 </div>
 
 @section Scripts {
-    <script src="~/js/createquiz.js"></script>
+        <script src="~/js/createquiz.js"></script>
 }
