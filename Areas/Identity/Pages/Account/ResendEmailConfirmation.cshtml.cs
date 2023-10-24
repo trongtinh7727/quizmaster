@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
-using QuizMaster.Areas.Identity.Data;
+using QuizMaster.Models;
 
 namespace QuizMaster.Areas.Identity.Pages.Account
 {

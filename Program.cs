@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using QuizMaster.Areas.Identity.Data;
+using QuizMaster.Models;
 using QuizMaster.Data;
 using QuizMaster.Mail;
 using System.Configuration;
@@ -18,6 +18,9 @@ namespace QuizMaster
             var mailsettings = builder.Configuration.GetSection("MailSettings") ?? throw new InvalidOperationException("mailsettings not found");
             builder.Services.AddDbContext<QuizMasterContext>(options =>
             options.UseSqlServer(connectionString));
+
+            builder.Services.AddMvc().AddRazorRuntimeCompilation();
+
 
             builder.Services.AddDefaultIdentity<QuizMasterUser>(options => options.SignIn.RequireConfirmedAccount = true)
             .AddEntityFrameworkStores<QuizMasterContext>();

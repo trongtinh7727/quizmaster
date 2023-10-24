@@ -18,7 +18,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
-using QuizMaster.Areas.Identity.Data;
+using QuizMaster.Models;
 
 namespace QuizMaster.Areas.Identity.Pages.Account
 {
@@ -82,8 +82,8 @@ namespace QuizMaster.Areas.Identity.Pages.Account
 
             [Required]
             [DataType(DataType.Text)]
-            [Display(Name = "Frist Name")]
-            public string FristName { get; set; }
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; }
             
             [Required]
             [DataType(DataType.Text)]
@@ -124,7 +124,7 @@ namespace QuizMaster.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
-                user.FristName = Input.FristName;
+                user.FirstName = Input.FirstName;
                 user.LastName =    Input.LastName;
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);

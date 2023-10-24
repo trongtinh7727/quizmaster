@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QuizMaster.Data;
 
@@ -11,9 +12,10 @@ using QuizMaster.Data;
 namespace QuizMaster.Migrations
 {
     [DbContext(typeof(QuizMasterContext))]
-    partial class QuizMasterContextModelSnapshot : ModelSnapshot
+    [Migration("20231018095001_AddUserQuiz")]
+    partial class AddUserQuiz
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -168,6 +170,7 @@ namespace QuizMaster.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("AuthorId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedAt")
@@ -183,12 +186,15 @@ namespace QuizMaster.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Summary")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Tag")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdatedAt")
@@ -251,7 +257,7 @@ namespace QuizMaster.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("FirstName")
+                    b.Property<string>("FristName")
                         .IsRequired()
                         .HasColumnType("nvarchar(100)");
 
@@ -476,7 +482,9 @@ namespace QuizMaster.Migrations
                 {
                     b.HasOne("QuizMaster.Models.QuizMasterUser", "Author")
                         .WithMany("Quizzes")
-                        .HasForeignKey("AuthorId");
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Author");
                 });
@@ -508,13 +516,13 @@ namespace QuizMaster.Migrations
                     b.HasOne("QuizMaster.Models.QuizAnswer", "Answer")
                         .WithMany("TakeAnswers")
                         .HasForeignKey("AnswerId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("QuizMaster.Models.QuizQuestion", "QuizQuestion")
                         .WithMany("TakeAnswers")
                         .HasForeignKey("QuestionId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("QuizMaster.Models.TakeQuiz", "TakeQuiz")
@@ -535,7 +543,7 @@ namespace QuizMaster.Migrations
                     b.HasOne("QuizMaster.Models.Quiz", "Quiz")
                         .WithMany("TakeQuizs")
                         .HasForeignKey("QuizId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("QuizMaster.Models.QuizMasterUser", "User")
