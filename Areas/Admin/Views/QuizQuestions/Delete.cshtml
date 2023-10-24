@@ -1,45 +1,28 @@
-﻿@model QuizMaster.Models.Quiz
+﻿@model QuizMaster.Models.QuizQuestion
 
 @{
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Delete</title>
+</head>
+<body>
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>Quiz</h4>
+    <h4>QuizQuestion</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Summary)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Summary)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Tag)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Tag)
-        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Score)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Score)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Published)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Published)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.CreatedAt)
@@ -54,16 +37,16 @@
             @Html.DisplayFor(model => model.UpdatedAt)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PublishedAt)
+            @Html.DisplayNameFor(model => model.Content)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PublishedAt)
+            @Html.DisplayFor(model => model.Content)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Author)
+            @Html.DisplayNameFor(model => model.Quiz)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Author.Id)
+            @Html.DisplayFor(model => model.Quiz.Id)
         </dd>
     </dl>
     
@@ -73,3 +56,5 @@
         <a asp-action="Index">Back to List</a>
     </form>
 </div>
+</body>
+</html>

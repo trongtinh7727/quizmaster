@@ -1,18 +1,24 @@
 ﻿@model QuizMaster.Models.Quiz
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Create your quiz";
 }
 
-<h1>Edit</h1>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+</head>
+<body>
 
 <h4>Quiz</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />
@@ -27,6 +33,11 @@
                 <label asp-for="Tag" class="control-label"></label>
                 <input asp-for="Tag" class="form-control" />
                 <span asp-validation-for="Tag" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Level" class="control-label"></label>
+                <input asp-for="Level" class="form-control" />
+                <span asp-validation-for="Level" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Score" class="control-label"></label>
@@ -55,13 +66,27 @@
             </div>
             <div class="form-group">
                 <label asp-for="AuthorId" class="control-label"></label>
-                <select asp-for="AuthorId" class="form-control" asp-items="ViewBag.AuthorId"></select>
-                <span asp-validation-for="AuthorId" class="text-danger"></span>
+                <select asp-for="AuthorId" class ="form-control" asp-items="ViewBag.AuthorId"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
+            @if (!ViewData.ModelState.IsValid)
+            {
+            <div class="alert alert-danger">
+                <h4>Error(s) occurred:</h4>
+                <ul>
+                        @foreach (var value in ViewData.ModelState.Values)
+                        {
+                            foreach (var error in value.Errors)
+                            {
+                                            <li>@error.ErrorMessage</li>
+                            }
+                        }
+                </ul>
+            </div>
+            }
     </div>
 </div>
 
@@ -72,3 +97,5 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+</body>
+</html>

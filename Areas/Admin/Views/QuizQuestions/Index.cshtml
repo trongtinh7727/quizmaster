@@ -1,11 +1,17 @@
-﻿@model IEnumerable<QuizMaster.Models.Quiz>
+﻿@model IEnumerable<QuizMaster.Models.QuizQuestion>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Delete";
 }
 
-<h1>Index</h1>
+<!DOCTYPE html>
 
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -13,19 +19,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Summary)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Tag)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Score)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Published)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CreatedAt)
@@ -34,10 +28,10 @@
                 @Html.DisplayNameFor(model => model.UpdatedAt)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PublishedAt)
+                @Html.DisplayNameFor(model => model.Content)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Author)
+                @Html.DisplayNameFor(model => model.Quiz)
             </th>
             <th></th>
         </tr>
@@ -46,19 +40,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Summary)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tag)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Score)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Published)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CreatedAt)
@@ -67,10 +49,10 @@
                 @Html.DisplayFor(modelItem => item.UpdatedAt)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PublishedAt)
+                @Html.DisplayFor(modelItem => item.Content)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Author.Id)
+                @Html.DisplayFor(modelItem => item.Quiz.Id)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
@@ -81,3 +63,5 @@
 }
     </tbody>
 </table>
+</body>
+</html>

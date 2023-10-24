@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<QuizMaster.Models.Quiz>
+
+@{
     ViewData["Title"] = "Welcome";
 }
 
@@ -36,51 +38,52 @@
         <h2 class="text-center mb-3">Community games</h2>
 
         <div class="row">
-            @*Browse quiz item*@
-            <div class="col col-xl-3 col-lg-4 col-md-6 mb-4">
-                <div class="browseQuizCard">
-                    @*Browse quiz info*@
-                    <h5 class="browse-quiz-title">Ai thông minh hơn học sinh lớp 5</h5>
-                    <span class="browse-quiz-questions">16 questions</span>
-                    <span class="browse-quiz-difficulty">Difficulty: <strong class="text-success">Easy</strong></span>
+            @foreach (var quiz in Model)
+            {
+                <div class="col col-xl-3 col-lg-4 col-md-6 mb-4">
+                    <div class="browseQuizCard">
+                        <h5 class="browse-quiz-title">@quiz.Title</h5>
+                        <span class="browse-quiz-questions">@quiz.QuizQuestions.Count questions</span>
+
+                        <span class="browse-quiz-difficulty">Difficulty: 
+                                <strong class="@GetCssClassForDifficulty(quiz.Level)">
+                                        @ConvertLevelToDifficulty(quiz.Level)
+                            </strong>
+                        </span>
+                    </div>
                 </div>
-            </div>
-            @*Browse quiz item*@
-            <div class="col col-xl-3 col-lg-4 col-md-6 mb-4">
-                <div class="browseQuizCard">
-                    @*Browse quiz info*@
-                    <h5 class="browse-quiz-title">Ai thông minh hơn học sinh lớp 6</h5>
-                    <span class="browse-quiz-questions">18 questions</span>
-                    <span class="browse-quiz-difficulty">Difficulty: <strong class="text-warning">Medium</strong></span>
-                </div>
-            </div>
-            @*Browse quiz item*@
-            <div class="col col-xl-3 col-lg-4 col-md-6 mb-4">
-                <div class="browseQuizCard">
-                    @*Browse quiz info*@
-                    <h5 class="browse-quiz-title">Ai thông minh hơn học sinh lớp 7</h5>
-                    <span class="browse-quiz-questions">19 questions</span>
-                    <span class="browse-quiz-difficulty">Difficulty: <strong class="text-warning">Medium</strong></span>
-                </div>
-            </div>
-            @*Browse quiz item*@
-            <div class="col col-xl-3 col-lg-4 col-md-6 mb-4">
-                <div class="browseQuizCard">
-                    @*Browse quiz info*@
-                    <h5 class="browse-quiz-title">Ai thông minh hơn học sinh lớp 8</h5>
-                    <span class="browse-quiz-questions">20 questions</span>
-                    <span class="browse-quiz-difficulty">Difficulty: <strong class="text-danger">Hard</strong></span>
-                </div>
-            </div>            
-            @*Browse quiz item*@
-            <div class="col col-xl-3 col-lg-4 col-md-6 mb-4">
-                <div class="browseQuizCard">
-                    @*Browse quiz info*@
-                    <h5 class="browse-quiz-title">Ai thông minh hơn học sinh lớp 8</h5>
-                    <span class="browse-quiz-questions">20 questions</span>
-                    <span class="browse-quiz-difficulty">Difficulty: <strong class="text-danger">Hard</strong></span>
-                </div>
-            </div>
+            }
+
+            @functions {
+                private string ConvertLevelToDifficulty(int level)
+                {
+                    switch (level)
+                    {
+                        case 1:
+                            return "Easy";
+                        case 2:
+                            return "Medium";
+                        case 3:
+                            return "Hard";
+                        default:
+                            return "Unknown";
+                    }
+                }
+
+                private string GetCssClassForDifficulty(int level)
+                {
+                    switch (level)
+                    {
+                        case 1:
+                            return "text-success";
+                        case 2:
+                            return "text-warning";
+                        // Các trường hợp khác nếu bạn muốn mở rộng
+                        default:
+                            return "text-danger";  // Giả sử chúng ta sử dụng text-muted cho các trường hợp không xác định
+                    }
+                }
+            }
         </div>
     </div>
 </div>

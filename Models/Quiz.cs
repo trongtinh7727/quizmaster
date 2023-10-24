@@ -14,6 +14,8 @@ namespace QuizMaster.Models
         public string? Summary { get; set; }
         public string? Tag { get; set; }
 
+        public int Level { get; set; }
+
         public int Score { get; set; }
 
         public bool Published { get; set; }

@@ -2,31 +2,34 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using QuizMaster.Data;
 using QuizMaster.Models;
 
-namespace QuizMaster.Controllers
+namespace QuizMaster.Areas.Admin.Controllers
 {
-    public class QuizsController : Controller
+    [Area("Admin")]
+    [Authorize]
+    public class QuizzesController : Controller
     {
         private readonly QuizMasterContext _context;
 
-        public QuizsController(QuizMasterContext context)
+        public QuizzesController(QuizMasterContext context)
         {
             _context = context;
         }
 
-        // GET: Quizs
+        // GET: Admin/Quizzes
         public async Task<IActionResult> Index()
         {
             var quizMasterContext = _context.Quizzes.Include(q => q.Author);
             return View(await quizMasterContext.ToListAsync());
         }
 
-        // GET: Quizs/Details/5
+        // GET: Admin/Quizzes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Quizzes == null)
@@ -45,19 +48,19 @@ namespace QuizMaster.Controllers
             return View(quiz);
         }
 
-        // GET: Quizs/Create
+        // GET: Admin/Quizzes/Create
         public IActionResult Create()
         {
             ViewData["AuthorId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
 
-        // POST: Quizs/Create
+        // POST: Admin/Quizzes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Summary,Tag,Score,Published,CreatedAt,UpdatedAt,PublishedAt,AuthorId")] Quiz quiz)
+        public async Task<IActionResult> Create([Bind("Id,Title,Summary,Tag,Level,Score,Published,CreatedAt,UpdatedAt,PublishedAt,AuthorId")] Quiz quiz)
         {
             if (ModelState.IsValid)
             {
@@ -69,7 +72,7 @@ namespace QuizMaster.Controllers
             return View(quiz);
         }
 
-        // GET: Quizs/Edit/5
+        // GET: Admin/Quizzes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Quizzes == null)
@@ -86,12 +89,12 @@ namespace QuizMaster.Controllers
             return View(quiz);
         }
 
-        // POST: Quizs/Edit/5
+        // POST: Admin/Quizzes/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Summary,Tag,Score,Published,CreatedAt,UpdatedAt,PublishedAt,AuthorId")] Quiz quiz)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Summary,Tag,Level,Score,Published,CreatedAt,UpdatedAt,PublishedAt,AuthorId")] Quiz quiz)
         {
             if (id != quiz.Id)
             {
@@ -122,7 +125,7 @@ namespace QuizMaster.Controllers
             return View(quiz);
         }
 
-        // GET: Quizs/Delete/5
+        // GET: Admin/Quizzes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Quizzes == null)
@@ -141,7 +144,7 @@ namespace QuizMaster.Controllers
             return View(quiz);
         }
 
-        // POST: Quizs/Delete/5
+        // POST: Admin/Quizzes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

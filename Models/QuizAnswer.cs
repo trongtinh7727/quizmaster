@@ -17,8 +17,8 @@ namespace QuizMaster.Models
 
         // Foreign key to identify the parent question
         public int QuestionId { get; set; }
-        public QuizQuestion Question { get; set; }
+        public QuizQuestion? Question { get; set; }
 
-        public ICollection<TakeAnswer> TakeAnswers { get; set; }
+        public ICollection<TakeAnswer> TakeAnswers { get; set; } = new List<TakeAnswer>();
     }
 }
