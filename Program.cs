@@ -19,6 +19,9 @@ namespace QuizMaster
             builder.Services.AddDbContext<QuizMasterContext>(options =>
             options.UseSqlServer(connectionString));
 
+            builder.Services.AddMvc().AddRazorRuntimeCompilation();
+
+
             builder.Services.AddDefaultIdentity<QuizMasterUser>(options => options.SignIn.RequireConfirmedAccount = true)
             .AddEntityFrameworkStores<QuizMasterContext>();
             builder.Services.AddOptions();

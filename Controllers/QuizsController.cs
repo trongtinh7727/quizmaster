@@ -57,7 +57,7 @@ namespace QuizMaster.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,AuthorId,Title,Summary,Tag,Score,Published,CreatedAt,UpdatedAt,PublishedAt")] Quiz quiz)
+        public async Task<IActionResult> Create([Bind("Id,Title,Summary,Tag,Score,Published,CreatedAt,UpdatedAt,PublishedAt,AuthorId")] Quiz quiz)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +91,7 @@ namespace QuizMaster.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,AuthorId,Title,Summary,Tag,Score,Published,CreatedAt,UpdatedAt,PublishedAt")] Quiz quiz)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Summary,Tag,Score,Published,CreatedAt,UpdatedAt,PublishedAt,AuthorId")] Quiz quiz)
         {
             if (id != quiz.Id)
             {

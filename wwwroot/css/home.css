@@ -1,0 +1,39 @@
+﻿:root {
+    --color1: #361c14;
+    --color2: #086375;
+    --color3: #1DD3B0;
+    --color4: #AFFC41;
+    --color5: #B2FF9E;
+    --color2-hover: #054551;
+    --color3-hover: #14937b;
+}
+
+.search-container-input input {
+    width: 400px;
+    padding: 12px 24px;
+}
+
+    .search-container-input input:focus {
+        outline: none;
+    }
+
+/*Card*/
+.browseQuizCard {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 1rem;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #FFFFFF;
+    background-clip: border-box;
+    border-radius: 1rem;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    transition: all 0.3s ease;
+}
+
+.browseQuizCard:hover {
+    cursor: pointer;
+    box-shadow: rgba(149, 157, 165, 0.5) 0px 8px 24px;
+    transform: translateY(-2px);
+}
