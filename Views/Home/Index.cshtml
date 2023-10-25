@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<QuizMaster.Models.Quiz>
 
 @{
-    ViewData["Title"] = "Welcome";
+    ViewData["Title"] = "Home";
 }
 
 @section Styles {
@@ -46,8 +46,8 @@
                         <span class="browse-quiz-questions">@quiz.QuizQuestions.Count questions</span>
 
                         <span class="browse-quiz-difficulty">Difficulty: 
-                                <strong class="@GetCssClassForDifficulty(quiz.Level)">
-                                        @ConvertLevelToDifficulty(quiz.Level)
+                            <strong class="@GetCssClassForDifficulty(quiz.Level)">
+                                @ConvertLevelToDifficulty(quiz.Level)
                             </strong>
                         </span>
                     </div>

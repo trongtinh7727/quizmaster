@@ -9,7 +9,8 @@
 }
 
     .create-quiz-question:focus,
-    .create-quiz-answer:focus {
+    .create-quiz-answer:focus,
+    .create-quiz-score input:focus {
         outline: none;
     }
 

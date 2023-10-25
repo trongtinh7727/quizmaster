@@ -45,7 +45,12 @@
                     </div>
                 </div>
 
-                <div class="create-quiz-correct-answer mt-3">
+                <div class="create-quiz-score mt-3">
+                    <label>Score: </label>
+                    <input asp-for="Questions[0].Score" class="border-0 px-3 py-1 mx-2" placeholder="Enter question score"/>
+                </div>
+
+                <div class="create-quiz-correct-answer">
                     <label>Correct answer: </label>
                     <select asp-for="Questions[0].CorrectAnswer" class="border-0 p-3">
                         <option value="a">A</option>
@@ -96,7 +101,7 @@
             {
                 foreach (var error in value.Errors)
                 {
-                                        <li>@error.ErrorMessage</li>
+                    <li>@error.ErrorMessage</li>
                 }
             }
             </ul>
