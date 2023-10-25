@@ -12,71 +12,95 @@
         <span>Add Question</span>
         <i class="fa-solid fa-circle-plus fs-5"></i>
     </div>
-    <div id="submit" class="myButton-floating text-white d-flex">
-        <span>Submit</span>
-        <i class="fa-solid fa-floppy-disk fs-5"></i>
-    </div>
+
     <form asp-action="CreateQuiz">
-    <div class="question-name">
-        <input asp-for="QuizTitle" class="question-name-input w-100 mb-3 fs-5 border-0 bg-transparent text-center" placeholder="Untitled quiz name"/>
-    </div>
+        <div class="question-name">
+            <input asp-for="QuizTitle" class="question-name-input w-100 mb-3 fs-5 border-0 bg-transparent text-center" placeholder="Untitled quiz name"/>
+        </div>
 
-    <div id="question-creating">
-        <div class="create-quiz-card myCard mb-5" data-question-index="0">
-            <div class="delete-icon">
-                <i class="fas fa-trash-alt"></i>
-            </div>
+        <div id="question-creating">
+            <div class="create-quiz-card myCard mb-5" data-question-index="0">
+                <div class="delete-icon">
+                    <i class="fas fa-trash-alt"></i>
+                </div>
 
-            <textarea asp-for="Questions[0].QuestionText" class="create-quiz-question w-100 p-3 mb-3 mt-1 border-0" placeholder="Type your question here" rows="1"></textarea>
+                <textarea asp-for="Questions[0].QuestionText" class="create-quiz-question w-100 p-3 mb-3 mt-1 border-0" placeholder="Type your question here" rows="1"></textarea>
 
-            <div class="d-flex flex-column gap12 mx-3">
-                <div class="d-flex align-items-center">
-                    <span class="fs-5 mx-2">A. </span>
-                    <textarea asp-for="Questions[0].Answers[0]" class="create-quiz-answer border-0 p-4 w-100" placeholder="Type answer options here" rows="1"></textarea>
+                <div class="d-flex flex-column gap12 mx-3">
+                    <div class="d-flex align-items-center">
+                        <span class="fs-5 mx-2">A. </span>
+                        <textarea asp-for="Questions[0].Answers[0]" class="create-quiz-answer border-0 p-4 w-100" placeholder="Type answer options here" rows="1"></textarea>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <span class="fs-5 mx-2">B. </span>
+                        <textarea asp-for="Questions[0].Answers[1]" class="create-quiz-answer border-0 p-4 w-100" placeholder="Type answer options here" rows="1"></textarea>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <span class="fs-5 mx-2">C. </span>
+                        <textarea asp-for="Questions[0].Answers[2]" class="create-quiz-answer border-0 p-4 w-100" placeholder="Type answer options here" rows="1"></textarea>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <span class="fs-5 mx-2">D. </span>
+                        <textarea asp-for="Questions[0].Answers[3]" class="create-quiz-answer border-0 p-4 w-100" placeholder="Type answer options here" rows="1"></textarea>
+                    </div>
                 </div>
-                <div class="d-flex align-items-center">
-                    <span class="fs-5 mx-2">B. </span>
-                    <textarea asp-for="Questions[0].Answers[1]" class="create-quiz-answer border-0 p-4 w-100" placeholder="Type answer options here" rows="1"></textarea>
-                </div>
-                <div class="d-flex align-items-center">
-                    <span class="fs-5 mx-2">C. </span>
-                    <textarea asp-for="Questions[0].Answers[2]" class="create-quiz-answer border-0 p-4 w-100" placeholder="Type answer options here" rows="1"></textarea>
-                </div>
-                <div class="d-flex align-items-center">
-                    <span class="fs-5 mx-2">D. </span>
-                    <textarea asp-for="Questions[0].Answers[3]" class="create-quiz-answer border-0 p-4 w-100" placeholder="Type answer options here" rows="1"></textarea>
-                </div>
-            </div>
 
-            <div class="create-quiz-correct-answer mt-3">
-                <label>Correct answer: </label>
-                <select asp-for="Questions[0].CorrectAnswer" class="border-0 p-3">
-                    <option value="a">A</option>
-                    <option value="b">B</option>
-                    <option value="c">C</option>
-                    <option value="d">D</option>
-                </select>
+                <div class="create-quiz-correct-answer mt-3">
+                    <label>Correct answer: </label>
+                    <select asp-for="Questions[0].CorrectAnswer" class="border-0 p-3">
+                        <option value="a">A</option>
+                        <option value="b">B</option>
+                        <option value="c">C</option>
+                        <option value="d">D</option>
+                    </select>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+
+        <div id="level-select" class="create-quiz-level my-3 d-flex align-items-center">
+            <label>Quiz level: </label>
+            <select asp-for="QuizLevel" class="bg-ghost border-0 fw-semibold text-center text-success">
+                <option value="1" class="text-success fw-semibold">Easy</option>
+                <option value="2" class="text-warning fw-semibold">Medium</option>
+                <option value="3" class="text-danger fw-semibold">Hard</option>
+            </select>
+            <div class="circle mx-2 bg-success"></div>
+        </div>
+
+        <div class="d-flex align-items-center my-3">
+            <label>Make this quiz public?</label>
+            <div class="toggler mx-3">
+                <input id="toggler-1" type="checkbox" asp-for="QuizPublished" checked="@Model.QuizPublished">
+
+                <label for="toggler-1">
+                    <svg class="toggler-on" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                        <polyline class="path check" points="100.2,40.2 51.5,88.8 29.8,67.5"></polyline>
+                    </svg>
+                    <svg class="toggler-off" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                        <line class="path line" x1="34.4" y1="34.4" x2="95.8" y2="95.8"></line>
+                        <line class="path line" x1="95.8" y1="34.4" x2="34.4" y2="95.8"></line>
+                    </svg>
+                </label>
             </div>
+        </div>
+
+
+        <input type="submit" value="Create" class="myButton myButton-primary"/>
     </form>
     @if (!ViewData.ModelState.IsValid)
     {
-            <div class="alert alert-danger">
-                <h4>Error(s) occurred:</h4>
-                <ul>
-                @foreach (var value in ViewData.ModelState.Values)
+        <div class="alert alert-danger">
+            <h4>Error(s) occurred:</h4>
+            <ul>
+            @foreach (var value in ViewData.ModelState.Values)
+            {
+                foreach (var error in value.Errors)
                 {
-                    foreach (var error in value.Errors)
-                    {
-                                            <li>@error.ErrorMessage</li>
-                    }
+                                        <li>@error.ErrorMessage</li>
                 }
-                </ul>
-            </div>
+            }
+            </ul>
+        </div>
     }
 </div>
 

@@ -38,9 +38,11 @@
         transform: translateY(-2px);
     }
 
-.create-quiz-correct-answer select:focus-visible{
+.create-quiz-correct-answer select:focus-visible,
+.create-quiz-level select:focus-visible {
     outline: none;
 }
+
 
 @media (max-width: 575px) {
     .create-quiz-card {
