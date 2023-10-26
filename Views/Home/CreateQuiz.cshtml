@@ -4,7 +4,7 @@
 }
 
 @section Styles {
-        <link rel="stylesheet" href="~/css/createquiz.css" />
+    <link rel="stylesheet" href="~/css/createquiz.css" />
 }
 
 <div class="container pt-4">
@@ -14,8 +14,8 @@
     </div>
 
     <form asp-action="CreateQuiz">
-        <div class="question-name">
-            <input asp-for="QuizTitle" class="question-name-input w-100 mb-3 fs-5 border-0 bg-transparent text-center" placeholder="Untitled quiz name"/>
+        <div class="quiz-name">
+            <input asp-for="QuizTitle" class="quiz-name-input w-100 mb-3 fs-5 border-0 bg-transparent text-center" placeholder="Untitled quiz name"/>
         </div>
 
         <div id="question-creating">

@@ -40,6 +40,11 @@ namespace QuizMaster.Controllers
             return View(model);
         }
 
+        public IActionResult TakeQuiz()
+        {
+            return View();
+        }
+
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> CreateQuiz(QuizViewModel model)
