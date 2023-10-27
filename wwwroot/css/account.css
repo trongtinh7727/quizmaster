@@ -4,3 +4,27 @@
     background-repeat: no-repeat;
     background-position: 50%;
 }
+
+.accountNav-link {
+    display: block;
+    padding: 0.75rem;
+    color: var(--color3);
+    text-decoration: none;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
+    border-radius: 0.25rem;
+    transition: all 0.3s ease;
+}
+
+    .accountNav-link:hover {
+        color: var(--color3-hover);
+        transform: translateY(-2px);
+    }
+
+    .accountNav-link.active {
+        color: white;
+        background-color: var(--color3);
+    }
+
+    .accountNav-link.active:hover {
+        transform: none;
+    }
