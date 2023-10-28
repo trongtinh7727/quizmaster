@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QuizMaster.Data;
 using QuizMaster.Models;
+using QuizMaster.Services;
 using QuizMaster.ViewModel;
 using System.Diagnostics;
 using System.Security.Claims;
@@ -39,10 +40,86 @@ namespace QuizMaster.Controllers
             var model = new QuizViewModel();
             return View(model);
         }
-
-        public IActionResult TakeQuiz()
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> enrollQuiz(string enrollCode)
         {
-            return View();
+            var quiz = _context.Quizzes
+            .Include(q => q.QuizQuestions)
+            .ThenInclude(qq => qq.Answers)
+            .SingleOrDefault(q => q.EnrollCode == enrollCode);
+            
+            if (quiz == null)
+            {
+                return NotFound("Không tìm thấy bài quiz tương ứng");
+            }
+            var takeQuiz = new TakeQuizViewModel
+            {
+                Quiz = quiz,
+                StartedAt = DateTime.Now
+            };
+            
+            return View("TakeQuiz", takeQuiz);
+        }
+
+        public IActionResult TakeQuiz(QuizViewModel quizViewModel)
+        {
+            if (quizViewModel == null)
+            {
+                return NotFound("Không tìm thấy bài quiz tương ứng"); 
+            }
+            return View(quizViewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> TakeQuiz(TakeQuizViewModel takeQuizViewModel)
+        {
+            if (takeQuizViewModel == null || takeQuizViewModel.QuizID == null)
+            {
+                return RedirectToAction("Index");
+            }
+            var takeQuiz = new TakeQuiz
+            {
+                UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                QuizId = takeQuizViewModel.QuizID,
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now,
+                StartedAt = takeQuizViewModel.StartedAt,
+                FinishedAt = DateTime.Now,
+            };
+
+            _context.TakeQuizzes.Add(takeQuiz);
+            await _context.SaveChangesAsync();
+
+            int totalScore = 0;
+            foreach (var kvp in takeQuizViewModel.Answers)
+            {
+                var selectedAnswer = await _context.Answers.FindAsync(kvp.Value);
+                var QuizQuestion = await _context.Questions.FindAsync(kvp.Key);
+                if (selectedAnswer != null)
+                {
+                    if (selectedAnswer.Correct)
+                    {
+                        totalScore += QuizQuestion.Score;
+                    }
+                }
+
+                var takeAnswer = new TakeAnswer
+                {
+                    TakeId = takeQuiz.Id,
+                    QuestionId = selectedAnswer.QuestionId,
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                    Answer = selectedAnswer
+                };
+
+                _context.TakeAnswers.Add(takeAnswer);
+            }
+
+            takeQuiz.Score = totalScore;
+            takeQuiz.FinishedAt = DateTime.Now;
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
@@ -69,6 +146,8 @@ namespace QuizMaster.Controllers
                 _context.Quizzes.Add(quiz);
                 await _context.SaveChangesAsync();
 
+                quiz.EnrollCode = ApplicationServices.GenerateEnrollCode(quiz.Id.ToString());
+                await _context.SaveChangesAsync();
                 //tao cau hoi 
                 foreach (QuestionViewModel question in model.Questions)
                 {
@@ -78,7 +157,7 @@ namespace QuizMaster.Controllers
                         CreatedAt = DateTime.Now,
                         UpdatedAt = DateTime.Now,
                         QuizId = quiz.Id,
-                        Score = 5
+                        Score = question.Score
                     };
                     _context.Questions.Add(quizQuestion);
                     await _context.SaveChangesAsync();

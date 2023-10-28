@@ -13,6 +13,7 @@ namespace QuizMaster.Models
 
         public string? Summary { get; set; }
         public string? Tag { get; set; }
+        public string? EnrollCode { get; set; }
 
         public int Level { get; set; }
 
