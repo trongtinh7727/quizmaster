@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<QuizMaster.Models.Quiz>
-
 @{
     ViewData["Title"] = "Home";
 }
@@ -14,9 +13,9 @@
             <div class="myCard">
                 <h4 class="text-center mb-3">Enter a code to join game</h4>
 
-                <form class="search-container d-flex flex-row justify-content-center align-items-center gap36">
+                <form method="post" asp-action="enrollQuiz" class="search-container d-flex flex-row justify-content-center align-items-center gap36">
                     <div class="search-container-input">
-                        <input class="myBorder border-gray bg-ghost rounded-5" placeholder="Enter a quiz code" type="tel" aria-label="Enter a quiz code to play game" />
+                        <input name="enrollCode" class="myBorder border-gray bg-ghost rounded-5" placeholder="Enter a quiz code" type="tel" aria-label="Enter a quiz code to play game" />
                     </div>
                     <button type="submit" class="myButton myButton2-primary">Join</button>
                 </form>

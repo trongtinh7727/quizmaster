@@ -84,7 +84,7 @@
 
             <div class="create-quiz-score mt-3">
                 <label>Score: </label>
-                <input asp-for="Questions[${questionIndex}].Score" class="border-0 px-3 py-1 mx-2" placeholder="Enter question score"/>
+                <input type="number" min="0" name="Questions[${questionIndex}].Score" class="border-0 px-3 py-1 mx-2" placeholder="Enter question score"/>
             </div>
 
             <div class="create-quiz-correct-answer mt-3">

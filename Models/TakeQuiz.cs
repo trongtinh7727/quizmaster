@@ -7,9 +7,6 @@ namespace QuizMaster.Models
         public int Id { get; set; }
 
 
-
-        public string Status { get; set; }
-
         public int Score { get; set; }
 
         public DateTime CreatedAt { get; set; }
@@ -20,19 +17,18 @@ namespace QuizMaster.Models
 
         public DateTime? FinishedAt { get; set; }
 
-        public string Content { get; set; }
         // Foreign key to identify the user taking the quiz
-        public string UserId { get; set; }
+        public string? UserId { get; set; }
 
         // Foreign key to identify the associated quiz
-        public int QuizId { get; set; }
+        public int? QuizId { get; set; }
         // Navigation property to represent the user taking the quiz
-        public QuizMasterUser User { get; set; }
+        public QuizMasterUser? User { get; set; }
 
         // Navigation property to represent the associated quiz
-        public Quiz Quiz { get; set; }
+        public Quiz? Quiz { get; set; }
 
-        public ICollection<TakeAnswer> TakeAnswers { get; set; }
+        public ICollection<TakeAnswer> TakeAnswers { get; set; } = new List<TakeAnswer>();
 
     }
 }
