@@ -139,8 +139,8 @@ namespace QuizMaster.Controllers
                     Published = model.QuizPublished,
                     PublishedAt = DateTime.Now,
                     Score = 0,
-                    Summary = "No cam`men",
-                    Tag = "anh"
+                    Summary = model.QuizSummary,
+                    Tag = model.QuizTag
                 };
                 
                 _context.Quizzes.Add(quiz);

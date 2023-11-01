@@ -21,14 +21,19 @@
     margin-bottom: 12px;
 }
 
-.take-quiz-card-title {
-    box-shadow: var(--color2) 0px 0px 24px;
-}
-
 .take-quiz-clear {
     border: none;
     background-color: white;
     align-self: start;
     text-decoration: underline;
     color: var(--color2);
+}
+
+.top-color {
+    width: 200%;
+    height: 10px;
+    background-color: var(--color2);
+    margin-top: -24px;
+    margin-bottom: 12px;
+    margin-left: -48px;
 }

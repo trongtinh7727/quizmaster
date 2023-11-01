@@ -18,6 +18,10 @@
             <input asp-for="QuizTitle" class="quiz-name-input w-100 mb-3 fs-5 border-0 bg-transparent text-center" placeholder="Untitled quiz name"/>
         </div>
 
+        <div class="quiz-sum">
+            <textarea asp-for="QuizSummary" class="quiz-sum-input w-100 mb-3 border-0 bg-transparent" placeholder="Quiz summary (Optional)" ></textarea>
+        </div>
+
         <div id="question-creating">
             <div class="create-quiz-card myCard mb-5" data-question-index="0">
                 <div class="delete-icon">
@@ -72,6 +76,11 @@
             <div class="circle mx-2 bg-success"></div>
         </div>
 
+        <div class="quiz-tag">
+            <label>Tag: </label>
+            <input asp-for="QuizTag" class="quiz-tag-input ms-2 my-3 border-0 bg-transparent" placeholder="Please enter quiz tag here"/>
+        </div>
+
         <div class="d-flex align-items-center my-3">
             <label>Make this quiz public?</label>
             <div class="toggler mx-3">
@@ -90,7 +99,7 @@
         </div>
 
 
-        <input type="submit" value="Create" class="myButton myButton-primary"/>
+        <input type="submit" value="Create" class="myButton myButton-primary mb-5"/>
     </form>
     @if (!ViewData.ModelState.IsValid)
     {

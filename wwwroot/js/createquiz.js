@@ -7,7 +7,7 @@
     }
 
     // Add an input event listener to the textareas
-    $('.create-quiz-question, .create-quiz-answer').each(function() {
+    $('.create-quiz-question, .create-quiz-answer, .quiz-sum-input').each(function() {
         $(this).on('input', function() {
             autoGrow(this);
         });

@@ -1,9 +1,12 @@
-﻿.quiz-name-input:focus {
+﻿.quiz-name-input:focus,
+.quiz-sum-input:focus,
+.quiz-tag-input {
     outline: none;
 }
 
 .create-quiz-question,
-.create-quiz-answer {
+.create-quiz-answer,
+.quiz-sum-input {
     resize: none;
     overflow: hidden;
 }
