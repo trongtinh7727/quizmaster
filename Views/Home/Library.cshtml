@@ -1,0 +1,15 @@
+﻿@{
+    ViewData["Title"] = "Library";
+}
+
+<div class="container pt-4">
+    @*Nếu như tài khoản KHÔNG CÓ quiz nào thì hiện cai này*@
+    <div class="library-empty">
+        <div class="library-empty text-center mt-5">
+            <h2 class="text-center mb-3">Looks like you don't own any quiz</h2>
+            <a class="myButton myButton2-primary text-decoration-none text-white" asp-area="" asp-controller="Home" asp-action="CreateQuiz">
+                Create quiz
+            </a>
+        </div>
+    </div>
+</div>

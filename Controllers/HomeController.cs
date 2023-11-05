@@ -34,6 +34,12 @@ namespace QuizMaster.Controllers
         {
             return View();
         }
+
+        public IActionResult Library()
+        {
+            return View();
+        }
+
         [Authorize]
         public IActionResult CreateQuiz()
         {

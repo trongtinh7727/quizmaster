@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Home";
+    ViewData["Title"] = "History";
 }
 
 @section Styles {
@@ -7,13 +7,15 @@
 }
 
 <div class="container pt-4">
-    @*Nếu như không có lịch sử làm quiz*@
+    @*Nếu như KHÔNG CÓ lịch sử làm quiz thì hiện cai này*@
     <div class="history-empty text-center mt-5">
         <h2 class="text-center mb-3">Looks like you haven't played a quiz yet</h2>
-        <button class="myButton myButton2-primary">Find a quiz</button>
+        <a class="myButton myButton2-primary text-decoration-none text-white" asp-area="" asp-controller="Home" asp-action="Index">
+            Find a quiz
+        </a>
     </div>
 
-    @*Nếu như có lịch sử làm quiz*@
+    @*Nếu như CÓ lịch sử làm quiz thì hiện cai này*@
     <div class="history-exists">
         <h2 class="text-center mb-3">Quiz history</h2>
 
