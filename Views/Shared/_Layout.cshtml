@@ -12,7 +12,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white myBorder-bottom box-shadow">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white myBorder-bottom box-shadow w-100">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                     <img src="~/logo-package/svg/logo-text-no-bg.svg" style="max-height: 48px"/>
@@ -30,6 +30,10 @@
                         <li class="nav-item d-flex align-items-center p-2">
                             <i class="myNav-link fa-solid fa-clock-rotate-left"></i>
                             <a class="myNav-link text-decoration-none p-2 fw-semibold" asp-area="" asp-controller="Home" asp-action="History">History</a>
+                        </li>
+                        <li class="nav-item d-flex align-items-center p-2">
+                            <i class="myNav-link fa-solid fa-solid fa-bars"></i>
+                            <a class="myNav-link text-decoration-none p-2 fw-semibold" asp-area="" asp-controller="Home" asp-action="Library">Library</a>
                         </li>
                     </ul>
                      <partial name="_LoginPartial" />
