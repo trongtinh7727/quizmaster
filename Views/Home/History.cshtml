@@ -7,32 +7,34 @@
 }
 
 <div class="container pt-4">
-    <h2 class="text-center mb-3">Quiz history</h2>
+    @*Nếu như không có lịch sử làm quiz*@
+    <div class="history-empty text-center mt-5">
+        <h2 class="text-center mb-3">Looks like you haven't played a quiz yet</h2>
+        <button class="myButton myButton2-primary">Find a quiz</button>
+    </div>
 
-    <div class="row">
-        @*Item*@
-        <div class="col-12 col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
-            <div class="historyQuizCard d-flex flex-row justify-content-between">
-                <div class="d-flex flex-column">
-                    @*Title*@
-                    <h5 class="history-quiz-title">Title</h5>
-                    @*Summary*@
-                    <span class="history-quiz-summary">Summary</span>
-                    @*Num of question*@
-                    <span class="history-quiz-questions">10 questions</span>
-                    @*Diffucult*@
-                    <span class="history-quiz-difficulty">
-                        Difficulty:
-                        <strong class="text-danger">
-                            Hard
-                        </strong>
-                    </span>
+    @*Nếu như có lịch sử làm quiz*@
+    <div class="history-exists">
+        <h2 class="text-center mb-3">Quiz history</h2>
+
+        <div class="row">
+            <div class="col-12 col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
+                <div class="historyQuizCard d-flex flex-row justify-content-between">
+                    <div class="d-flex flex-column">
+                        <h5 class="history-quiz-title">Title</h5>
+                        <span class="history-quiz-summary">Summary</span>
+                        <span class="history-quiz-questions">10 questions</span>
+                        <span class="history-quiz-difficulty">
+                            Difficulty:
+                            <strong class="text-danger">
+                                Hard
+                            </strong>
+                        </span>
+                    </div>
+                    <span>Score: <strong>5/10</strong></span>
                 </div>
-                @*Score*@
-                <span>Score: <strong>5/10</strong></span>
             </div>
         </div>
-        @*End of item*@
     </div>
 
 </div>
