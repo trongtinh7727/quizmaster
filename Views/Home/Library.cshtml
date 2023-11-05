@@ -2,14 +2,38 @@
     ViewData["Title"] = "Library";
 }
 
+@section Styles {
+    <link rel="stylesheet" href="~/css/library.css" />
+}
+
 <div class="container pt-4">
     @*Nếu như tài khoản KHÔNG CÓ quiz nào thì hiện cai này*@
-    <div class="library-empty">
+@*    <div class="library-empty">
         <div class="library-empty text-center mt-5">
             <h2 class="text-center mb-3">Looks like you don't own any quiz</h2>
             <a class="myButton myButton2-primary text-decoration-none text-white" asp-area="" asp-controller="Home" asp-action="CreateQuiz">
                 Create quiz
             </a>
+        </div>
+    </div>*@
+
+    <div class="library-exists">
+        <h2 class="text-center mb-3">Your quiz</h2>
+
+        <div class="row">
+            <div class="col-12 col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
+                <div class="libraryQuizCard">
+                    <h5 class="library-quiz-title">Title</h5>
+                    <span class="library-quiz-summary">Summary</span>
+                    <span class="library-quiz-questions">10 questions</span>
+                    <span class="library-quiz-difficulty">
+                        Difficulty:
+                        <strong class="text-danger">
+                            Hard
+                        </strong>
+                    </span>
+                </div>
+            </div>
         </div>
     </div>
 </div>
