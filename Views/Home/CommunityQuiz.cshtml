@@ -14,13 +14,13 @@
         @*Lọc theo level*@
         <div class="community-quiz-level my-3 d-flex align-items-center">
             <label>Difficulty: </label>
-            <select class="bg-ghost border-0 fw-semibold text-center text-success">
+            <select id="difficultyFilter" class="bg-ghost border-0 fw-semibold text-center text-dark">
+                <option value="all" class="text-dark fw-semibold">All</option>
                 <option value="1" class="text-success fw-semibold">Easy</option>
                 <option value="2" class="text-warning fw-semibold">Medium</option>
                 <option value="3" class="text-danger fw-semibold">Hard</option>
-                <option value="4" class="text-dark fw-semibold">None</option>
             </select>
-            <div class="circle mx-2 bg-success"></div>
+            <div class="circle mx-2 bg-dark"></div>
         </div>
         @*Lọc theo tìm kiếm*@
         <form class="search-container d-flex flex-row justify-content-center align-items-center gap12 flex-wrap">
@@ -35,7 +35,7 @@
         {
             if (quiz.Published)
             {
-                <div class="col-12 col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
+                <div class="col-12 col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4" data-difficulty="@quiz.Level">
                     <div class="communityQuizCard">
                         <h5 class="community-quiz-title">@quiz.Title</h5>
 
