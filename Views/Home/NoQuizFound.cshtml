@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "Invalid quiz code";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/home.css" />
+}
+
+<div class="container pt-4">
+    <h2 class="text-center mb-3">Invalid quiz code</h2>
+    <p class="text-center">The quiz code that you enter is invalid. Please enter another quiz code.</p>
+    <form method="post" asp-action="enrollQuiz" class="search-container d-flex flex-row justify-content-center align-items-center gap36 flex-wrap">
+        <div class="search-container-input">
+            <input name="enrollCode" class="myBorder border-gray bg-ghost rounded-5" placeholder="Enter a quiz code" type="tel" aria-label="Enter a quiz code to play game" />
+        </div>
+        <button type="submit" class="myButton myButton2-primary">Join</button>
+    </form>
+</div>

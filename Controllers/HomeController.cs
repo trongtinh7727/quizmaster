@@ -57,7 +57,8 @@ namespace QuizMaster.Controllers
             
             if (quiz == null)
             {
-                return NotFound("Không tìm thấy bài quiz tương ứng");
+                /*return NotFound("Không tìm thấy bài quiz tương ứng");*/
+                return View("NoQuizFound");
             }
             var takeQuiz = new TakeQuizViewModel
             {
