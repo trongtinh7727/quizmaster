@@ -1,0 +1,48 @@
+﻿@model QuizMaster.ViewModel.TakeQuizViewModel
+
+@{
+    ViewData["Title"] = "Take quiz";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/takequiz.css" />
+}
+
+<div class="container pt-4">
+    <form asp-action="TakeQuiz">
+         <input type="hidden" asp-for="QuizID" value="@Model.Quiz.Id" />
+         <input type="hidden" asp-for="StartedAt" class="form-control" value="@Model.StartedAt"/>
+        <div class="take-quiz-card take-quiz-card-title mb-4 overflow-hidden">
+            <div class="top-color"></div>
+            <span class="fs-4 my-1">@Model.Quiz.Title</span>
+            <span class="my-1">@Model.Quiz.Summary</span>
+            <span class="text-gray-dark my-1">Tag: @Model.Quiz.Tag</span>
+        </div>
+
+        @foreach (QuizQuestion question in Model.Quiz.QuizQuestions)
+        {
+                <div class="take-quiz-question take-quiz-card">
+                    <span class="take-quiz-question-text fs-5">@question.Content</span>
+                    <div class="mt-3">
+                        @foreach (QuizAnswer answer in question.Answers)
+                        {
+                            <div class="take-quiz-answer mb-3">
+                                <input type="radio" class="form-check-input take-quiz-form-check me-2" name="@("Answers[" + question.Id + "]")" value="@answer.Id">
+                                <label class="form-check-label">@answer.Content</label>
+                            </div>
+                        }
+                </div>
+
+                <button class="take-quiz-clear" type="button">Clear answer</button>
+            </div>
+        }
+       
+
+        @*Submit btn*@
+        <button type="submit" class="myButton myButton-primary mt-4 mb-5">Submit</button>
+    </form>
+</div>
+
+@section Scripts {
+    <script src="~/js/takequiz.js"></script>
+}

@@ -1,5 +1,6 @@
-﻿@{
-    ViewData["Title"] = "Welcome";
+﻿@model IEnumerable<QuizMaster.Models.Quiz>
+@{
+    ViewData["Title"] = "Home";
 }
 
 @section Styles {
@@ -8,19 +9,19 @@
 
 <div class="container pt-4">
     <div class="row">
-        <div class="col-8">
+        <div class="col col-12 col-md-12 col-lg-8 mb-3">
             <div class="myCard">
                 <h4 class="text-center mb-3">Enter a code to join game</h4>
 
-                <form class="search-container d-flex flex-row justify-content-center align-items-center gap36">
+                <form method="post" asp-action="enrollQuiz" class="search-container d-flex flex-row justify-content-center align-items-center gap36 flex-wrap">
                     <div class="search-container-input">
-                        <input class="myBorder border-gray bg-ghost rounded-5" placeholder="Enter a quiz code" type="tel" aria-label="Enter a quiz code to play game" />
+                        <input name="enrollCode" class="myBorder border-gray bg-ghost rounded-4" placeholder="Enter a quiz code" type="tel" aria-label="Enter a quiz code to play game" />
                     </div>
-                    <button class="myButton myButton2-primary">Join</button>
+                    <button type="submit" class="myButton myButton2-primary">Join</button>
                 </form>
             </div>
         </div>
-        <div class="col-4">
+        <div class="col col-12 col-md-12 col-lg-4 mb-3">
             <div class="myCard">
                 <h4 class="text-center mb-3">Want a quiz of your own?</h4>
 
@@ -36,51 +37,70 @@
         <h2 class="text-center mb-3">Community games</h2>
 
         <div class="row">
-            @*Browse quiz item*@
-            <div class="col col-xl-3 col-lg-4 col-md-6 mb-4">
-                <div class="browseQuizCard">
-                    @*Browse quiz info*@
-                    <h5 class="browse-quiz-title">Ai thông minh hơn học sinh lớp 5</h5>
-                    <span class="browse-quiz-questions">16 questions</span>
-                    <span class="browse-quiz-difficulty">Difficulty: <strong class="text-success">Easy</strong></span>
-                </div>
-            </div>
-            @*Browse quiz item*@
-            <div class="col col-xl-3 col-lg-4 col-md-6 mb-4">
-                <div class="browseQuizCard">
-                    @*Browse quiz info*@
-                    <h5 class="browse-quiz-title">Ai thông minh hơn học sinh lớp 6</h5>
-                    <span class="browse-quiz-questions">18 questions</span>
-                    <span class="browse-quiz-difficulty">Difficulty: <strong class="text-warning">Medium</strong></span>
-                </div>
-            </div>
-            @*Browse quiz item*@
-            <div class="col col-xl-3 col-lg-4 col-md-6 mb-4">
-                <div class="browseQuizCard">
-                    @*Browse quiz info*@
-                    <h5 class="browse-quiz-title">Ai thông minh hơn học sinh lớp 7</h5>
-                    <span class="browse-quiz-questions">19 questions</span>
-                    <span class="browse-quiz-difficulty">Difficulty: <strong class="text-warning">Medium</strong></span>
-                </div>
-            </div>
-            @*Browse quiz item*@
-            <div class="col col-xl-3 col-lg-4 col-md-6 mb-4">
-                <div class="browseQuizCard">
-                    @*Browse quiz info*@
-                    <h5 class="browse-quiz-title">Ai thông minh hơn học sinh lớp 8</h5>
-                    <span class="browse-quiz-questions">20 questions</span>
-                    <span class="browse-quiz-difficulty">Difficulty: <strong class="text-danger">Hard</strong></span>
-                </div>
-            </div>            
-            @*Browse quiz item*@
-            <div class="col col-xl-3 col-lg-4 col-md-6 mb-4">
-                <div class="browseQuizCard">
-                    @*Browse quiz info*@
-                    <h5 class="browse-quiz-title">Ai thông minh hơn học sinh lớp 8</h5>
-                    <span class="browse-quiz-questions">20 questions</span>
-                    <span class="browse-quiz-difficulty">Difficulty: <strong class="text-danger">Hard</strong></span>
-                </div>
-            </div>
+            @foreach (var quiz in Model)
+            {
+                if(quiz.Published)
+                {
+                    <div class="col-12 col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
+                        <div class="browseQuizCard">
+                            <h5 class="browse-quiz-title">@quiz.Title</h5>
+
+                            <span class="browse-quiz-summary text-gray-dark">@quiz.Summary</span>
+
+                            <span class="browse-quiz-questions">@ReturnQuestion(quiz.QuizQuestions.Count)</span>
+
+                            <span class="browse-quiz-difficulty">Difficulty: 
+                                <strong class="@GetCssClassForDifficulty(quiz.Level)">
+                                    @ConvertLevelToDifficulty(quiz.Level)
+                                </strong>
+                            </span>
+                        </div>
+                    </div>                    
+                }
+            }
+
+            @functions {
+                private string ConvertLevelToDifficulty(int level)
+                {
+                    switch (level)
+                    {
+                        case 1:
+                            return "Easy";
+                        case 2:
+                            return "Medium";
+                        case 3:
+                            return "Hard";
+                        default:
+                            return "Unknown";
+                    }
+                }
+
+                private string GetCssClassForDifficulty(int level)
+                {
+                    switch (level)
+                    {
+                        case 1:
+                            return "text-success";
+                        case 2:
+                            return "text-warning";
+                        // Các trường hợp khác nếu bạn muốn mở rộng
+                        default:
+                            return "text-danger";  // Giả sử chúng ta sử dụng text-muted cho các trường hợp không xác định
+                    }
+                }
+
+                private string ReturnQuestion(int num)
+                {
+                    if(num == 1)
+                    {
+                        return "1 Question";
+                    }
+                    else
+                    {
+                        return num + " Questions";
+                    }
+                }
+            }
         </div>
     </div>
 </div>

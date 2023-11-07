@@ -4,5 +4,9 @@
     ViewData["Title"] = "Confirm email";
 }
 
-<h1>@ViewData["Title"]</h1>
-<partial name="_StatusMessage" model="Model.StatusMessage" />
+<div class="container pt-4">
+    <h1>@ViewData["Title"]</h1>
+    <partial name="_StatusMessage" model="Model.StatusMessage" />
+    <a asp-area="" asp-controller="Home" asp-action="Index" class="fs-5">Return to Home</a>
+</div>
+

@@ -2,98 +2,101 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using QuizMaster.Data;
 using QuizMaster.Models;
 
-namespace QuizMaster.Controllers
+namespace QuizMaster.Areas.Admin.Controllers
 {
-    public class QuizsController : Controller
+    [Area("Admin")]
+    [Authorize]
+    public class QuizQuestionsController : Controller
     {
         private readonly QuizMasterContext _context;
 
-        public QuizsController(QuizMasterContext context)
+        public QuizQuestionsController(QuizMasterContext context)
         {
             _context = context;
         }
 
-        // GET: Quizs
+        // GET: Admin/QuizQuestions
         public async Task<IActionResult> Index()
         {
-            var quizMasterContext = _context.Quizzes.Include(q => q.Author);
+            var quizMasterContext = _context.Questions.Include(q => q.Quiz);
             return View(await quizMasterContext.ToListAsync());
         }
 
-        // GET: Quizs/Details/5
+        // GET: Admin/QuizQuestions/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Quizzes == null)
+            if (id == null || _context.Questions == null)
             {
                 return NotFound();
             }
 
-            var quiz = await _context.Quizzes
-                .Include(q => q.Author)
+            var quizQuestion = await _context.Questions
+                .Include(q => q.Quiz)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (quiz == null)
+            if (quizQuestion == null)
             {
                 return NotFound();
             }
 
-            return View(quiz);
+            return View(quizQuestion);
         }
 
-        // GET: Quizs/Create
+        // GET: Admin/QuizQuestions/Create
         public IActionResult Create()
         {
-            ViewData["AuthorId"] = new SelectList(_context.Users, "Id", "Id");
+            ViewData["QuizId"] = new SelectList(_context.Quizzes, "Id", "Id");
             return View();
         }
 
-        // POST: Quizs/Create
+        // POST: Admin/QuizQuestions/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Summary,Tag,Score,Published,CreatedAt,UpdatedAt,PublishedAt,AuthorId")] Quiz quiz)
+        public async Task<IActionResult> Create([Bind("Id,Score,CreatedAt,UpdatedAt,Content,QuizId")] QuizQuestion quizQuestion)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(quiz);
+                _context.Add(quizQuestion);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AuthorId"] = new SelectList(_context.Users, "Id", "Id", quiz.AuthorId);
-            return View(quiz);
+            ViewData["QuizId"] = new SelectList(_context.Quizzes, "Id", "Id", quizQuestion.QuizId);
+            return View(quizQuestion);
         }
 
-        // GET: Quizs/Edit/5
+        // GET: Admin/QuizQuestions/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Quizzes == null)
+            if (id == null || _context.Questions == null)
             {
                 return NotFound();
             }
 
-            var quiz = await _context.Quizzes.FindAsync(id);
-            if (quiz == null)
+            var quizQuestion = await _context.Questions.FindAsync(id);
+            if (quizQuestion == null)
             {
                 return NotFound();
             }
-            ViewData["AuthorId"] = new SelectList(_context.Users, "Id", "Id", quiz.AuthorId);
-            return View(quiz);
+            ViewData["QuizId"] = new SelectList(_context.Quizzes, "Id", "Id", quizQuestion.QuizId);
+            return View(quizQuestion);
         }
 
-        // POST: Quizs/Edit/5
+        // POST: Admin/QuizQuestions/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Summary,Tag,Score,Published,CreatedAt,UpdatedAt,PublishedAt,AuthorId")] Quiz quiz)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Score,CreatedAt,UpdatedAt,Content,QuizId")] QuizQuestion quizQuestion)
         {
-            if (id != quiz.Id)
+            if (id != quizQuestion.Id)
             {
                 return NotFound();
             }
@@ -102,12 +105,12 @@ namespace QuizMaster.Controllers
             {
                 try
                 {
-                    _context.Update(quiz);
+                    _context.Update(quizQuestion);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!QuizExists(quiz.Id))
+                    if (!QuizQuestionExists(quizQuestion.Id))
                     {
                         return NotFound();
                     }
@@ -118,51 +121,51 @@ namespace QuizMaster.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AuthorId"] = new SelectList(_context.Users, "Id", "Id", quiz.AuthorId);
-            return View(quiz);
+            ViewData["QuizId"] = new SelectList(_context.Quizzes, "Id", "Id", quizQuestion.QuizId);
+            return View(quizQuestion);
         }
 
-        // GET: Quizs/Delete/5
+        // GET: Admin/QuizQuestions/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Quizzes == null)
+            if (id == null || _context.Questions == null)
             {
                 return NotFound();
             }
 
-            var quiz = await _context.Quizzes
-                .Include(q => q.Author)
+            var quizQuestion = await _context.Questions
+                .Include(q => q.Quiz)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (quiz == null)
+            if (quizQuestion == null)
             {
                 return NotFound();
             }
 
-            return View(quiz);
+            return View(quizQuestion);
         }
 
-        // POST: Quizs/Delete/5
+        // POST: Admin/QuizQuestions/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Quizzes == null)
+            if (_context.Questions == null)
             {
-                return Problem("Entity set 'QuizMasterContext.Quizzes'  is null.");
+                return Problem("Entity set 'QuizMasterContext.Questions'  is null.");
             }
-            var quiz = await _context.Quizzes.FindAsync(id);
-            if (quiz != null)
+            var quizQuestion = await _context.Questions.FindAsync(id);
+            if (quizQuestion != null)
             {
-                _context.Quizzes.Remove(quiz);
+                _context.Questions.Remove(quizQuestion);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool QuizExists(int id)
+        private bool QuizQuestionExists(int id)
         {
-          return (_context.Quizzes?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Questions?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

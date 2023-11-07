@@ -1,0 +1,14 @@
+﻿/*Card*/
+.historyQuizCard {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 1rem;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #FFFFFF;
+    background-clip: border-box;
+    border-radius: 1rem;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    transition: all 0.3s ease;
+}

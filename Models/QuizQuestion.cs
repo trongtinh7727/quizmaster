@@ -19,9 +19,9 @@ namespace QuizMaster.Models
         // Navigation property to represent the parent quiz
         // Foreign key to identify the parent test/quiz
         public int QuizId { get; set; }
-        public Quiz Quiz { get; set; }
+        public Quiz? Quiz { get; set; }
 
-        public ICollection<QuizAnswer> Answers { get; set; }
-        public ICollection<TakeAnswer> TakeAnswers { get; set; }
+        public ICollection<QuizAnswer> Answers { get; set; } = new List<QuizAnswer>();
+        public ICollection<TakeAnswer> TakeAnswers { get; set; } = new List<TakeAnswer>();
     }
 }

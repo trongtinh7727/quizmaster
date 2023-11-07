@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "History";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/history.css" />
+}
+
+<div class="container pt-4">
+    @*Nếu như KHÔNG CÓ lịch sử làm quiz thì hiện cai này*@
+    <div class="history-empty text-center mt-5">
+        <h2 class="text-center mb-3">Looks like you haven't played a quiz yet</h2>
+        <a class="myButton myButton2-primary text-decoration-none text-white" asp-area="" asp-controller="Home" asp-action="Index">
+            Find a quiz
+        </a>
+    </div>
+
+    @*Nếu như CÓ lịch sử làm quiz thì hiện cai này*@
+    <div class="history-exists">
+        <h2 class="text-center mb-3">Quiz history</h2>
+
+        <div class="row">
+            <div class="col-12 col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
+
+                <div class="historyQuizCard d-flex flex-row justify-content-between">
+                    <div class="d-flex flex-column">
+                        <h5 class="history-quiz-title">Title</h5>
+                        <span class="history-quiz-summary">Summary</span>
+                        <span class="history-quiz-questions">10 questions</span>
+                        <span class="history-quiz-tag">Tag</span>
+                        <span class="history-quiz-difficulty">
+                            Difficulty:
+                            <strong class="text-danger">
+                                Hard
+                            </strong>
+                        </span>
+                    </div>
+                    <span>Score: <strong>5/10</strong></span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>

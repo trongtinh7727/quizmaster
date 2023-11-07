@@ -1,0 +1,105 @@
+﻿@model IEnumerable<QuizMaster.Models.Quiz>
+@{
+    ViewData["Title"] = "Community quiz";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/communityquiz.css" />
+}
+
+<div class="container pt-4">
+    <h2 class="text-center mb-3">Community quiz</h2>
+
+    <div class="d-flex flex-wrap align-items-center justify-content-center gap36 mb-4">
+        @*Lọc theo level*@
+        <div class="community-quiz-level my-3 d-flex align-items-center">
+            <label>Difficulty: </label>
+            <select class="bg-ghost border-0 fw-semibold text-center text-success">
+                <option value="1" class="text-success fw-semibold">Easy</option>
+                <option value="2" class="text-warning fw-semibold">Medium</option>
+                <option value="3" class="text-danger fw-semibold">Hard</option>
+                <option value="4" class="text-dark fw-semibold">None</option>
+            </select>
+            <div class="circle mx-2 bg-success"></div>
+        </div>
+        @*Lọc theo tìm kiếm*@
+        <form class="search-container d-flex flex-row justify-content-center align-items-center gap12 flex-wrap">
+            <input class="myBorder border-gray bg-ghost rounded-4" placeholder="Search..." />
+            <button class="myButton myButton2-primary" type="submit">Search</button>
+        </form>
+
+    </div>
+
+    <div class="row">
+        @foreach (var quiz in Model)
+        {
+            if (quiz.Published)
+            {
+                <div class="col-12 col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
+                    <div class="communityQuizCard">
+                        <h5 class="community-quiz-title">@quiz.Title</h5>
+
+                        <span class="community-quiz-summary text-gray-dark">@quiz.Summary</span>
+
+                        <span class="community-quiz-questions">@ReturnQuestion(quiz.QuizQuestions.Count)</span>
+
+                        <span class="community-quiz-difficulty">
+                            Difficulty:
+                            <strong class="@GetCssClassForDifficulty(quiz.Level)">
+                                @ConvertLevelToDifficulty(quiz.Level)
+                            </strong>
+                        </span>
+                    </div>
+                </div>
+            }
+        }
+
+        @functions {
+            private string ConvertLevelToDifficulty(int level)
+            {
+                switch (level)
+                {
+                    case 1:
+                        return "Easy";
+                    case 2:
+                        return "Medium";
+                    case 3:
+                        return "Hard";
+                    default:
+                        return "Unknown";
+                }
+            }
+
+            private string GetCssClassForDifficulty(int level)
+            {
+                switch (level)
+                {
+                    case 1:
+                        return "text-success";
+                    case 2:
+                        return "text-warning";
+                    // Các trường hợp khác nếu bạn muốn mở rộng
+                    default:
+                        return "text-danger";  // Giả sử chúng ta sử dụng text-muted cho các trường hợp không xác định
+                }
+            }
+
+            private string ReturnQuestion(int num)
+            {
+                if (num == 1)
+                {
+                    return "1 Question";
+                }
+                else
+                {
+                    return num + " Questions";
+                }
+            }
+        }
+    </div>
+
+</div>
+
+@section Scripts {
+    <script src="~/js/communityquiz.js"></script>
+}

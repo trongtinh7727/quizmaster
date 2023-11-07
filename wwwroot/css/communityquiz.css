@@ -1,0 +1,31 @@
+﻿.search-container {
+    
+}
+    .search-container input {
+        max-width: 400px;
+        padding: 12px 120px 12px 24px;
+    }
+
+    .search-container input:focus {
+        outline: none;
+        background-color: white !important;
+    }
+
+/*Card*/
+.communityQuizCard {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 1rem;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #FFFFFF;
+    background-clip: border-box;
+    border-radius: 1rem;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    transition: all 0.3s ease;
+}
+
+.community-quiz-level select:focus-visible{
+    outline: none;
+}

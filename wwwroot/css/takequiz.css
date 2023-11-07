@@ -1,0 +1,39 @@
+﻿.container {
+    max-width: 800px !important;
+}
+
+.take-quiz-form-check {
+    width: 1.25rem !important;
+    height: 1.25rem !important;
+}
+
+.take-quiz-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #FFFFFF;
+    background-clip: border-box;
+    border-radius: 1rem;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    margin-bottom: 12px;
+}
+
+.take-quiz-clear {
+    border: none;
+    background-color: white;
+    align-self: start;
+    text-decoration: underline;
+    color: var(--color2);
+}
+
+.top-color {
+    width: 200%;
+    height: 10px;
+    background-color: var(--color2);
+    margin-top: -24px;
+    margin-bottom: 12px;
+    margin-left: -48px;
+}

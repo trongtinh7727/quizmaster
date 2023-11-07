@@ -1,15 +1,19 @@
-﻿.question-name-input:focus {
+﻿.quiz-name-input:focus,
+.quiz-sum-input:focus,
+.quiz-tag-input {
     outline: none;
 }
 
 .create-quiz-question,
-.create-quiz-answer {
+.create-quiz-answer,
+.quiz-sum-input {
     resize: none;
     overflow: hidden;
 }
 
     .create-quiz-question:focus,
-    .create-quiz-answer:focus {
+    .create-quiz-answer:focus,
+    .create-quiz-score input:focus {
         outline: none;
     }
 
@@ -38,9 +42,11 @@
         transform: translateY(-2px);
     }
 
-.create-quiz-correct-answer select:focus-visible{
+.create-quiz-correct-answer select:focus-visible,
+.create-quiz-level select:focus-visible {
     outline: none;
 }
+
 
 @media (max-width: 575px) {
     .create-quiz-card {
