@@ -1,6 +1,7 @@
 ﻿.search-container-input input {
-    width: 400px;
-    padding: 12px 24px;
+    max-width: 400px;
+    display: flex;
+    padding: 12px 120px 12px 24px ;
 }
 
     .search-container-input input:focus {
