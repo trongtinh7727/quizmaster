@@ -32,7 +32,13 @@ namespace QuizMaster.Controllers
 
         public IActionResult History()
         {
-            return View();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Get the user's ID
+            var takeQuizzes = _context.TakeQuizzes
+                                      .Where(t => t.UserId == userId)
+                                      .Include(t => t.Quiz)
+                                      .ToList();
+
+            return View(takeQuizzes);
         }
 
         public IActionResult Library()
