@@ -4,7 +4,10 @@ namespace QuizMaster.ViewModel
 {
     public class QuizViewModel
     {
+
+        public int? Id { get; set; }
         public string QuizTitle { get; set; }
+
         public string QuizSummary { get; set; }
         public string? EnrollCode { get; set; }
         public string QuizTag { get; set; }

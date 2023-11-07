@@ -1,70 +1,73 @@
-﻿@{
+﻿@model IEnumerable<QuizMaster.Models.Quiz>
+@{
     ViewData["Title"] = "Library";
 }
 
 @section Styles {
-    <link rel="stylesheet" href="~/css/library.css" />
+        <link rel="stylesheet" href="~/css/library.css" />
 }
 
 <div class="container pt-4">
-    @*Nếu như tài khoản KHÔNG CÓ quiz nào thì hiện cai này*@
-    <div class="library-empty">
-        <div class="library-empty text-center mt-5">
-            <h2 class="text-center mb-3">You haven't created a quiz yet</h2>
-            <a class="myButton myButton2-primary text-decoration-none text-white" asp-area="" asp-controller="Home" asp-action="CreateQuiz">
-                Create quiz
-            </a>
-        </div>
-    </div>
+    @if (!Model.Any())
+    {
+            <div class="library-empty text-center mt-5">
+                <h2 class="text-center mb-3">You haven't created a quiz yet</h2>
+                <a class="myButton myButton2-primary text-decoration-none text-white" asp-area="" asp-controller="Quizzes" asp-action="Create">
+                    Create quiz
+                </a>
+            </div>
+    }
+    else
+    {
+            <div class="library-exists">
+                <h2 class="text-center mb-3">Your quizzes</h2>
 
-    @*Nếu như tài khoản CÓ quiz thì hiện cai này*@
-    <div class="library-exists">
-        <h2 class="text-center mb-3">Your quiz</h2>
+                <div class="row">
+                @foreach (var quiz in Model)
+                {
+                            <div class="col-12 col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
+                                <div class="libraryQuizCard" data-bs-toggle="modal" data-bs-target="#detailModal-@quiz.Id">
+                                    <h5 class="library-quiz-title">@quiz.Title</h5>
+                                    <span class="library-quiz-summary">@quiz.Summary</span>
+                                    <span class="library-quiz-questions">@quiz.QuizQuestions.Count questions</span>
+                                    <span class="library-quiz-tag">@quiz.Tag</span>
+                                    <span class="library-quiz-difficulty">
+                                        Difficulty:
+                                        <strong class="text-danger">
+                                    @(quiz.Level == 1 ? "Easy" : quiz.Level == 2 ? "Medium" : "Hard")
+                                        </strong>
+                                    </span>
+                                </div>
+                            </div>
 
-        <div class="row">
-
-            <div class="col-12 col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
-                <div class="libraryQuizCard" data-bs-toggle="modal" data-bs-target="#detailModal">
-                    <h5 class="library-quiz-title">Title</h5>
-                    <span class="library-quiz-summary">Summary</span>
-                    <span class="library-quiz-questions">10 questions</span>
-                    <span class="library-quiz-tag">Tag</span>
-                    <span class="library-quiz-difficulty">
-                        Difficulty:
-                        <strong class="text-danger">
-                            Hard
-                        </strong>
-                    </span>
+                            <!-- Modal -->
+                            <div class="modal fade" id="detailModal-@quiz.Id" tabindex="-1" aria-labelledby="detailModalLabel-@quiz.Id" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title fs-5">@quiz.Title</h5>
+                                            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="library-details-summary">@quiz.Summary</p>
+                                            <p class="library-details-questions">@quiz.QuizQuestions.Count questions</p>
+                                            <p class="library-quiz-tag">@quiz.Tag</p>
+                                            <p class="library-details-difficulty">
+                                                Difficulty:
+                                                <strong class="text-danger">
+                                            @(quiz.Level == 1 ? "Easy" : quiz.Level == 2 ? "Medium" : "Hard")
+                                                </strong>
+                                            </p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                                                    <a class="myButton myButton-primary" asp-controller="Home" asp-action="EditQuiz" asp-route-id="@quiz.Id">Edit</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                }
                 </div>
             </div>
-            
-        </div>
-    </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5">Title</h1>
-                    <button class="library-details-title btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p class="library-details-summary">Summary Summary Summary Summary Summary Summary Summary </p>
-                    <p class="library-details-questions">10 questions</p>
-                    <p class="library-quiz-tag">Tag</p>
-                    <p class="library-details-difficulty">
-                        Difficulty:
-                        <strong class="text-danger">
-                            Hard
-                        </strong>
-                    </p>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
-                    <button class="myButton myButton-primary" type="button">Edit</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    }
 </div>

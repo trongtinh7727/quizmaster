@@ -18,43 +18,7 @@
     // Add click event listern to add question button
     $('#add-question').click(function () {
         var questionIndex = $('.create-quiz-card').length;
-        // Create a new question element
-        /*const newQuestion = $(
-            '<div class="create-quiz-card myCard mb-5">' +
-                '<div class="delete-icon">' +
-                    '<i class="fas fa-trash-alt"></i>' +
-                '</div>' +
-
-                '<textarea class="create-quiz-question w-100 p-3 mb-3 mt-1 border-0" placeholder="Type your question here" rows="1"></textarea>' +
-                '<div class="d-flex flex-column gap12 mx-3">' +
-                    '<div class="d-flex align-items-center">' +
-                        '<span class="fs-5 mx-2">A. </span>' +
-                        '<textarea class="create-quiz-answer border-0 p-4 w-100" placeholder="Type answer options here" rows="1"></textarea>' +
-                    '</div>' +
-                    '<div class="d-flex align-items-center">' +
-                        '<span class="fs-5 mx-2">B. </span>' +
-                        '<textarea class="create-quiz-answer border-0 p-4 w-100" placeholder="Type answer options here" rows="1"></textarea>' +
-                    '</div>' +
-                    '<div class="d-flex align-items-center">' +
-                        '<span class="fs-5 mx-2">C. </span>' +
-                        '<textarea class="create-quiz-answer border-0 p-4 w-100" placeholder="Type answer options here" rows="1"></textarea>' +
-                    '</div>' +
-                    '<div class="d-flex align-items-center">' +
-                        '<span class="fs-5 mx-2">D. </span>' +
-                        '<textarea class="create-quiz-answer border-0 p-4 w-100" placeholder="Type answer options here" rows="1"></textarea>' +
-                    '</div>' +
-                '</div>' +
-
-                '<div class="create-quiz-correct-answer mt-3">' +
-                    '<label>Correct answer: </label>' +
-                    '<select name="correct-answer" class="border-0 p-3">' +
-                        '<option value="a">A</option>' +
-                        '<option value="b">B</option>' +
-                        '<option value="c">C</option>' +
-                        '<option value="d">D</option>' +
-                    '</select>' +
-                '</div>' +
-            '</div>');*/
+        
         const newQuestion = $(
             `<div class="create-quiz-card myCard mb-5" data-question-index="0">
             <div class="delete-icon">
@@ -66,19 +30,19 @@
             <div class="d-flex flex-column gap12 mx-3">
                 <div class="d-flex align-items-center">
                     <span class="fs-5 mx-2">A. </span>
-                    <textarea name="Questions[${questionIndex}].Answers[0]" class="create-quiz-answer border-0 p-4 w-100" placeholder="Type answer options here" rows="1"></textarea>
+                    <textarea name="Questions[${questionIndex}].Answers[0].Content" class="create-quiz-answer border-0 p-4 w-100" placeholder="Type answer options here" rows="1"></textarea>
                 </div>
                 <div class="d-flex align-items-center">
                     <span class="fs-5 mx-2">B. </span>
-                    <textarea name="Questions[${questionIndex}].Answers[1]" class="create-quiz-answer border-0 p-4 w-100" placeholder="Type answer options here" rows="1"></textarea>
+                    <textarea name="Questions[${questionIndex}].Answers[1].Content" class="create-quiz-answer border-0 p-4 w-100" placeholder="Type answer options here" rows="1"></textarea>
                 </div>
                 <div class="d-flex align-items-center">
                     <span class="fs-5 mx-2">C. </span>
-                    <textarea name="Questions[${questionIndex}].Answers[2]" class="create-quiz-answer border-0 p-4 w-100" placeholder="Type answer options here" rows="1"></textarea>
+                    <textarea name="Questions[${questionIndex}].Answers[2].Content" class="create-quiz-answer border-0 p-4 w-100" placeholder="Type answer options here" rows="1"></textarea>
                 </div>
                 <div class="d-flex align-items-center">
                     <span class="fs-5 mx-2">D. </span>
-                    <textarea name="Questions[${questionIndex}].Answers[3]" class="create-quiz-answer border-0 p-4 w-100" placeholder="Type answer options here" rows="1"></textarea>
+                    <textarea name="Questions[${questionIndex}].Answers[3].Content" class="create-quiz-answer border-0 p-4 w-100" placeholder="Type answer options here" rows="1"></textarea>
                 </div>
             </div>
 
