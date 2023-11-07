@@ -40,6 +40,12 @@ namespace QuizMaster.Controllers
             return View();
         }
 
+        public async Task<IActionResult> CommunityQuiz()
+        {
+            var quizMasterContext = _context.Quizzes.Include(q => q.QuizQuestions);
+            return View(await quizMasterContext.ToListAsync());
+        }
+
         [Authorize]
         public IActionResult CreateQuiz()
         {

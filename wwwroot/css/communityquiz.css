@@ -1,16 +1,18 @@
-﻿.search-container-input input {
-    max-width: 400px;
-    display: flex;
-    padding: 12px 120px 12px 24px ;
+﻿.search-container {
+    
 }
+    .search-container input {
+        max-width: 400px;
+        padding: 12px 120px 12px 24px;
+    }
 
-    .search-container-input input:focus {
+    .search-container input:focus {
         outline: none;
         background-color: white !important;
     }
 
 /*Card*/
-.browseQuizCard {
+.communityQuizCard {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -24,8 +26,6 @@
     transition: all 0.3s ease;
 }
 
-.browseQuizCard:hover {
-    cursor: pointer;
-    box-shadow: rgba(149, 157, 165, 0.5) 0px 8px 24px;
-    transform: translateY(-2px);
+.community-quiz-level select:focus-visible{
+    outline: none;
 }
