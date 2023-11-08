@@ -33,10 +33,10 @@
         </div>
     </div>
 
-    <div class="mt-5">
+    <div class="mt-5 text-center">
         <h2 class="text-center mb-3">Community games</h2>
 
-        <div class="row">
+        <div class="row text-start">
             @foreach (var quiz in Model)
             {
                 if(quiz.Published)
@@ -104,7 +104,7 @@
         </div>
 
         <a class="myButton myButton2-secondary text-decoration-none mx-auto" asp-area="" asp-controller="Home" asp-action="CommunityQuiz">
-            <span class="fs-5">Explore more</span>
+            <span class="fs-5">See more</span>
         </a>
     </div>
 </div>

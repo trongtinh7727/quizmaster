@@ -18,3 +18,34 @@
         box-shadow: rgba(149, 157, 165, 0.5) 0px 8px 24px;
         transform: translateY(-2px);
     }
+
+/*Code field*/
+.library-details-code-field {
+    position: relative;
+}
+
+.tooltip-text {
+    visibility: hidden;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px; /* Use half of the width (120/2 = 60), to center the tooltip */
+}
+
+.library-details-code-field:hover .tooltip-text {
+    visibility: visible;
+}
+
+.library-details-code-field-codefield {
+    padding: 12px 24px;
+}
+
+.library-details-code-field-codefield:hover {
+    cursor: default;
+}
