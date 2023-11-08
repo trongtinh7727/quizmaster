@@ -71,6 +71,13 @@
                    <p class="library-details-play">0 plays</p>
 
                    <p class="library-details-createdDate">Created at: 08:23 08/11/2023</p>
+
+                   <div class="library-details-result d-inline-flex">
+                       <a class="fw-semibold text-decoration-none text-color2" asp-controller="Home" asp-action="QuizResults">
+                           See results
+                       </a>
+                   </div>
+
                 </div>
 
                 <div class="modal-footer justify-content-between">
@@ -80,6 +87,7 @@
                         <i class="fa-regular fa-trash-can ms-1"></i>
                     </button>
 
+                    @*edit chuyển qua ui create quiz*@
                     <button class="myButton myButton-primary" type="button">
                         Edit
                         <i class="fa-regular fa-pen-to-square ms-1"></i>
