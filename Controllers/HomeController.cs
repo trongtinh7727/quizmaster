@@ -52,6 +52,11 @@ namespace QuizMaster.Controllers
             return View(await quizMasterContext.ToListAsync());
         }
 
+        public IActionResult QuizResults()
+        {
+            return View();
+        }
+
         [Authorize]
         public IActionResult CreateQuiz()
         {

@@ -27,14 +27,6 @@
                 <div class="libraryQuizCard" data-bs-toggle="modal" data-bs-target="#detailModal">
                     <h5 class="library-quiz-title">Title</h5>
                     <span class="library-quiz-summary">Summary</span>
-                    <span class="library-quiz-questions">10 questions</span>
-                    <span class="library-quiz-tag">Tag</span>
-                    <span class="library-quiz-difficulty">
-                        Difficulty:
-                        <strong class="text-danger">
-                            Hard
-                        </strong>
-                    </span>
                 </div>
             </div>
             
@@ -49,22 +41,63 @@
                     <h1 class="modal-title fs-5">Title</h1>
                     <button class="library-details-title btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+
                 <div class="modal-body">
+
+                    <div class="library-details-code d-flex flex-wrap gap12 mb-3">
+                        <div class="library-details-code-field">
+                            <input class="library-details-code-field-codefield w-100 rounded-4 myBorder border-gray fw-semibold" type="text" readonly />
+                            <span class="tooltip-text">Click to copy</span>
+                        </div>
+                        <button class="library-details-code-btn myButton myButton-secondary">Generate Code</button>
+                    </div>
+
                     <p class="library-details-summary">Summary Summary Summary Summary Summary Summary Summary </p>
                     <p class="library-details-questions">10 questions</p>
-                    <p class="library-quiz-tag">Tag</p>
+                    <p class="library-details-tag">#math</p>
                     <p class="library-details-difficulty">
                         Difficulty:
                         <strong class="text-danger">
                             Hard
                         </strong>
                     </p>
+
+                    @*isPublic của quiz thay đổi giữa 2 cái này*@
+                    @*Start*@
+                    <p class="library-details-public">Public: <strong class="text-success ">Yes</strong></p>
+                    <p class="library-details-public">Public: <strong class="text-danger ">No</strong></p>
+                    @*End*@
+
+                   <p class="library-details-play">0 plays</p>
+
+                   <p class="library-details-createdDate">Created at: 08:23 08/11/2023</p>
+
+                   <div class="library-details-result d-inline-flex">
+                       <a class="fw-semibold text-decoration-none text-color2" asp-controller="Home" asp-action="QuizResults">
+                           See results
+                       </a>
+                   </div>
+
                 </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
-                    <button class="myButton myButton-primary" type="button">Edit</button>
+
+                <div class="modal-footer justify-content-between">
+
+                    <button class="myButton myButton-danger" type="button">
+                        Delete
+                        <i class="fa-regular fa-trash-can ms-1"></i>
+                    </button>
+
+                    @*edit chuyển qua ui create quiz*@
+                    <button class="myButton myButton-primary" type="button">
+                        Edit
+                        <i class="fa-regular fa-pen-to-square ms-1"></i>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script src="~/js/library.js"></script>
+}
