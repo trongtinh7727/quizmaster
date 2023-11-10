@@ -1,20 +1,11 @@
 ﻿@model IEnumerable<QuizMaster.Models.QuizQuestion>
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Admin - Quiz Questions";
+    Layout = "_AdminLayout";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<a asp-action="Create">Create New</a>
 <table class="table">
     <thead>
         <tr>
@@ -63,5 +54,3 @@
 }
     </tbody>
 </table>
-</body>
-</html>

@@ -1,14 +1,11 @@
 ﻿@model IEnumerable<QuizMaster.Models.QuizAnswer>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Admin - Quiz Answers";
+    Layout = "_AdminLayout";
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<a asp-action="Create">Create New</a>
 <table class="table">
     <thead>
         <tr>
