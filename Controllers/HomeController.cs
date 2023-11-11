@@ -36,6 +36,7 @@ namespace QuizMaster.Controllers
             var takeQuizzes = _context.TakeQuizzes
                                       .Where(t => t.UserId == userId)
                                       .Include(t => t.Quiz)
+                                      .ThenInclude(q => q.QuizQuestions)
                                       .ToList();
 
             return View(takeQuizzes);
@@ -43,7 +44,13 @@ namespace QuizMaster.Controllers
 
         public IActionResult Library()
         {
-            return View();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var quizzes = _context.Quizzes
+                                  .Where(q => q.AuthorId == userId)
+                                  .Include(q => q.QuizQuestions)
+                                  .ToList();
+
+            return View(quizzes);
         }
 
         public async Task<IActionResult> CommunityQuiz()
@@ -52,17 +59,6 @@ namespace QuizMaster.Controllers
             return View(await quizMasterContext.ToListAsync());
         }
 
-        public IActionResult QuizResults()
-        {
-            return View();
-        }
-
-        [Authorize]
-        public IActionResult CreateQuiz()
-        {
-            var model = new QuizViewModel();
-            return View(model);
-        }
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> enrollQuiz(string enrollCode)
@@ -146,6 +142,12 @@ namespace QuizMaster.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize]
+        public IActionResult CreateQuiz()
+        {
+            var model = new QuizViewModel();
+            return View(model);
+        }
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> CreateQuiz(QuizViewModel model)
@@ -186,16 +188,16 @@ namespace QuizMaster.Controllers
                     _context.Questions.Add(quizQuestion);
                     await _context.SaveChangesAsync();
 
-                    foreach (string answ in question.Answers)
+                    foreach (AnswerViewModel answ in question.Answers)
                     {
 
                         var quizAnsw = new QuizAnswer
                         {
-                            Content=answ,
+                            Content=answ.Content,
                             CreatedAt = DateTime.Now,
                             UpdatedAt = DateTime.Now,
                             QuestionId = quizQuestion.Id,
-                            Correct = answ == question.CorrectAnswer
+                            Correct = answ.Content == question.CorrectAnswer
                         };
                         _context.Answers.Add(quizAnsw);
                         await _context.SaveChangesAsync();
@@ -208,6 +210,159 @@ namespace QuizMaster.Controllers
 
             // Nếu ModelState không hợp lệ, quay lại view với lỗi.
             return View(model);
+        }
+
+
+        // Controller: QuizzesController (For Edit Functionality)
+        [Authorize]
+        public async Task<IActionResult> EditQuiz(int id)
+        {
+            var quiz = await _context.Quizzes
+                                     .Include(q => q.QuizQuestions)
+                                     .ThenInclude(qq => qq.Answers)
+                                     .FirstOrDefaultAsync(q => q.Id == id);
+
+            if (quiz == null)
+            {
+                return NotFound();
+            }
+
+            var model = new QuizViewModel
+            {
+                Id = quiz.Id,
+                QuizTitle = quiz.Title,
+                QuizSummary = quiz.Summary,
+                QuizLevel = quiz.Level,
+                QuizTag = quiz.Tag,
+                QuizPublished = quiz.Published,
+                Questions = quiz.QuizQuestions.Select(qq => new QuestionViewModel
+                {
+                    Id = qq.Id,
+                    QuestionText = qq.Content,
+                    Answers = qq.Answers.Select(a => new AnswerViewModel {
+                            Id = a.Id,
+                            Content = a.Content,
+                    }).ToList(),
+                    CorrectAnswer = qq.Answers.FirstOrDefault(a => a.Correct)?.Content,
+                    Score = qq.Score
+                }).ToList(),
+                quiz = quiz
+            };
+
+            return View("EditQuiz", model); 
+        }
+
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditQuiz(int id, QuizViewModel model)
+        {
+            if (id != model.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                var quiz = await _context.Quizzes
+                                         .Include(q => q.QuizQuestions)
+                                         .ThenInclude(qq => qq.Answers)
+                                         .FirstOrDefaultAsync(q => q.Id == id);
+
+                if (quiz == null)
+                {
+                    return NotFound();
+                }
+
+                // Update the quiz properties
+                quiz.Title = model.QuizTitle;
+                quiz.Summary = model.QuizSummary;
+                quiz.Level = model.QuizLevel;
+                quiz.Tag = model.QuizTag;
+                quiz.Published = model.QuizPublished;
+                quiz.UpdatedAt = DateTime.Now;
+
+                _context.Quizzes.Update(quiz);
+                // Update existing questions and answers
+                foreach (var question in model.Questions)
+                {
+                    var existingQuestion = quiz.QuizQuestions.FirstOrDefault(qq => qq.Id == question.Id);
+
+                    if (existingQuestion != null)
+                    {
+                        // Update existing question
+                        existingQuestion.Content = question.QuestionText;
+                        existingQuestion.Score = question.Score;
+                        existingQuestion.UpdatedAt = DateTime.Now;
+
+                        foreach (var answer in question.Answers)
+                        {
+                            var existingAnswer = existingQuestion.Answers.FirstOrDefault(a => a.Id == answer.Id);
+
+                            if (existingAnswer != null)
+                            {
+                                // Update existing answer
+                                existingAnswer.Content = answer.Content;
+                                existingAnswer.UpdatedAt = DateTime.Now;
+                                existingAnswer.Correct = answer.Content == question.CorrectAnswer;
+                            }
+                            else
+                            {
+                                // Add new answer
+                                var newAnswer = new QuizAnswer
+                                {
+                                    Content = answer.Content,
+                                    CreatedAt = DateTime.Now,
+                                    UpdatedAt = DateTime.Now,
+                                    QuestionId = existingQuestion.Id,
+                                    Correct = answer.Content == question.CorrectAnswer
+                                };
+                                _context.Answers.Add(newAnswer);
+                                await _context.SaveChangesAsync();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // Add new question
+                        var newQuestion = new QuizQuestion
+                        {
+                            Content = question.QuestionText,
+                            CreatedAt = DateTime.Now,
+                            UpdatedAt = DateTime.Now,
+                            QuizId = quiz.Id,
+                            Score = question.Score
+                        };
+                        _context.Questions.Add(newQuestion);
+                        await _context.SaveChangesAsync();
+
+
+                        foreach (var answer in question.Answers)
+                        {
+                            // Add new answer
+                            var newAnswer = new QuizAnswer
+                            {
+                                Content = answer.Content,
+                                CreatedAt = DateTime.Now,
+                                UpdatedAt = DateTime.Now,
+                                QuestionId = newQuestion.Id,
+                                Correct = answer.Content == question.CorrectAnswer
+                            };
+                            _context.Answers.Add(newAnswer);
+                            await _context.SaveChangesAsync();
+
+                        }
+                    }
+                }
+
+                // Save changes to the database
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Index)); // Or the appropriate action to go to after editing
+            }
+
+            // If ModelState is not valid, return to the edit view with validation errors
+            return View("EditQuiz", model);
         }
 
 
