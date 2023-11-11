@@ -59,7 +59,6 @@ namespace QuizMaster.Controllers
             return View(await quizMasterContext.ToListAsync());
         }
 
-
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> enrollQuiz(string enrollCode)

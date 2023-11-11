@@ -1,0 +1,64 @@
+﻿@{
+    ViewData["Title"] = "Results";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" />
+}
+
+<div class="container pt-4">
+    <h2 class="text-center mb-3">Quiz title</h2>
+
+    <p class="results-total-play fw-semibold">Total plays: 4</p>
+
+    <table id="results-container" class="display w-100">
+        <thead>
+            <tr>
+                <th>Player name</th>
+                <th>Score</th>
+                <th>Time</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="resuls-container-item">
+                <td class="resuls-container-item-player">Player 1</td>
+                <td class="resuls-container-item-score">5</td>
+                <td class="resuls-container-item-time">15:32</td>
+                <td class="resuls-container-item-date">09/11/2023</td>
+            </tr>
+            <tr class="resuls-container-item">
+                <td class="resuls-container-item-player">Player 2</td>
+                <td class="resuls-container-item-score">7</td>
+                <td class="resuls-container-item-time">15:30</td>
+                <td class="resuls-container-item-date">08/11/2023</td>
+            </tr>
+            <tr class="resuls-container-item">
+                <td class="resuls-container-item-player">Player 3</td>
+                <td class="resuls-container-item-score">3</td>
+                <td class="resuls-container-item-time">15:29</td>
+                <td class="resuls-container-item-date">08/11/2023</td>
+            </tr>
+            <tr class="resuls-container-item">
+                <td class="resuls-container-item-player">Player 1</td>
+                <td class="resuls-container-item-score">9</td>
+                <td class="resuls-container-item-time">15:33</td>
+                <td class="resuls-container-item-date">09/11/2023</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Player name</th>
+                <th>Score</th>
+                <th>Time</th>
+                <th>Date</th>
+            </tr>
+        </tfoot>
+    </table>
+
+</div>
+
+@section Scripts {
+    <script src="~/js/quizresults.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+}
