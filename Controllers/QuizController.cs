@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using QuizMaster.Data;
 using QuizMaster.Models;
@@ -48,11 +49,25 @@ namespace QuizMaster.Controllers
             return View("TakeQuiz", takeQuiz);
         }
 
+        public async Task<IActionResult> QuizResults(int id)
+        {
+            var quiz = await _context.Quizzes
+                         .Include(q => q.TakeQuizs)
+                            .ThenInclude(tq => tq.User)
+                         .FirstOrDefaultAsync(q => q.Id == id);
+            if (quiz == null)
+            {
+                /*return NotFound("Không tìm thấy bài quiz tương ứng");*/
+                return View("NoQuizFound");
+            }
+
+            return View("QuizResults", quiz);
+        }
         public IActionResult TakeQuiz(QuizViewModel quizViewModel)
         {
             if (quizViewModel == null)
             {
-                return NotFound("Không tìm thấy bài quiz tương ứng");
+                return View("NoQuizFound");
             }
             return View(quizViewModel);
         }
@@ -107,7 +122,7 @@ namespace QuizMaster.Controllers
             takeQuiz.FinishedAt = DateTime.Now;
             _context.TakeQuizzes.Update(takeQuiz);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
 
         [Authorize]
@@ -160,26 +175,14 @@ namespace QuizMaster.Controllers
                     for (int i = 0; i < question.Answers.Count; i++)
                     {
                         var answer = question.Answers[i];
-                        var correctIndex = 0;
-                        switch (question.CorrectAnswer)
-                        {
-                            case "b":
-                                correctIndex = 1;
-                                break;
-                            case "c":
-                                correctIndex = 2;
-                                break;
-                            case "d":
-                                correctIndex = 3;
-                                break;
-                        }
+
                         var quizAnsw = new QuizAnswer
                         {
                             Content = answer.Content,
                             CreatedAt = DateTime.Now,
                             UpdatedAt = DateTime.Now,
                             QuestionId = quizQuestion.Id,
-                            Correct = i == correctIndex
+                            Correct = i == getCorrectIndex(question.CorrectAnswer)
                         };
                         _context.Answers.Add(quizAnsw);
                         await _context.SaveChangesAsync();
@@ -198,6 +201,23 @@ namespace QuizMaster.Controllers
             return View(model);
         }
 
+        private int getCorrectIndex(string CorrectAnswer)
+        {
+            var x = CorrectAnswer;
+            switch (CorrectAnswer)
+            {
+                case "B":
+                    return 1;
+                    break;
+                case "C":
+                    return 2;
+                    break;
+                case "D":
+                    return 3;
+                    break;
+            }
+            return 0;
+        }
 
         // Controller: QuizzesController (For Edit Functionality)
         [Authorize]
@@ -210,7 +230,7 @@ namespace QuizMaster.Controllers
 
             if (quiz == null)
             {
-                return NotFound();
+                return View("NoQuizFound");
             }
 
             var model = new QuizViewModel
@@ -246,7 +266,7 @@ namespace QuizMaster.Controllers
         {
             if (id != model.Id)
             {
-                return NotFound();
+                return View("NoQuizFound");
             }
 
             if (ModelState.IsValid)
@@ -262,7 +282,7 @@ namespace QuizMaster.Controllers
 
                 if (quiz == null)
                 {
-                    return NotFound();
+                    return View("NoQuizFound");
                 }
 
                 // Update the quiz properties
@@ -286,10 +306,12 @@ namespace QuizMaster.Controllers
                         var subject = $"Thông báo thay đổi về bài quiz {quiz.Title}";
                         var body = $"<html>\r\n<head>\r\n    <style>\r\n        body {{\r\n            font-family: Arial, sans-serif;\r\n            line-height: 1.6;\r\n        }}\r\n        .container {{\r\n            width: 80%;\r\n            margin: 20px auto;\r\n            padding: 20px;\r\n            border: 1px solid #ddd;\r\n            border-radius: 5px;\r\n            background-color: #f9f9f9;\r\n        }}\r\n        .header {{\r\n            font-size: 20px;\r\n            color: #333;\r\n            margin-bottom: 20px;\r\n        }}\r\n        .content {{\r\n            font-size: 16px;\r\n            color: #555;\r\n        }}\r\n        .footer {{\r\n            font-size: 14px;\r\n            color: #777;\r\n            margin-top: 20px;\r\n        }}\r\n        a {{\r\n            color: #0275d8;\r\n            text-decoration: none;\r\n        }}\r\n        a:hover {{\r\n            text-decoration: underline;\r\n        }}\r\n    </style>\r\n</head>\r\n<body>\r\n    <div class=\"container\">\r\n        <div class=\"header\">\r\n            Thông báo thay đổi về bài Quiz: {quiz.Title}\r\n        </div>\r\n        <div class=\"content\">\r\n            Kính gửi {takeQuiz.User.FirstName} {takeQuiz.User.LastName},<br><br>\r\n\r\n            Chúng tôi xin thông báo rằng bài Quiz \"<strong>{quiz.Title}</strong>\" mà bạn đã tham gia đã được cập nhật. Do những thay đổi này, các bản ghi bài làm của bạn đã bị xóa bỏ.<br><br>\r\n\r\n            Nếu bạn muốn tham gia làm bài quiz này lại, vui lòng sử dụng mã <strong>EnrollCode: {quiz.EnrollCode}</strong> để bắt đầu.<br><br>\r\n\r\n            Chúng tôi xin lỗi vì bất kỳ sự bất tiện nào mà điều này có thể gây ra và cảm ơn bạn đã tham gia bài quiz của chúng tôi.<br><br>\r\n\r\n            Trân trọng,<br>\r\n            Đội ngũ QuizMaster\r\n        </div>\r\n        <div class=\"footer\">\r\n            Nếu bạn có bất kỳ câu hỏi nào, vui lòng liên hệ với chúng tôi qua email: trongtinh7727@gmail.com\r\n        </div>\r\n    </div>\r\n</body>\r\n</html>\r\n";
                         await _emailSender.SendEmailAsync(email, subject, body);
+                        sentEmail.Add(email);
                     }
                 }
                 _context.TakeQuizzes.RemoveRange(quiz.TakeQuizs);
                 await _context.SaveChangesAsync();
+                var totalScore = 0;
                 // Update existing questions and answers
                 foreach (var question in model.Questions)
                 {
@@ -301,7 +323,8 @@ namespace QuizMaster.Controllers
                         existingQuestion.Content = question.QuestionText;
                         existingQuestion.Score = question.Score;
                         existingQuestion.UpdatedAt = DateTime.Now;
-
+                        totalScore += existingQuestion.Score;
+                        var i = 0;
                         foreach (var answer in question.Answers)
                         {
                             var existingAnswer = existingQuestion.Answers.FirstOrDefault(a => a.Id == answer.Id);
@@ -311,7 +334,7 @@ namespace QuizMaster.Controllers
                                 // Update existing answer
                                 existingAnswer.Content = answer.Content;
                                 existingAnswer.UpdatedAt = DateTime.Now;
-                                existingAnswer.Correct = answer.Content == question.CorrectAnswer;
+                                existingAnswer.Correct = i == getCorrectIndex(question.CorrectAnswer);
                             }
                             else
                             {
@@ -322,16 +345,19 @@ namespace QuizMaster.Controllers
                                     CreatedAt = DateTime.Now,
                                     UpdatedAt = DateTime.Now,
                                     QuestionId = existingQuestion.Id,
-                                    Correct = answer.Content == question.CorrectAnswer
+                                    Correct = i == getCorrectIndex(question.CorrectAnswer)
                                 };
+
                                 _context.Answers.Add(newAnswer);
                                 await _context.SaveChangesAsync();
                             }
+                            i++;
                         }
                     }
                     else
                     {
                         // Add new question
+                        totalScore += question.Score;
                         var newQuestion = new QuizQuestion
                         {
                             Content = question.QuestionText,
@@ -343,7 +369,7 @@ namespace QuizMaster.Controllers
                         _context.Questions.Add(newQuestion);
                         await _context.SaveChangesAsync();
 
-
+                        var i = 0;
                         foreach (var answer in question.Answers)
                         {
                             // Add new answer
@@ -353,11 +379,11 @@ namespace QuizMaster.Controllers
                                 CreatedAt = DateTime.Now,
                                 UpdatedAt = DateTime.Now,
                                 QuestionId = newQuestion.Id,
-                                Correct = answer.Content == question.CorrectAnswer
+                                Correct = i == getCorrectIndex(question.CorrectAnswer)
                             };
                             _context.Answers.Add(newAnswer);
                             await _context.SaveChangesAsync();
-
+                            i++;
                         }
                     }
                 }
@@ -369,15 +395,51 @@ namespace QuizMaster.Controllers
                         _context.Questions.Remove(questionToRemove);
                     }
                 }
+                //update score
+                quiz.Score = totalScore;
+                _context.Quizzes.Update(quiz);
 
                 await _context.SaveChangesAsync();
 
-                
 
-                return RedirectToAction(nameof(Index));
+
+                return RedirectToAction("Library", "Home");
             }
             return View("EditQuiz", model);
         }
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            if (_context.Quizzes == null)
+            {
+                return Problem("Entity set 'QuizMasterContext.Quizzes'  is null.");
+            }
+            var quiz = await _context.Quizzes
+                         .Include(q => q.QuizQuestions)
+                            .ThenInclude(qq => qq.Answers)
+                         .Include(q => q.TakeQuizs)
+                            .ThenInclude(tq => tq.TakeAnswers)
+                         .Include(q => q.TakeQuizs)
+                            .ThenInclude(tq => tq.User)
+                         .FirstOrDefaultAsync(q => q.Id == id);
+            if (quiz == null)
+            {
+                return View("NoQuizFound");
+            }
+            if (quiz.AuthorId == User.FindFirstValue(ClaimTypes.NameIdentifier)) {
+                foreach (TakeQuiz takeQuiz in quiz.TakeQuizs)
+                {
+                    _context.TakeAnswers.RemoveRange(takeQuiz.TakeAnswers);
+
+                }
+                _context.TakeQuizzes.RemoveRange(quiz.TakeQuizs);
+                _context.Quizzes.Remove(quiz);
+            }
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index","Home");
+        }
+
         public IActionResult Index()
         {
             return View();

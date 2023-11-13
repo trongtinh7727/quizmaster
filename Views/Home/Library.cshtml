@@ -1,154 +1,160 @@
 ﻿@model IEnumerable<QuizMaster.Models.Quiz>
-    @{
+@{
     ViewData["Title"] = "Library";
-    }
+}
 
-    @section Styles {
-    <link rel="stylesheet" href="~/css/library.css" />
+@section Styles {
+        <link rel="stylesheet" href="~/css/library.css" />
     }
 
     <div class="container pt-4">
-        @if (!Model.Any())
-        {
-        <div class="library-empty text-center mt-5">
-            <h2 class="text-center mb-3">You haven't created a quiz yet</h2>
-            <a class="myButton myButton2-primary text-decoration-none text-white" asp-area="" asp-controller="Quiz"
-                asp-action="CreateQuiz">
-                Create quiz
-            </a>
-        </div>
-        }
-        else
-        {
-        <div class="library-exists">
-            <h2 class="text-center mb-3">Your quizzes</h2>
+    @if (!Model.Any())
+    {
+            <div class="library-empty text-center mt-5">
+                <h2 class="text-center mb-3">You haven't created a quiz yet</h2>
+                <a class="myButton myButton2-primary text-decoration-none text-white" asp-area="" asp-controller="Quiz"
+                    asp-action="CreateQuiz">
+                    Create quiz
+                </a>
+            </div>
+    }
+    else
+    {
+            <div class="library-exists">
+                <h2 class="text-center mb-3">Your quizzes</h2>
 
-            <div class="row">
+                <div class="row">
                 @foreach (var quiz in Model)
                 {
-                <div class="col-12 col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
-                    <div class="libraryQuizCard" data-bs-toggle="modal" data-bs-target="#detailModal-@quiz.Id">
-                        <h5 class="library-quiz-title">@quiz.Title</h5>
-                        <span class="library-quiz-summary">@quiz.Summary</span>
-                        <span class="library-quiz-questions">@quiz.QuizQuestions.Count questions</span>
-                        <span class="library-quiz-tag">@quiz.Tag</span>
-                        <span class="library-quiz-difficulty">
-                            Difficulty:
-                            <strong class="text-danger">
-                                @(quiz.Level == 1 ? "Easy" : quiz.Level == 2 ? "Medium" : "Hard")
-                            </strong>
-                        </span>
-                    </div>
-                </div>
-                <!-- Modal -->
-                <div class="modal fade" id="detailModal-@quiz.Id" tabindex="-1"
-                    aria-labelledby="detailModalLabel-@quiz.Id" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title fs-5">@quiz.Title</h5>
-                                <button class="btn-close" type="button" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="library-details-code d-flex flex-wrap gap12 mb-3">
-                                    <div class="library-details-code-field">
-                                        <input value="@quiz.EnrollCode"
-                                            class="library-details-code-field-codefield w-100 rounded-4 myBorder border-gray fw-semibold"
-                                            type="text" readonly />
-                                        <span class="tooltip-text">Click to copy</span>
-                                    </div>
-                                    <button class="library-details-code-btn myButton myButton-secondary">Generate
-                                        Code</button>
-                                </div>
-
-                                <p class="library-details-summary">@quiz.Summary</p>
-                                <p class="library-details-questions">@quiz.QuizQuestions.Count questions</p>
-                                <p class="library-quiz-tag">@quiz.Tag</p>
-                                <p class="library-details-difficulty">
+                        <div class="col-12 col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
+                            <div class="libraryQuizCard" data-bs-toggle="modal" data-bs-target="#detailModal-@quiz.Id">
+                                <h5 class="library-quiz-title">@quiz.Title</h5>
+                                <span class="library-quiz-summary">@quiz.Summary</span>
+                                <span class="library-quiz-questions">@quiz.QuizQuestions.Count questions</span>
+                                <span class="library-quiz-tag">@quiz.Tag</span>
+                                <span class="library-quiz-difficulty">
                                     Difficulty:
-                                    <strong class="@GetCssClassForDifficulty(quiz.Level)">
-                                        @ConvertLevelToDifficulty(quiz.Level)
+                                    <strong class="text-danger">
+                                    @(quiz.Level == 1 ? "Easy" : quiz.Level == 2 ? "Medium" : "Hard")
                                     </strong>
-                                </p>
-
-                                @*isPublic của quiz thay đổi giữa 2 cái này*@
-                                @*Start*@
-                                @if (quiz.Published){
-                                <p class="library-details-public">Public: <strong class="text-success ">Yes</strong></p>
-
-                                }
-                                else
-                                {
-                                <p class="library-details-public">Public: <strong class="text-danger ">No</strong></p>
-
-                                }
-                                @*End*@
-
-                                <p class="library-details-play">@quiz.TakeQuizs.Count plays</p>
-
-                                        <p class="library-details-createdDate">Created at: @quiz.CreatedAt.ToString("HH:mm dd/MM/yyyy")</p>
-
-                                <div class="library-details-result d-inline-flex">
-                                    <a class="fw-semibold text-decoration-none text-color2" asp-controller="Home"
-                                        asp-action="QuizResults">
-                                        See results
-                                    </a>
-                                </div>
-                            </div>
-
-
-
-                            <div class="modal-footer justify-content-between">
-
-                                <button class="myButton myButton-danger" type="button">
-                                    Delete
-                                    <i class="fa-regular fa-trash-can ms-1"></i>
-                                </button>
-                                <button class="myButton myButton-primary" type="button" onclick="location.href='@Url.Action("EditQuiz", "Quiz", new { id = quiz.Id })'">
-                                    Edit
-                                    <i class="fa-regular fa-pen-to-square ms-1"></i>
-                                </button>
-
+                                </span>
                             </div>
                         </div>
-                    </div>
-                </div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="detailModal-@quiz.Id" tabindex="-1"
+                            aria-labelledby="detailModalLabel-@quiz.Id" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title fs-5">@quiz.Title</h5>
+                                        <button class="btn-close" type="button" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="library-details-code d-flex flex-wrap gap12 mb-3">
+                                            <div class="library-details-code-field">
+                                                <input value="@quiz.EnrollCode"
+                                                    class="library-details-code-field-codefield w-100 rounded-4 myBorder border-gray fw-semibold"
+                                                    type="text" readonly />
+                                                <span class="tooltip-text">Click to copy</span>
+                                            </div>
+                                            <button class="library-details-code-btn myButton myButton-secondary">Generate
+                                                Code</button>
+                                        </div>
+
+                                        <p class="library-details-summary">@quiz.Summary</p>
+                                        <p class="library-details-questions">@quiz.QuizQuestions.Count questions</p>
+                                        <p class="library-quiz-tag">@quiz.Tag</p>
+                                        <p class="library-details-difficulty">
+                                            Difficulty:
+                                            <strong class="@GetCssClassForDifficulty(quiz.Level)">
+                                            @ConvertLevelToDifficulty(quiz.Level)
+                                            </strong>
+                                        </p>
+
+                                    @*isPublic của quiz thay đổi giữa 2 cái này*@
+                                    @*Start*@
+                                    @if (quiz.Published)
+                                    {
+                                            <p class="library-details-public">Public: <strong class="text-success ">Yes</strong></p>
+
+                                    }
+                                    else
+                                    {
+                                            <p class="library-details-public">Public: <strong class="text-danger ">No</strong></p>
+
+                                    }
+                                    @*End*@
+
+                                        <p class="library-details-play">@quiz.TakeQuizs.Count plays</p>
+
+                                                <p class="library-details-createdDate">Created at: @quiz.CreatedAt.ToString("HH:mm dd/MM/yyyy")</p>
+
+                                        <div class="library-details-result d-inline-flex">
+                                        <a class="fw-semibold text-decoration-none text-color2"
+                                               asp-controller="Quiz"
+                                               asp-action="QuizResults"
+                                               asp-route-id="@quiz.Id">
+                                                See results
+                                            </a>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="modal-footer justify-content-between">
+
+                                    <form asp-controller="Quiz" asp-action="Delete" method="post" class="d-inline">
+                                            <input type="hidden" name="id" value="@quiz.Id" />
+                                            <button type="submit" class="myButton myButton-danger">
+                                                Delete
+                                                <i class="fa-regular fa-trash-can ms-1"></i>
+                                            </button>
+                                        </form>
+                                        <button class="myButton myButton-primary" type="button" onclick="location.href='@Url.Action("EditQuiz", "Quiz", new { id = quiz.Id })'">
+                                            Edit
+                                            <i class="fa-regular fa-pen-to-square ms-1"></i>
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                 }
+                </div>
             </div>
-        </div>
-        }
+    }
     </div>
-    @functions {
+@functions {
     private string ConvertLevelToDifficulty(int level)
     {
-    switch (level)
-    {
-    case 1:
-    return "Easy";
-    case 2:
-    return "Medium";
-    case 3:
-    return "Hard";
-    default:
-    return "Unknown";
-    }
+        switch (level)
+        {
+            case 1:
+                return "Easy";
+            case 2:
+                return "Medium";
+            case 3:
+                return "Hard";
+            default:
+                return "Unknown";
+        }
     }
 
     private string GetCssClassForDifficulty(int level)
     {
-    switch (level)
-    {
-    case 1:
-    return "text-success";
-    case 2:
-    return "text-warning";
-    default:
-    return "text-danger";
-    }
+        switch (level)
+        {
+            case 1:
+                return "text-success";
+            case 2:
+                return "text-warning";
+            default:
+                return "text-danger";
+        }
     }
     }
     ,
     @section Scripts {
-    <script src="~/js/library.js"></script>
+        <script src="~/js/library.js"></script>
     }
