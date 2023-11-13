@@ -13,7 +13,7 @@
         <i class="fa-solid fa-circle-plus fs-5"></i>
     </div>
 
-    <form asp-action="CreateQuiz">
+    <form asp-controller="Quiz" asp-action="CreateQuiz">
         <div class="quiz-name">
             <input asp-for="QuizTitle" class="quiz-name-input w-100 mb-3 fs-5 border-0 bg-transparent text-center" placeholder="Untitled quiz name"/>
         </div>

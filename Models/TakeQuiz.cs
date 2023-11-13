@@ -5,14 +5,9 @@ namespace QuizMaster.Models
     {
         [Key]
         public int Id { get; set; }
-
-
         public int Score { get; set; }
-
         public DateTime CreatedAt { get; set; }
-
         public DateTime UpdatedAt { get; set; }
-
         public DateTime? StartedAt { get; set; }
 
         public DateTime? FinishedAt { get; set; }
