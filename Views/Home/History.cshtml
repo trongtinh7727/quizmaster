@@ -34,8 +34,8 @@
                                         <span class="history-quiz-tag">@takeQuiz.Quiz.Tag</span>
                                         <span class="history-quiz-difficulty">
                                             Difficulty:
-                                            <strong class="text-danger">
-                                        @(takeQuiz.Quiz.Level == 1 ? "Easy" : takeQuiz.Quiz.Level == 2 ? "Medium" : "Hard")
+                                        <strong class="@GetCssClassForDifficulty(takeQuiz.Quiz.Level)">
+                                        @ConvertLevelToDifficulty(takeQuiz.Quiz.Level)
                                             </strong>
                                         </span>
                                     </div>
@@ -47,3 +47,32 @@
             </div>
     }
 </div>
+@functions {
+    private string ConvertLevelToDifficulty(int level)
+    {
+        switch (level)
+        {
+            case 1:
+                return "Easy";
+            case 2:
+                return "Medium";
+            case 3:
+                return "Hard";
+            default:
+                return "Unknown";
+        }
+    }
+
+    private string GetCssClassForDifficulty(int level)
+    {
+        switch (level)
+        {
+            case 1:
+                return "text-success";
+            case 2:
+                return "text-warning";
+            default:
+                return "text-danger";
+        }
+    }
+}

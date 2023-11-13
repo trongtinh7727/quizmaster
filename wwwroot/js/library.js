@@ -20,5 +20,5 @@
     });
 
     // Generate initial code
-    $('.library-details-code-btn').trigger('click');
+/*    $('.library-details-code-btn').trigger('click');*/
 });

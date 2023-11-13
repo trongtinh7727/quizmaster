@@ -9,7 +9,7 @@
 }
 
 <div class="container pt-4">
-    <form asp-action="TakeQuiz">
+    <form asp-controller="Quiz" asp-action="TakeQuiz">
          <input type="hidden" asp-for="QuizID" value="@Model.Quiz.Id" />
          <input type="hidden" asp-for="StartedAt" class="form-control" value="@Model.StartedAt"/>
         <div class="take-quiz-card take-quiz-card-title mb-4 overflow-hidden">

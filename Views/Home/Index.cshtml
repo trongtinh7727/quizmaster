@@ -13,7 +13,7 @@
             <div class="myCard">
                 <h4 class="text-center mb-3">Enter a code to join game</h4>
 
-                <form method="post" asp-action="enrollQuiz" class="search-container d-flex flex-row justify-content-center align-items-center gap36 flex-wrap">
+                <form method="get" asp-controller="Quiz" asp-action="enrollQuiz" class="search-container d-flex flex-row justify-content-center align-items-center gap36 flex-wrap">
                     <div class="search-container-input">
                         <input name="enrollCode" class="myBorder border-gray bg-ghost rounded-4" placeholder="Enter a quiz code" type="tel" aria-label="Enter a quiz code to play game" />
                     </div>
@@ -25,7 +25,7 @@
             <div class="myCard">
                 <h4 class="text-center mb-3">Want a quiz of your own?</h4>
 
-                <a class="myButton myButton2-secondary text-decoration-none d-flex align-items-center justify-content-center gap12" asp-area="" asp-controller="Home" asp-action="CreateQuiz">
+                <a class="myButton myButton2-secondary text-decoration-none d-flex align-items-center justify-content-center gap12" asp-area="" asp-controller="Quiz" asp-action="CreateQuiz">
                     <i class="fa-solid fa-circle-plus fa-2xl text-center"></i>
                     <span class="fs-5">Create now</span>
                 </a>
@@ -83,9 +83,8 @@
                             return "text-success";
                         case 2:
                             return "text-warning";
-                        // Các trường hợp khác nếu bạn muốn mở rộng
                         default:
-                            return "text-danger";  // Giả sử chúng ta sử dụng text-muted cho các trường hợp không xác định
+                            return "text-danger"; 
                     }
                 }
 
