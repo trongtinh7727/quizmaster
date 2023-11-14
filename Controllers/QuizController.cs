@@ -77,7 +77,8 @@ namespace QuizMaster.Controllers
         {
             if (takeQuizViewModel == null || takeQuizViewModel.QuizID == null)
             {
-                return RedirectToAction("Index");
+                return View("NoQuizFound");
+                
             }
             var takeQuiz = new TakeQuiz
             {
@@ -122,7 +123,7 @@ namespace QuizMaster.Controllers
             takeQuiz.FinishedAt = DateTime.Now;
             _context.TakeQuizzes.Update(takeQuiz);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("History", "Home");
         }
 
         [Authorize]
@@ -194,7 +195,7 @@ namespace QuizMaster.Controllers
                 await _context.SaveChangesAsync();
 
 
-                return RedirectToAction(nameof(Index)); // Chuyển hướng sau khi xử lý thành công.
+                return RedirectToAction("Library", "Library"); // Chuyển hướng sau khi xử lý thành công.
             }
 
             // Nếu ModelState không hợp lệ, quay lại view với lỗi.
@@ -437,12 +438,12 @@ namespace QuizMaster.Controllers
                 _context.Quizzes.Remove(quiz);
             }
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Library", "Home");
         }
 
         public IActionResult Index()
         {
-            return View();
+            return NotFound();
         }
     }
 }

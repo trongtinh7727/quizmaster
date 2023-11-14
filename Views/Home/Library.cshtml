@@ -34,9 +34,9 @@
                                 <span class="library-quiz-tag">@quiz.Tag</span>
                                 <span class="library-quiz-difficulty">
                                     Difficulty:
-                                    <strong class="text-danger">
-                                    @(quiz.Level == 1 ? "Easy" : quiz.Level == 2 ? "Medium" : "Hard")
-                                    </strong>
+                                                    <strong class="@GetCssClassForDifficulty(quiz.Level)">
+                                    @ConvertLevelToDifficulty(quiz.Level)
+                                                    </strong>
                                 </span>
                             </div>
                         </div>

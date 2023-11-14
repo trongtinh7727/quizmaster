@@ -48,19 +48,34 @@ namespace QuizMaster.Controllers
             var quizzes = _context.Quizzes
                                   .Where(q => q.AuthorId == userId)
                                   .Include(q => q.QuizQuestions)
-                                  .Include(q=>q.TakeQuizs)
+                                  .Include(q => q.TakeQuizs)
                                   .ToList();
 
             return View(quizzes);
         }
 
-        public async Task<IActionResult> CommunityQuiz()
+        public async Task<IActionResult> CommunityQuiz(int difficultyFilter = 0, string searchQuery = "")
         {
-            var quizMasterContext = _context.Quizzes.Include(q => q.QuizQuestions);
-            return View(await quizMasterContext.ToListAsync());
+
+            var lowerCaseSearchQuery = searchQuery.ToLower();
+            var query = _context.Quizzes.Include(q => q.QuizQuestions).AsQueryable();
+
+            if (difficultyFilter != 0)
+            {
+                query = query.Where(q => q.Level == difficultyFilter);
+            }
+
+            if (!string.IsNullOrWhiteSpace(searchQuery))
+            {
+                query = query.Where(q => q.Title.ToLower().Contains(lowerCaseSearchQuery)
+                                      || q.Summary.ToLower().Contains(lowerCaseSearchQuery)
+                                      || q.Tag.ToLower().Contains(lowerCaseSearchQuery));
+            }
+
+            return View(await query.ToListAsync());
         }
 
-        
+
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
