@@ -1,0 +1,25 @@
+﻿@model IEnumerable<QuizMaster.Models.QuizMasterUser>
+
+@{
+    ViewData["Title"] = "Admin - User Manager";
+    Layout = "_AdminLayout";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Họ và tên</th>
+            // Các cột khác
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Email</td>
+                <td>@user.UserName</td>
+            </tr>
+        }
+    </tbody>
+</table>
