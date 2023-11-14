@@ -35,7 +35,7 @@
         {
             if (quiz.Published)
             {
-                <div class="col-12 col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4" data-difficulty="@quiz.Level">
+                <div class="col-12 col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4" data-difficulty="@quiz.Level" data-bs-toggle="modal" data-bs-target="#detailModal-@quiz.Id">
                     <div class="communityQuizCard">
                         <h5 class="community-quiz-title">@quiz.Title</h5>
 
@@ -51,6 +51,86 @@
                         </span>
                     </div>
                 </div>
+                <!-- Modal -->
+                <div class="modal fade" id="detailModal-@quiz.Id" tabindex="-1"
+                     aria-labelledby="detailModalLabel-@quiz.Id" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title fs-5">@quiz.Title</h5>
+                                <button class="btn-close" type="button" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="browse-quiz-details-summary">@quiz.Summary</p>
+                                <p class="browse-quiz-details-questions">@quiz.QuizQuestions.Count questions</p>
+                                <p class="browse-quiz-quiz-tag">@quiz.Tag</p>
+                                <p class="browse-quiz-details-difficulty">
+                                    Difficulty:
+                                    <strong class="@GetCssClassForDifficulty(quiz.Level)">
+                                        @ConvertLevelToDifficulty(quiz.Level)
+                                    </strong>
+                                </p>
+
+                                <p class="browse-quiz-details-play">@quiz.TakeQuizs.Count plays</p>
+
+                                <p class="browse-quiz-details-createdDate">Created at: @quiz.CreatedAt.ToString("HH:mm dd/MM/yyyy")</p>
+
+                                <div class="browse-quiz-details-ranking fw-semibold text-color2" data-bs-toggle="modal" data-bs-target="#rankingModal-@quiz.Id">
+                                    See ranking
+                                </div>
+                            </div>
+
+
+
+                            <div class="modal-footer justify-content-end">
+                                <button class="myButton myButton-primary" type="button">
+                                    Start quiz
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Ranking Modal -->
+                    <div class="modal fade" id="rankingModal-@quiz.Id" tabindex="-1"
+                         aria-labelledby="rankingModalLabel-@quiz.Id" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content border-0">
+                               @* <div class="modal-header">
+                                    <button class="btn-close" type="button" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>*@
+                                <span class="p-4 fw-semibold fs-4 text-center">LEADERBOARD</span>
+
+                                <div class="ranking-item ranking-item-first fs-4 fw-semibold bg-color2 d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <span class="ranking-item-rank mx-3">1</span>
+                                        Lê Trần Phú
+                                    </div>
+                                    <i class="fa-solid fa-trophy fa-xl text-warning"></i>
+                                </div>
+
+                                <div class="ranking-item fw-semibold d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <span class="ranking-item-rank mx-3 fs-4">2</span>
+                                        Võ Trọng Tình
+                                    </div>
+                                    <i class="fa-solid fa-medal fa-2xl" style="color: #C0C0C0"></i>
+                                </div>
+                                
+                                <div class="ranking-item fw-semibold d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <span class="ranking-item-rank mx-3 fs-4">3</span>
+                                        Phạm Đức Minh Hiếu
+                                    </div>
+                                    <i class="fa-solid fa-medal fa-2xl" style="color: #CD7F32"></i>
+                                </div>
+                                @*<div class="modal-footer">
+                                    
+                                </div>*@
+                            </div>
+                        </div>
+                    </div>
             }
         }
 

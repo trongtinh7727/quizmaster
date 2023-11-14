@@ -78,6 +78,12 @@ body {
         transform: translateY(-2px);
     }
 
+.myButton-gray {
+    color: #fff;
+    background-color: #6c757d;
+    border: solid #6c757d 2px;
+}
+
 .myButton-primary {
     color: #FFFFFF;
     background-color: var(--color2) !important;
