@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "Admin - Quiz Statistics";
+    Layout = "_AdminLayout";
+}
+
+<h2 class="my-4">@ViewData["Title"]</h2>
+
+<div class="row">
+    <div class="col-lg-9">
+        <h5 class="mt-2 text-center">Quiz created this week</h5>
+        <canvas id="quizLineChart"></canvas>
+    </div>
+    <div class="col-lg-3 m-auto">
+        <h5 class="mt-2 text-center">Quiz difficulty</h5>
+        <canvas id="quizPieChart"></canvas>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/quizstatistics.js"></script>
+}

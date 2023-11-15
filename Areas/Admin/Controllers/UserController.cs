@@ -21,5 +21,10 @@ namespace QuizMaster.Areas.Admin.Controllers
             return View(users);
         }
 
+        public async Task<IActionResult> Statistics()
+        {
+            return View();
+        }
+
     }
 }

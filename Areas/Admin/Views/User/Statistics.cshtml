@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Admin - User Statistics";
+    Layout = "_AdminLayout";
+}
+
+<h2 class="my-4">@ViewData["Title"]</h2>
+
+<div class="user-statistic">
+    <p>
+        Accounts created in the last 7 days:
+        <strong class="user-statistic-new">10</strong>
+    </p>
+    <p>
+        Total user:
+        <strong class="user-statistic-total">200</strong>
+    </p>
+    <p>
+        Online:
+        <strong class="user-statistic-online text-success">50</strong>
+    </p>
+    <p>
+        Offline:
+        <strong class="user-statistic-online text-gray-dark">150</strong>
+    </p>
+</div>
+
+<hr />
+
+<canvas id="userLineChart"></canvas>
+
+@section Scripts {
+    <script src="~/js/userstatistics.js"></script>
+}
