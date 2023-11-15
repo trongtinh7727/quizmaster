@@ -5,12 +5,36 @@
     Layout = "_AdminLayout";
 }
 
-<table class="table">
+<h2 class="my-4">@ViewData["Title"]</h2>
+
+<div class="user-statistic">
+    <p>Accounts created in the last 7 days: 
+        <strong class="user-statistic-new">10</strong>
+    </p>
+    <p>
+        Total user:
+        <strong class="user-statistic-total">200</strong>
+    </p>
+    <p>
+        Online:
+        <strong class="user-statistic-online text-success">50</strong>
+    </p>
+    <p>
+        Offline:
+        <strong class="user-statistic-online text-gray-dark">150</strong>
+    </p>
+</div>
+
+<hr />
+
+<table id="user-table" class="display">
     <thead>
         <tr>
             <th>Email</th>
-            <th>Họ và tên</th>
-            // Các cột khác
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Status</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
@@ -18,7 +42,10 @@
         {
             <tr>
                 <td>@user.Email</td>
-                <td>@user.UserName</td>
+                <td>@user.FirstName</td>
+                <td>@user.LastName</td>
+                <td class="fw-semibold text-success">Online</td>
+                <td><button class="myButton myButton-danger">Delete</button></td>
             </tr>
         }
     </tbody>

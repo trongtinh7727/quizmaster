@@ -74,6 +74,7 @@ body {
 }
 
     .myButton:hover {
+        cursor: pointer;
         box-shadow: rgba(149, 157, 165, 0.5) 0px 8px 16px;
         transform: translateY(-2px);
     }
@@ -393,4 +394,14 @@ body {
         height: 20px;
     }
 }
- 
+
+/*Admin btn Logout*/
+.admin-btn-logout {
+    transition: all 0.3s ease;
+    padding: 1rem;
+}
+
+    .admin-btn-logout:hover {
+        transform: translateY(-2px);
+        box-shadow: none !important;
+    }

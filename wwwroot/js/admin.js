@@ -2,6 +2,9 @@
     $('#quizzes-table').DataTable({
         responsive: true
     });
+    $('#user-table').DataTable({
+        responsive: true
+    });
 
     // Nav link
     $('.nav-link').on('click', function () {
