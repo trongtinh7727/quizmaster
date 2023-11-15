@@ -167,5 +167,10 @@ namespace QuizMaster.Areas.Admin.Controllers
         {
           return (_context.Quizzes?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+        public async Task<IActionResult> Statistics()
+        {
+            return View();
+        }
     }
 }
