@@ -11,7 +11,7 @@ namespace QuizMaster
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
             var connectionString = builder.Configuration.GetConnectionString("QuizMasterContextConnection") ?? throw new InvalidOperationException("Connection string 'QuizMasterContextConnection' not found.");
@@ -23,12 +23,13 @@ namespace QuizMaster
 
 
             builder.Services.AddDefaultIdentity<QuizMasterUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<QuizMasterContext>();
             builder.Services.AddOptions();
             //Mail
             builder.Services.Configure<MailSettings>(mailsettings);              
 
-            builder.Services.AddTransient<IEmailSender, SendMailService>();      
+            builder.Services.AddTransient<IEmailSender, SendMailService>();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
@@ -61,6 +62,32 @@ namespace QuizMaster
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.MapRazorPages();
+
+            //add rolemanager
+            using (var scope = app.Services.CreateScope())
+            {
+                var roleManager =
+                    scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+                var roles = new[] { "Admin", "Manager", "Member" };
+                foreach (var role in roles)
+                {
+                    if (!await roleManager.RoleExistsAsync(role))
+                    {
+                        await roleManager.CreateAsync(new IdentityRole(role));
+                    }
+                }
+
+                var userManager =
+                    scope.ServiceProvider.GetRequiredService<UserManager<QuizMasterUser>>();
+
+                string email = "trongtinh7727@gmail.com";
+                var admin = await userManager.FindByEmailAsync(email);
+
+                if (admin != null)
+                {
+                    await userManager.AddToRoleAsync(admin, "Admin");
+                }
+            }
             app.Run();
         }
     }

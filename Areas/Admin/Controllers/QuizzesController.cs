@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using QuizMaster.Areas.Admin.Viewmodel;
 using QuizMaster.Data;
 using QuizMaster.Models;
 
 namespace QuizMaster.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
+    
     public class QuizzesController : Controller
     {
         private readonly QuizMasterContext _context;
@@ -29,148 +32,39 @@ namespace QuizMaster.Areas.Admin.Controllers
             return View(await quizMasterContext.ToListAsync());
         }
 
-        // GET: Admin/Quizzes/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.Quizzes == null)
-            {
-                return NotFound();
-            }
-
-            var quiz = await _context.Quizzes
-                .Include(q => q.Author)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (quiz == null)
-            {
-                return NotFound();
-            }
-
-            return View(quiz);
-        }
-
-        // GET: Admin/Quizzes/Create
-        public IActionResult Create()
-        {
-            ViewData["AuthorId"] = new SelectList(_context.Users, "Id", "Id");
-            return View();
-        }
-
-        // POST: Admin/Quizzes/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Summary,Tag,Level,Score,Published,CreatedAt,UpdatedAt,PublishedAt,AuthorId")] Quiz quiz)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(quiz);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["AuthorId"] = new SelectList(_context.Users, "Id", "Id", quiz.AuthorId);
-            return View(quiz);
-        }
-
-        // GET: Admin/Quizzes/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null || _context.Quizzes == null)
-            {
-                return NotFound();
-            }
-
-            var quiz = await _context.Quizzes.FindAsync(id);
-            if (quiz == null)
-            {
-                return NotFound();
-            }
-            ViewData["AuthorId"] = new SelectList(_context.Users, "Id", "Id", quiz.AuthorId);
-            return View(quiz);
-        }
-
-        // POST: Admin/Quizzes/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Summary,Tag,Level,Score,Published,CreatedAt,UpdatedAt,PublishedAt,AuthorId")] Quiz quiz)
-        {
-            if (id != quiz.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(quiz);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!QuizExists(quiz.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["AuthorId"] = new SelectList(_context.Users, "Id", "Id", quiz.AuthorId);
-            return View(quiz);
-        }
-
-        // GET: Admin/Quizzes/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null || _context.Quizzes == null)
-            {
-                return NotFound();
-            }
-
-            var quiz = await _context.Quizzes
-                .Include(q => q.Author)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (quiz == null)
-            {
-                return NotFound();
-            }
-
-            return View(quiz);
-        }
-
-        // POST: Admin/Quizzes/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (_context.Quizzes == null)
-            {
-                return Problem("Entity set 'QuizMasterContext.Quizzes'  is null.");
-            }
-            var quiz = await _context.Quizzes.FindAsync(id);
-            if (quiz != null)
-            {
-                _context.Quizzes.Remove(quiz);
-            }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool QuizExists(int id)
-        {
-          return (_context.Quizzes?.Any(e => e.Id == id)).GetValueOrDefault();
-        }
-
+      
         public async Task<IActionResult> Statistics()
         {
-            return View();
+
+            var quizCountsByLevel = new List<int>();
+            for (int i = 1; i < 4; i++)
+            {
+                var counter = _context.Quizzes
+                    .Where(u => u.Level == i)
+                    .Count();
+                quizCountsByLevel.Add(counter);
+            }
+
+            var currentDate = DateTime.Now;
+            var currentWeekStart = currentDate.Date.AddDays(-(int)currentDate.DayOfWeek + (int)DayOfWeek.Monday); 
+            var currentWeekEnd = currentWeekStart.AddDays(6);
+
+            var quizCountsByDay = new List<int>();
+            for (var date = currentWeekStart; date <= currentWeekEnd; date = date.AddDays(1))
+            {
+                var accountsOnDay = _context.Quizzes
+                    .Where(u => u.CreatedAt.Date == date.Date)
+                    .Count();
+                quizCountsByDay.Add(accountsOnDay);
+            }
+
+            var data = new QuizStaticsViewModel
+            {
+                QuizCountsByLevel = quizCountsByLevel,
+                QuizCountsByDay = quizCountsByDay
+            };
+
+            return View(data);
         }
     }
 }

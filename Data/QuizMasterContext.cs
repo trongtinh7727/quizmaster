@@ -21,6 +21,11 @@ public class QuizMasterContext : IdentityDbContext<QuizMasterUser>
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        // tạo ngày mặc định
+        modelBuilder.Entity<QuizMasterUser>()
+            .Property(u => u.CreatedAt)
+            .HasDefaultValueSql("GETDATE()");
+
         // moi quiz co 1 author, 1 author co the tao nhieu quiz
         modelBuilder.Entity<Quiz>()
             .HasOne(q=>q.Author)

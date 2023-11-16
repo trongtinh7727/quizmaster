@@ -26,9 +26,16 @@ namespace QuizMaster.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var quizMasterContext = _context.Quizzes.Include(q => q.QuizQuestions);
-            return View(await quizMasterContext.ToListAsync());
+            var quizzes = await _context.Quizzes
+                                        .Include(q => q.QuizQuestions)
+                                        .Include(q => q.TakeQuizs) 
+                                        .ThenInclude(tq => tq.User)
+                                        .OrderByDescending(q => q.CreatedAt) 
+                                        .ToListAsync();
+
+            return View(quizzes);
         }
+
 
         public IActionResult History()
         {
@@ -57,7 +64,6 @@ namespace QuizMaster.Controllers
         public async Task<IActionResult> CommunityQuiz(int difficultyFilter = 0, string searchQuery = "")
         {
 
-            var lowerCaseSearchQuery = searchQuery.ToLower();
             var query = _context.Quizzes.Include(q => q.QuizQuestions).AsQueryable();
 
             if (difficultyFilter != 0)
@@ -67,6 +73,8 @@ namespace QuizMaster.Controllers
 
             if (!string.IsNullOrWhiteSpace(searchQuery))
             {
+                var lowerCaseSearchQuery = searchQuery.ToLower();
+
                 query = query.Where(q => q.Title.ToLower().Contains(lowerCaseSearchQuery)
                                       || q.Summary.ToLower().Contains(lowerCaseSearchQuery)
                                       || q.Tag.ToLower().Contains(lowerCaseSearchQuery));

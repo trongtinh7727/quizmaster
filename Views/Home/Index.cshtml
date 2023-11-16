@@ -90,9 +90,12 @@
                                 </div>
 
                                 <div class="modal-footer justify-content-end">
-                                    <button class="myButton myButton-primary" type="button">
+                                        <form asp-controller="Quiz" asp-action="enrollQuiz" method="post">
+                                    <input type="hidden" name="enrollCode" value="@quiz.EnrollCode" />
+                                    <button class="myButton myButton-primary" type="submit">
                                         Start quiz
                                     </button>
+                                </form>
                                 </div>
                             </div>
                         </div>
@@ -107,33 +110,42 @@
                                             aria-label="Close"></button>
                                 </div>*@
                                 <span class="p-4 fw-semibold fs-4 text-center">LEADERBOARD</span>
+                                @{
+                                    var leaderBoard = quiz.TakeQuizs.OrderByDescending(tq => tq.Score).Take(3).ToList();
 
-                                <div class="ranking-item ranking-item-first fs-4 fw-semibold bg-color2 d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <span class="ranking-item-rank mx-3">1</span>
-                                        Lê Trần Phú
-                                    </div>
-                                    <i class="fa-solid fa-trophy fa-xl text-warning"></i>
-                                </div>
+                                    if (leaderBoard.Count > 0)
+                                    {
+                                        <div class="ranking-item ranking-item-first fs-4 fw-semibold bg-color2 d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <span class="ranking-item-rank mx-3">1</span>
+                                                                @leaderBoard[0].User.FirstName @leaderBoard[0].User.LastName 
+                                            </div>
+                                            <i class="fa-solid fa-trophy fa-xl text-warning"></i>
+                                        </div>
+                                    }
 
-                                <div class="ranking-item fw-semibold d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <span class="ranking-item-rank mx-3 fs-4">2</span>
-                                        Võ Trọng Tình
-                                    </div>
-                                    <i class="fa-solid fa-medal fa-2xl" style="color: #C0C0C0"></i>
-                                </div>
-                                
-                                <div class="ranking-item fw-semibold d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <span class="ranking-item-rank mx-3 fs-4">3</span>
-                                        Phạm Đức Minh Hiếu
-                                    </div>
-                                    <i class="fa-solid fa-medal fa-2xl" style="color: #CD7F32"></i>
-                                </div>
-                                @*<div class="modal-footer">
-                                    
-                                </div>*@
+                                    if (leaderBoard.Count > 1)
+                                    {
+                                        <div class="ranking-item fw-semibold d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <span class="ranking-item-rank mx-3 fs-4">2</span>
+                                                                @leaderBoard[1].User.FirstName @leaderBoard[1].User.LastName 
+                                            </div>
+                                            <i class="fa-solid fa-medal fa-2xl" style="color: #C0C0C0"></i>
+                                        </div>
+                                    }
+
+                                    if (leaderBoard.Count > 2)
+                                    {
+                                        <div class="ranking-item fw-semibold d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <span class="ranking-item-rank mx-3 fs-4">3</span>
+                                                                @leaderBoard[2].User.FirstName @leaderBoard[2].User.LastName 
+                                            </div>
+                                            <i class="fa-solid fa-medal fa-2xl" style="color: #CD7F32"></i>
+                                        </div>
+                                    }
+                                }
                             </div>
                         </div>
                     </div>

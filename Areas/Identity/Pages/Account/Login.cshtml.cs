@@ -21,10 +21,12 @@ namespace QuizMaster.Areas.Identity.Pages.Account
     public class LoginModel : PageModel
     {
         private readonly SignInManager<QuizMasterUser> _signInManager;
+        private readonly UserManager<QuizMasterUser> _userManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<QuizMasterUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(UserManager<QuizMasterUser> userManager, SignInManager<QuizMasterUser> signInManager, ILogger<LoginModel> logger)
         {
+            _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
         }
@@ -115,6 +117,12 @@ namespace QuizMaster.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
+                    var user = await _userManager.FindByEmailAsync(Input.Email);
+                    if (user != null && await _userManager.IsInRoleAsync(user, "Admin"))
+                    {
+                        // Nếu là Admin, chuyển hướng đến Area "Admin"
+                        return RedirectToAction("Index", "Quizzes", new { Area = "Admin" });
+                    }
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
                 }
