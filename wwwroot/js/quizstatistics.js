@@ -1,5 +1,4 @@
-﻿// QuizStatistics
-// Quiz line chart
+﻿
 var qlc = $('#quizLineChart')[0].getContext('2d');
 // Define chart data
 var quizLineChartData = {

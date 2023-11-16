@@ -12,7 +12,8 @@ using QuizMaster.Models;
 namespace QuizMaster.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
+    
     public class QuizzesController : Controller
     {
         private readonly QuizMasterContext _context;

@@ -24,8 +24,32 @@
                 <td>@user.Email</td>
                 <td>@user.FirstName</td>
                 <td>@user.LastName</td>
-                <td class="fw-semibold text-success">Online</td>
-                <td><button class="myButton myButton-danger">Delete</button></td>
+                <td class="fw-semibold">
+                @if (user.LockoutEnd.HasValue && user.LockoutEnd.Value > DateTime.Now)
+                {
+                                    <span class="text-danger">Locked to: @user.LockoutEnd.Value</span>
+                }
+                else
+                {
+                                    <span class="text-success">Active</span>
+                }
+                </td>
+                <td>
+                    @if (user.LockoutEnd.HasValue && user.LockoutEnd.Value > DateTime.Now)
+                    {
+                        <form asp-action="Unlock" method="post">
+                            <input type="hidden" name="userId" value="@user.Id" />
+                            <button type="submit" class="btn btn-success">Mở khóa</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form asp-action="Lock" method="post">
+                            <input type="hidden" name="userId" value="@user.Id" />
+                            <button type="submit" class="btn btn-danger">Khóa</button>
+                        </form>
+                    }
+                </td>
             </tr>
         }
     </tbody>

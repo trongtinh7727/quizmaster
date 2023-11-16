@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Identity;
 
 namespace QuizMaster.Models;
 
-// Add profile data for application users by adding properties to the QuizMasterUser class
 public class QuizMasterUser : IdentityUser
 {
     [PersonalData]
@@ -17,6 +16,8 @@ public class QuizMasterUser : IdentityUser
     [PersonalData]
     [Column(TypeName = "nvarchar(100)")]
     public string LastName { get; set; }
+
+    public DateTime CreatedAt { get; set; }
 
     public ICollection<Quiz> Quizzes { get; set; }
 
