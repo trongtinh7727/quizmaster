@@ -136,4 +136,59 @@
         // Send the formData to the server via an AJAX request or use it as needed
         console.log(formData);
     });
+
+    // Import excel
+    const importDropArea = $(".drop_box");
+    const importButton = importDropArea.find("button");
+    const importDragText = importDropArea.find("header");
+    const importInput = importDropArea.find("input");
+
+    importButton.on("click", () => {
+        importInput.click();
+    });
+
+    importInput.on("change", function (e) {
+        const fileName = e.target.files[0].name;
+        const fileExtension = fileName.split('.').pop().toLowerCase();
+
+        const removeFile = () => {
+            importInput.val('');
+            importDropArea.html(`
+            <button>Upload Excel File</button>
+            <header>Drag and Drop an Excel File or Click to Select</header>
+            <input type="file" style="display: none;" accept=".xls, .xlsx">
+        `);
+        };
+
+        if (fileExtension === 'xls' || fileExtension === 'xlsx') {
+            const filedata = `
+            <form action="" method="post">
+                <div class="form">
+                    <h4>${fileName}</h4>
+                    <button class="btn upload-btn">Upload</button>
+                    <button class="btn remove-btn">Remove</button>
+                </div>
+            </form>`;
+            importDropArea.html(filedata);
+
+            // Add a click event handler for the "Upload" button
+            const uploadButton = importDropArea.find(".upload-btn");
+            uploadButton.on("click", function () {
+                // Perform the upload action here
+                // You can add your file upload logic
+                alert("File uploaded successfully.");
+            });
+
+            // Add a click event handler for the "Remove" button
+            const removeButton = importDropArea.find(".remove-btn");
+            removeButton.on("click", function () {
+                removeFile();
+            });
+        } else {
+            alert("Please select a valid Excel file.");
+            removeFile();
+        }
+    });
+
+
 });

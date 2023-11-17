@@ -30,8 +30,14 @@
                         <a class="nav-link" asp-controller="Quizzes" asp-action="Index">
                             Quiz Manager
                         </a>
+                        <a class="nav-link" asp-controller="Quizzes" asp-action="Statistics">
+                            Quiz Statistics
+                        </a>
                         <a class="nav-link" asp-controller="User" asp-action="Index">
                             User Manager
+                        </a>
+                        <a class="nav-link" asp-controller="User" asp-action="Statistics">
+                            User Statistics
                         </a>
                     </div>
                     <div class="admin-btn-logout mb-5 myButton myButton-danger align-self-center">
@@ -60,6 +66,7 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/admin.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

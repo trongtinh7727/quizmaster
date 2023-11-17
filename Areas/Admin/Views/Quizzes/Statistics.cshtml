@@ -1,0 +1,74 @@
+﻿@model QuizMaster.Areas.Admin.Viewmodel.QuizStaticsViewModel
+@{
+    ViewData["Title"] = "Admin - Quiz Statistics";
+    Layout = "_AdminLayout";
+}
+
+<h2 class="my-4">@ViewData["Title"]</h2>
+
+<div class="row">
+    <div class="col-lg-9">
+        <h5 class="mt-2 text-center">Quiz created this week</h5>
+        <canvas id="quizLineChart"></canvas>
+    </div>
+    <div class="col-lg-3 m-auto">
+        <h5 class="mt-2 text-center">Quiz difficulty</h5>
+        <canvas id="quizPieChart"></canvas>
+    </div>
+</div>
+
+@section Scripts {
+        <script>
+
+        var qlc = $('#quizLineChart')[0].getContext('2d');
+        // Define chart data
+        var quizLineChartData = {
+            labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+            datasets: [{
+                label: 'Number of Quizzes',
+               data:  [ @foreach (var i in Model.QuizCountsByDay)
+        {
+            @(i + ", ")
+        }],
+                borderColor: '#1DD3B0',
+                borderWidth: 2,
+                fill: true
+            }]
+        };
+        // Create the line chart using Chart.js
+        var quizLineChart = new Chart(qlc, {
+            type: 'line',
+            data: quizLineChartData,
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Quiz pie chart
+        // Get the canvas context
+        var qpc = $('#quizPieChart')[0].getContext('2d');
+
+        // Define chart data
+        var quizPieChartData = {
+            labels: ['Easy', 'Medium', 'Hard'],
+            datasets: [{
+                    data: [ @foreach (var i in Model.QuizCountsByLevel)
+        {
+            @(i + ", ")
+        }],
+                backgroundColor: ['green', 'yellow', 'red']
+            }]
+        };
+
+        // Create the pie chart using Chart.js
+        var quizPieChart = new Chart(qpc, {
+            type: 'pie',
+            data: quizPieChartData
+        });
+        </script>
+}

@@ -1,0 +1,64 @@
+﻿@model QuizMaster.Areas.Admin.Viewmodel.UserStaticsViewModel
+@{
+    ViewData["Title"] = "Admin - User Statistics";
+    Layout = "_AdminLayout";
+}
+
+<h2 class="my-4">@ViewData["Title"]</h2>
+
+<div class="user-statistic">
+    <p>
+        Accounts created in the last 7 days:
+        <strong class="user-statistic-new text-success" >@Model.NewAccountsIn7Days</strong>
+    </p>
+    <p>
+        Total user:
+        <strong class="user-statistic-total text-primary" >@((Model.ActiveAccounts + Model.LockedAccounts))</strong>
+    </p>
+    <p>
+        Active:
+        <strong class="user-statistic-online  text-success">@Model.ActiveAccounts</strong>
+    </p>
+    <p>
+        Locked:
+        <strong class="user-statistic-online text-warning">@Model.LockedAccounts</strong>
+    </p>
+</div>
+
+<hr />
+
+<canvas id="userLineChart"></canvas>
+
+@section Scripts {
+    <script>
+            var ulc = $('#userLineChart')[0].getContext('2d');
+    // Define chart data for the User Line Chart with 12 monthsdaaaDD
+    var userLineChartData = {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'], // Updated labels
+        datasets: [{
+            label: 'Number of Users',
+                data: [ @foreach (var i in Model.AccountCountsByMonth)
+        {
+            @(i + ", ")
+        }],
+        borderColor: '#1DD3B0',
+            borderWidth: 2,
+            fill: true
+        }]
+    };
+    // Create the line chart for users using Chart.js
+    var userLineChart = new Chart(ulc, {
+        type: 'line',
+        data: userLineChartData,
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    </script>
+}
