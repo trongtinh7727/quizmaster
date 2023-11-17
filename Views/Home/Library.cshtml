@@ -104,13 +104,17 @@
 
                                 <div class="modal-footer justify-content-between">
 
-                                <form asp-controller="Quiz" asp-action="Delete" method="post" class="d-inline">
+                                @*<form asp-controller="Quiz" asp-action="Delete" method="post" class="d-inline">
                                         <input type="hidden" name="id" value="@quiz.Id" />
                                         <button type="submit" class="myButton myButton-danger">
                                             Delete
                                             <i class="fa-regular fa-trash-can ms-1"></i>
                                         </button>
-                                    </form>
+                                </form>*@
+                                    <button class="myButton myButton-danger" type="button" data-bs-toggle="modal" data-bs-target="#deleteWarningModal-@quiz.Id">
+                                        Delete
+                                    </button>
+
                                     <button class="myButton myButton-primary" type="button" data-bs-toggle="modal" data-bs-target="#editWarningModal-@quiz.Id">
                                         Edit
                                         <i class="fa-regular fa-pen-to-square ms-1"></i>
@@ -148,6 +152,41 @@
                                         Edit
                                         <i class="fa-regular fa-pen-to-square ms-1"></i>
                                     </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Delete Warning Modal -->
+                    <div class="modal fade" id="deleteWarningModal-@quiz.Id" tabindex="-1"
+                         aria-labelledby="deleteWarningModal-@quiz.Id" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5>
+                                        <strong class="text-danger">
+                                            <i class="fa-solid fa-triangle-exclamation"></i>
+                                            Deleting quiz
+                                        </strong>
+                                    </h5>
+                                    <button class="btn-close" type="button" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p class="fs-5 fw-bold">Delete this quiz?</p>
+                                    <p>If you delete this quiz, all history about this quiz will be removed</p>
+                                    <p>Do you wish to proceed further?</p>
+                                </div>
+
+                                <div class="modal-footer justify-content-between">
+                                    <button type="button" class="myButton myButton-gray" data-bs-dismiss="modal">Cancel</button>
+                                    <form asp-controller="Quiz" asp-action="Delete" method="post" class="d-inline">
+                                        <input type="hidden" name="id" value="@quiz.Id" />
+                                        <button type="submit" class="myButton myButton-danger">
+                                            Delete
+                                            <i class="fa-regular fa-trash-can ms-1"></i>
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
