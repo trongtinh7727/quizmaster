@@ -195,7 +195,7 @@ namespace QuizMaster.Controllers
                 await _context.SaveChangesAsync();
 
 
-                return RedirectToAction("Library", "Library"); // Chuyển hướng sau khi xử lý thành công.
+                return RedirectToAction("Index", "Home"); // Chuyển hướng sau khi xử lý thành công.
             }
 
             // Nếu ModelState không hợp lệ, quay lại view với lỗi.

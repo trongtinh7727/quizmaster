@@ -56,3 +56,14 @@
 .ranking-item-first {
     color: white !important;
 }
+
+/*Pagination*/
+.pagination .active .page-link {
+    background-color: var(--color3);
+    color: white;
+    border-color: var(--color3);
+}
+
+.pagination .page-link {
+    color: var(--color3);
+}
