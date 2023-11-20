@@ -174,8 +174,18 @@
             // Add a click event handler for the "Upload" button
             const uploadButton = importDropArea.find(".upload-btn");
             uploadButton.on("click", function () {
-                // Perform the upload action here
-                // You can add your file upload logic
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const data = e.target.result;
+                    const workbook = XLSX.read(data, { type: 'binary' }); // XLSX is provided by SheetJS
+                    // Assuming you have a specific sheet name you want to read (e.g., 'Sheet1')
+                    const sheetName = workbook.SheetNames[0];
+                    const worksheet = workbook.Sheets[sheetName];
+                    // Now you can access the data in the worksheet
+                    const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+                    console.log(jsonData);
+                };
+                reader.readAsBinaryString(file);
                 alert("File uploaded successfully.");
             });
 

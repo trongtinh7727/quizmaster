@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
+
 namespace QuizMaster.Models
 {
     public class QuizQuestion
@@ -19,6 +21,7 @@ namespace QuizMaster.Models
         // Navigation property to represent the parent quiz
         // Foreign key to identify the parent test/quiz
         public int QuizId { get; set; }
+        [JsonIgnore]
         public Quiz? Quiz { get; set; }
 
         public ICollection<QuizAnswer> Answers { get; set; } = new List<QuizAnswer>();
