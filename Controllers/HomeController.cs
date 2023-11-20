@@ -61,9 +61,9 @@ namespace QuizMaster.Controllers
             return View(quizzes);
         }
 
-        public async Task<IActionResult> CommunityQuiz(int difficultyFilter = 0, string searchQuery = "")
+        public async Task<IActionResult> CommunityQuiz(int difficultyFilter = 0, string searchQuery = "", int pageIndex = 1, int pageSize = 16)
         {
-
+            // Search and filter
             var query = _context.Quizzes.Include(q => q.QuizQuestions).AsQueryable();
 
             if (difficultyFilter != 0)
@@ -80,7 +80,15 @@ namespace QuizMaster.Controllers
                                       || q.Tag.ToLower().Contains(lowerCaseSearchQuery));
             }
 
-            return View(await query.ToListAsync());
+            // Pager
+            var totalRecords = await query.CountAsync();
+            var results = await query.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToListAsync();
+
+            ViewBag.TotalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
+            ViewBag.CurrentPage = pageIndex;
+            ViewBag.PageSize = pageSize;
+
+            return View(results);
         }
 
 
