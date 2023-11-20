@@ -27,8 +27,7 @@ namespace QuizMaster
             .AddEntityFrameworkStores<QuizMasterContext>();
             builder.Services.AddOptions();
             //Mail
-            builder.Services.Configure<MailSettings>(mailsettings);              
-
+            builder.Services.Configure<MailSettings>(mailsettings);
             builder.Services.AddTransient<IEmailSender, SendMailService>();
 
             // Add services to the container.
