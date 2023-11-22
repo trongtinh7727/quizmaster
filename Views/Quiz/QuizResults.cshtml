@@ -5,7 +5,7 @@
 }
 
 @section Styles {
-            <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" />
 }
 
 <div class="container pt-4">
@@ -17,6 +17,8 @@
         <thead>
             <tr>
                 <th>Player name</th>
+                <th>StartedAt</th>
+                <th>FinishedAt</th>
                 <th>Score</th>
                 <th>Time</th>
                 <th>Date</th>
@@ -25,20 +27,39 @@
         <tbody>
             @foreach (var takeQuiz in Model.TakeQuizs)
             {
-                        <tr class="resuls-container-item">
-                                <td class="resuls-container-item-player">@takeQuiz.User.FirstName @takeQuiz.User.LastName</td>
-                            <td class="resuls-container-item-score">@takeQuiz.Score</td>
-                            <td class="resuls-container-item-time">
+                <tr class="resuls-container-item">
+                    <td class="resuls-container-item-player">@takeQuiz.User.FirstName @takeQuiz.User.LastName</td>
+                    <td class="resuls-container-item-score">
+                        @if (takeQuiz.StartedAt.HasValue)
+                        {
+                            var start = takeQuiz.StartedAt.Value;
+                            @start.ToString("dd/MM/yyyy hh:mm:ss")
+                            ;
+                        }
+                    </td>
+                    <td class="resuls-container-item-score">
+                        @if (takeQuiz.FinishedAt.HasValue)
+                        {
+                            var start = takeQuiz.FinishedAt.Value;
+                            @start.ToString("dd/MM/yyyy hh:mm:ss")
+                            ;
+                        }
+                    </td>
+                    <td class="resuls-container-item-score">@takeQuiz.Score</td>
+                    <td class="resuls-container-item-time">
                         @if (takeQuiz.StartedAt.HasValue && takeQuiz.FinishedAt.HasValue)
                         {
+                            var start = takeQuiz.StartedAt.Value;
+                            var end = takeQuiz.FinishedAt.Value;
                             var timeDifference = takeQuiz.FinishedAt.Value.Subtract(takeQuiz.StartedAt.Value);
-                            var formattedTimeDifference = $"{(int)timeDifference.TotalHours:D2}:{timeDifference.Minutes:D2}";
+                            var formattedTimeDifference = $"{(int)timeDifference.TotalMinutes:D2}m{timeDifference.Seconds:D2}s";
                             @formattedTimeDifference
                         }
-                            </td>
-                            <td class="resuls-container-item-date">
-                        @takeQuiz.CreatedAt.ToString("dd/MM/yyyy")</td>
-                        </tr>
+                    </td>
+                    <td class="resuls-container-item-date">
+                        @takeQuiz.CreatedAt.ToString("dd/MM/yyyy")
+                    </td>
+                </tr>
             }
         </tbody>
         <tfoot>
@@ -53,6 +74,6 @@
 </div>
 
 @section Scripts {
-            <script src="~/js/quizresults.js"></script>
-            <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="~/js/quizresults.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
 }

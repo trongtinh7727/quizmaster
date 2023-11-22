@@ -17,38 +17,6 @@
         Import quiz
     </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="importQuizModal" tabindex="-1"
-         aria-labelledby="importQuizModal" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5>Upload File</h5>
-                    <button class="btn-close" type="button" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div>Please follow our template by using the file below</div>
-                    <a href="@Url.Content("~/Files/SampleData.xlsx")" download="SampleData.xlsx" class="text-color2">Download Sample Excel File</a>
-
-                    <div class="drop_box">
-                        <header>
-                            <h4>Select File here</h4>
-                        </header>
-                        <p>Files Supported: XLS, XLSX</p>
-                        <input type="file" hidden accept=".xls, .xlsx" id="fileID" style="display:none;">
-                        <button class="btn">Choose File</button>
-                    </div>
-                </div>
-
-                <div class="modal-footer justify-content-end">
-                    <button class="myButton myButton-primary" type="button">
-                        Import
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <form asp-controller="Quiz" asp-action="CreateQuiz">
         <div class="quiz-name">
