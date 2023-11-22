@@ -24,7 +24,7 @@
                 </select>
                 <div class="circle mx-2 bg-dark"></div>
             </div>
-            <input name="searchQuery" class="myBorder border-gray bg-ghost rounded-4" placeholder="Search..." />
+            <input id="searchQuery" name="searchQuery" class="myBorder border-gray bg-ghost rounded-4" placeholder="Search..." />
             <button class="myButton myButton2-primary" type="submit">Search</button>
         </form>
 
@@ -200,6 +200,12 @@
                 }
             }
         }
+    </div>
+
+
+    <!-- Add this in your CommunityQuiz.cshtml -->
+    <div id="searchResults" class="row">
+        <!-- Search results will be displayed here -->
     </div>
 
 </div>

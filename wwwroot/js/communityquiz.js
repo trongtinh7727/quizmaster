@@ -58,4 +58,89 @@
             $(targetModalId).modal('show');
         }, 500); // Adjust this timeout as needed
     });
+
+    function searchQuizzes() {
+        var searchQuery = $("#searchQuery").val();
+        var difficultyFilter = $("#difficultyFilter").val();
+
+        // Khởi tạo output trước khi bắt đầu vòng lặp
+
+        $.ajax({
+            url: '/APIs/GetCommunityQuiz',
+            type: 'GET',
+            data: {
+                searchQuery: searchQuery,
+                difficultyFilter: difficultyFilter,
+                pageIndex: 1,
+                pageSize: 16
+            },
+            success: function (response) {
+                var output =""
+                $.each(response.quizzes, function (index, quiz) {
+                    var difficultyText = "";
+                    if (quiz.level === 1) {
+                        difficultyText = "Easy";
+                    }
+                    else if (quiz.level === 2) {
+                        difficultyText = "Medium";
+                    }
+                    else if (quiz.level === 3) {
+                        difficultyText = "Hard";
+                    }
+
+                    var difficultyClass = "";
+                    if (quiz.level === 1) {
+                        difficultyClass = "text-success";
+                    }
+                    else if (quiz.level === 2) {
+                        difficultyClass = "text-warning";
+                    }
+                    else if (quiz.level === 3) {
+                        difficultyClass = "text-danger";
+                    }
+
+                    var questionsNumText = "";
+                    if (quiz.quizQuestions.length === 1) {
+                        questionsNumText = "1 Question";
+                    }
+                    else {
+                        questionsNumText = quiz.quizQuestions.length + " Questions";
+                    }
+
+                    output += 
+                    `
+                        <div class="col-12 col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4" data-difficulty="@quiz.Level" data-bs-toggle="modal" data-bs-target="#detailModal-@quiz.Id">
+                            <div class="communityQuizCard">
+                                <h5 class="community-quiz-title">${quiz.title}</h5>
+
+                                <span class="community-quiz-summary text-gray-dark">${quiz.summary}</span>
+
+                                <span class="community-quiz-questions">${questionsNumText}</span>
+
+                                <span class="community-quiz-difficulty">
+                                    Difficulty:
+                                    <strong class="${difficultyClass}">
+                                         ${difficultyText}
+                                    </strong>
+                                </span>
+                            </div>
+                        </div>
+                    `
+                });
+
+                // Cập nhật #searchResults với chuỗi HTML hoàn chỉnh
+                $("#searchResults").html(output);
+            },
+            error: function (xhr, status, error) {
+                console.error("Error in AJAX request: " + error);
+            }
+        });
+    }
+
+    searchQuizzes();
+    $("#searchQuery").on('input', function () {
+        searchQuizzes();
+    });
+
+
 })
