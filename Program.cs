@@ -83,7 +83,7 @@ namespace QuizMaster
                 var userManager =
                     scope.ServiceProvider.GetRequiredService<UserManager<QuizMasterUser>>();
 
-                string email = "trongtinh7727@gmail.com";
+                string email = "ltphu2153@gmail.com";
                 var admin = await userManager.FindByEmailAsync(email);
 
                 if (admin != null)
