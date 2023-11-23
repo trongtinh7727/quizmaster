@@ -16,8 +16,9 @@
     word-wrap: break-word;
     background-color: #FFFFFF;
     background-clip: border-box;
-    border-radius: 1rem;
+    border-radius: 0.5rem;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    border: #DDDDDD 1px solid;
     margin-bottom: 12px;
 }
 
