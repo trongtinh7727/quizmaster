@@ -235,23 +235,24 @@
                     `
                 }
 
-                pagination =  `<!-- Pagination links -->
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item ${disableBack}">
-                            <a class="page-link fw-semibold" href="/Home/CommunityQuiz?difficultyFilter=${difficultyFilter}&searchQuery=${searchQuery}&pageIndex=${currentPage-1}&pageSize=16">
-                                <i class="fa-solid fa-angles-left"></i>
-                            </a>
-                        </li>
-                            ${pageItem}
-                        <li class="page-item ${disableNext}">
-                            <a class="page-link fw-semibold" href="/Home/CommunityQuiz?difficultyFilter=${difficultyFilter}&searchQuery=${searchQuery}&pageIndex=${currentPage+1}&pageSize=16">
-                                <i class="fa-solid fa-angles-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-                <!-- End of Pagination links -->`
+                pagination =  
+                `
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item ${disableBack}">
+                                <a class="page-link fw-semibold" href="/Home/CommunityQuiz?difficultyFilter=${difficultyFilter}&searchQuery=${searchQuery}&pageIndex=${currentPage-1}&pageSize=16">
+                                    <i class="fa-solid fa-angles-left"></i>
+                                </a>
+                            </li>
+                                ${pageItem}
+                            <li class="page-item ${disableNext}">
+                                <a class="page-link fw-semibold" href="/Home/CommunityQuiz?difficultyFilter=${difficultyFilter}&searchQuery=${searchQuery}&pageIndex=${currentPage+1}&pageSize=16">
+                                    <i class="fa-solid fa-angles-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                `
 
                 output += pagination
                 // Cập nhật #searchResults với chuỗi HTML hoàn chỉnh
