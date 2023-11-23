@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    function generateCode() {
+/*    function generateCode() {
         var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
         var code = '';
         for (var i = 0; i < 8; i++) {
@@ -12,7 +12,7 @@
     $('.library-details-code-btn').click(function () {
         var code = generateCode();
         $('.library-details-code-field-codefield').val(code);
-    });
+    });*/
 
     $('.library-details-code-field-codefield').click(function () {
         $(this).select();

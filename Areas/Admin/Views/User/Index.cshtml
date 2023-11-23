@@ -39,14 +39,14 @@
                     {
                         <form asp-action="Unlock" method="post">
                             <input type="hidden" name="userId" value="@user.Id" />
-                            <button type="submit" class="btn btn-success">Mở khóa</button>
+                            <button type="submit" class="btn btn-success">Unban</button>
                         </form>
                     }
                     else
                     {
                         <form asp-action="Lock" method="post">
                             <input type="hidden" name="userId" value="@user.Id" />
-                            <button type="submit" class="btn btn-danger">Khóa</button>
+                            <button type="submit" class="btn btn-danger">Ban</button>
                         </form>
                     }
                 </td>
