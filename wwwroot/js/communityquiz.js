@@ -29,21 +29,7 @@
             // If none of the above, you can add a default class here
         }
     });
-    $('#difficultyFilter').change(function () {
-        var selectedDifficulty = $(this).val();
-        $('.col-12').each(function () {
-            var itemDifficulty = $(this).data('difficulty').toString();
-            if (selectedDifficulty === 'all') {
-                $(this).show();
-            } else {
-                if (itemDifficulty === selectedDifficulty) {
-                    $(this).show();
-                } else {
-                    $(this).hide();
-                }
-            }
-        });
-    });
+
 
     // When the Edit button is clicked in the detailModal
     $('[data-bs-target^="#rankingModal"]').on('click', function () {
@@ -78,24 +64,17 @@
                 var output = ""
                 $.each(response.quizzes, function (index, quiz) {
                     var difficultyText = "";
-                    if (quiz.level === 1) {
-                        difficultyText = "Easy";
-                    }
-                    else if (quiz.level === 2) {
-                        difficultyText = "Medium";
-                    }
-                    else if (quiz.level === 3) {
-                        difficultyText = "Hard";
-                    }
-
                     var difficultyClass = "";
                     if (quiz.level === 1) {
+                        difficultyText = "Easy";
                         difficultyClass = "text-success";
                     }
                     else if (quiz.level === 2) {
+                        difficultyText = "Medium";
                         difficultyClass = "text-warning";
                     }
                     else if (quiz.level === 3) {
+                        difficultyText = "Hard";
                         difficultyClass = "text-danger";
                     }
 
@@ -121,6 +100,40 @@
                     var detailModalName = "detailModalName-" + quiz.id;
 
                     console.log(quiz)
+
+                    const leaderBoard = quiz.takeQuizs.sort((a, b) => b.score - a.score).slice(0, 3);
+                    rankItem = ``
+                    if (leaderBoard.length > 0) {
+                        rankItem += `
+                                    <div class="ranking-item ranking-item-first fs-4 fw-semibold bg-color2 d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <span class="ranking-item-rank mx-3">1</span>
+                                                        ${leaderBoard[0].user.firstName} ${leaderBoard[0].user.lastName}
+                                            </div>
+                                            <i class="fa-solid fa-trophy fa-xl text-warning"></i>
+                                        </div>`
+                    }
+                    if (leaderBoard.length > 1) {
+                        rankItem += `
+                                    <div class="ranking-item fw-semibold d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <span class="ranking-item-rank mx-3 fs-4">1</span>
+                                                        ${leaderBoard[1].user.firstName} ${leaderBoard[1].user.lastName}
+                                            </div>
+                                            <i class="fa-solid fa-medal fa-2xl" style="color: #C0C0C0"></i>
+                                        </div>`
+                    }
+                    if (leaderBoard.length > 2) {
+                        rankItem += `
+                                    <div class="ranking-item fw-semibold d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <span class="ranking-item-rank mx-3 fs-4">3</span>
+                                                ${leaderBoard[2].user.firstName} ${leaderBoard[2].user.lastName}                                            </div>
+                                            <i class="fa-solid fa-medal fa-2xl" style="color: #CD7F32"></i>
+                                    </div>
+                                    `
+                    }
+                    console.log(leaderBoard)
 
                     output += 
                     `
@@ -164,15 +177,14 @@
                                         <p class="browse-quiz-details-play">${quiz.takeQuizs.length} plays</p>
 
                                         <p class="browse-quiz-details-createdDate">Created at: ${resultDate}</p>
-
-                                        <div class="browse-quiz-details-ranking fw-semibold text-color2" data-bs-toggle="modal" data-bs-target="#rankingModal-@quiz.Id">
+                                        <div class="browse-quiz-details-ranking fw-semibold text-color2" data-bs-toggle="modal" data-bs-target="#rankingModal-${quiz.id}">
                                             See ranking
                                         </div>
                                     </div>
 
                                     <div class="modal-footer justify-content-end">
-                                        <form asp-controller="Quiz" asp-action="enrollQuiz" method="post">
-                                            <input type="hidden" name="enrollCode" value="@quiz.EnrollCode" />
+                                        <form action="/Quiz/enrollQuiz" method="post">
+                                            <input type="hidden" name="enrollCode" value="${quiz.enrollCode}" />
                                             <button class="myButton myButton-primary" type="submit">
                                                 Start quiz
                                             </button>
@@ -181,12 +193,83 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Ranking Modal -->
+                        <div class="modal fade" id="rankingModal-${quiz.id}" tabindex="-1"
+                            aria-labelledby="rankingModalLabel-${quiz.id}" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content border-0">
+                                    <span class="p-4 fw-semibold fs-4 text-center">LEADERBOARD</span>
+                                    ${rankItem}
+                                </div>
+                            </div>
+                        </div>  
                     `
+
+
+
                 });
 
+                var disableBack = ``
+                if (response.currentPage == "1") {
+                    disableBack = `disabled`
+                }
 
+                var disableNext = ``
+                if (response.currentPage == response.totalPages) {
+                    disableNext = `disabled`
+                }
+                var currentPage = response.currentPage
+                var totalPages = response.totalPages
+
+                var pageItem = ``
+                for (let index = 1; index <= totalPages; index++) {
+                    var isActive =``
+                    if (index == currentPage) {
+                        isActive = `active`
+                    }
+                    pageItem +=`
+                    <li class="page-item ${isActive}">
+                        <a class="page-link fw-semibold" href="/Home/CommunityQuiz?difficultyFilter=${difficultyFilter}&searchQuery=${searchQuery}&pageIndex=${index}&pageSize=16">1</a>
+                    </li>
+                    `
+                }
+
+                pagination =  `<!-- Pagination links -->
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item ${disableBack}">
+                            <a class="page-link fw-semibold" href="/Home/CommunityQuiz?difficultyFilter=${difficultyFilter}&searchQuery=${searchQuery}&pageIndex=${currentPage-1}&pageSize=16">
+                                <i class="fa-solid fa-angles-left"></i>
+                            </a>
+                        </li>
+                            ${pageItem}
+                        <li class="page-item ${disableNext}">
+                            <a class="page-link fw-semibold" href="/Home/CommunityQuiz?difficultyFilter=${difficultyFilter}&searchQuery=${searchQuery}&pageIndex=${currentPage+1}&pageSize=16">
+                                <i class="fa-solid fa-angles-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- End of Pagination links -->`
+
+                output += pagination
                 // Cập nhật #searchResults với chuỗi HTML hoàn chỉnh
                 $("#searchResults").html(output);
+
+                $('[data-bs-target^="#rankingModal"]').on('click', function () {
+                    var targetModalId = $(this).data('bs-target');
+                    var detailModalId = $(this).closest('.modal').attr('id');
+            
+                    // Hide the detailModal
+                    $('#' + detailModalId).modal('hide');
+            
+                    // Show the rankingModal after a short delay to allow transition
+                    setTimeout(function () {
+                        $(targetModalId).modal('show');
+                    }, 500); // Adjust this timeout as needed
+                });
+                
             },
             error: function (xhr, status, error) {
                 console.error("Error in AJAX request: " + error);
@@ -198,4 +281,8 @@
     $("#searchQuery").on('input', function () {
         searchQuizzes();
     });
+    $("#difficultyFilter").on('change', function () {
+        searchQuizzes();
+    });
+
 })
