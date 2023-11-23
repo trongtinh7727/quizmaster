@@ -96,10 +96,6 @@
                      aria-labelledby="rankingModalLabel-@quiz.Id" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content border-0">
-                            @* <div class="modal-header">
-                    <button class="btn-close" type="button" data-bs-dismiss="modal"
-                    aria-label="Close"></button>
-                    </div>*@
                             <span class="p-4 fw-semibold fs-4 text-center">LEADERBOARD</span>
 
                             <div class="ranking-item ranking-item-first fs-4 fw-semibold bg-color2 d-flex justify-content-between align-items-center">
@@ -125,16 +121,13 @@
                                 </div>
                                 <i class="fa-solid fa-medal fa-2xl" style="color: #CD7F32"></i>
                             </div>
-                            @*<div class="modal-footer">
-
-                    </div>*@
                         </div>
                     </div>
                 </div>
             }
         }
 
-        @* Pagination links *@
+        <!-- Pagination links -->
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
                 <li class="page-item @((ViewBag.CurrentPage == 1) ? "disabled" : "")">
@@ -155,7 +148,7 @@
                 </li>
             </ul>
         </nav>
-        @* End of pagination links *@
+        <!-- End of Pagination links -->
 
 
         @functions {

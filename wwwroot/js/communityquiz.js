@@ -75,7 +75,7 @@
                 pageSize: 16
             },
             success: function (response) {
-                var output =""
+                var output = ""
                 $.each(response.quizzes, function (index, quiz) {
                     var difficultyText = "";
                     if (quiz.level === 1) {
@@ -107,9 +107,11 @@
                         questionsNumText = quiz.quizQuestions.length + " Questions";
                     }
 
+                    var detailModalName = "detailModalName-" + quiz.id;
+
                     output += 
                     `
-                        <div class="col-12 col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4" data-difficulty="@quiz.Level" data-bs-toggle="modal" data-bs-target="#detailModal-@quiz.Id">
+                        <div class="col-12 col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4" data-difficulty="${quiz.level}" data-bs-toggle="modal" data-bs-target="${detailModalName}">
                             <div class="communityQuizCard">
                                 <h5 class="community-quiz-title">${quiz.title}</h5>
 
@@ -123,6 +125,28 @@
                                          ${difficultyText}
                                     </strong>
                                 </span>
+                            </div>
+                        </div>
+
+                        <div class="modal fade" id="${detailModalName}" tabindex="-1"
+                            aria-labelledby="${detailModalName}" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title fs-5">@quiz.Title</h5>
+                                        <button class="btn-close" type="button" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        dit me m
+                                    </div>
+
+                                    <div class="modal-footer justify-content-end">
+                                        <button class="myButton myButton-primary" type="button">
+                                            Start quiz
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     `
