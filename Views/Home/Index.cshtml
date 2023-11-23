@@ -90,7 +90,7 @@
                                 </div>
 
                                 <div class="modal-footer justify-content-end">
-                                        <form asp-controller="Quiz" asp-action="enrollQuiz" method="post">
+                                <form asp-controller="Quiz" asp-action="enrollQuiz" method="post">
                                     <input type="hidden" name="enrollCode" value="@quiz.EnrollCode" />
                                     <button class="myButton myButton-primary" type="submit">
                                         Start quiz
@@ -105,10 +105,6 @@
                          aria-labelledby="rankingModalLabel-@quiz.Id" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content border-0">
-                               @* <div class="modal-header">
-                                    <button class="btn-close" type="button" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                </div>*@
                                 <span class="p-4 fw-semibold fs-4 text-center">LEADERBOARD</span>
                                 @{
                                     var leaderBoard = quiz.TakeQuizs.OrderByDescending(tq => tq.Score).Take(3).ToList();

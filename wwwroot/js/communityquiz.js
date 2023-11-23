@@ -120,6 +120,8 @@
 
                     var detailModalName = "detailModalName-" + quiz.id;
 
+                    console.log(quiz)
+
                     output += 
                     `
                         <div class="col-12 col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4" data-difficulty="${quiz.level}" data-bs-toggle="modal" data-bs-target="#${detailModalName}">
@@ -169,42 +171,12 @@
                                     </div>
 
                                     <div class="modal-footer justify-content-end">
-                                        <button class="myButton myButton-primary" type="button">
-                                            Start quiz
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="modal fade" id="rankingModal-@quiz.Id" tabindex="-1"
-                            aria-labelledby="rankingModalLabel-@quiz.Id" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content border-0">
-                                    <span class="p-4 fw-semibold fs-4 text-center">LEADERBOARD</span>
-
-                                    <div class="ranking-item ranking-item-first fs-4 fw-semibold bg-color2 d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <span class="ranking-item-rank mx-3">1</span>
-                                            Lê Trần Phú
-                                        </div>
-                                        <i class="fa-solid fa-trophy fa-xl text-warning"></i>
-                                    </div>
-
-                                    <div class="ranking-item fw-semibold d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <span class="ranking-item-rank mx-3 fs-4">2</span>
-                                            Võ Trọng Tình
-                                        </div>
-                                        <i class="fa-solid fa-medal fa-2xl" style="color: #C0C0C0"></i>
-                                    </div>
-
-                                    <div class="ranking-item fw-semibold d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <span class="ranking-item-rank mx-3 fs-4">3</span>
-                                            Phạm Đức Minh Hiếu
-                                        </div>
-                                        <i class="fa-solid fa-medal fa-2xl" style="color: #CD7F32"></i>
+                                        <form asp-controller="Quiz" asp-action="enrollQuiz" method="post">
+                                            <input type="hidden" name="enrollCode" value="@quiz.EnrollCode" />
+                                            <button class="myButton myButton-primary" type="submit">
+                                                Start quiz
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -226,6 +198,4 @@
     $("#searchQuery").on('input', function () {
         searchQuizzes();
     });
-
-
 })
