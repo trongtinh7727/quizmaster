@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -32,7 +33,36 @@ namespace QuizMaster.Areas.Admin.Controllers
             return View(await quizMasterContext.ToListAsync());
         }
 
-      
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            if (_context.Quizzes == null)
+            {
+                return Problem("Entity set 'QuizMasterContext.Quizzes'  is null.");
+            }
+            var quiz = await _context.Quizzes
+                         .Include(q => q.QuizQuestions)
+                            .ThenInclude(qq => qq.Answers)
+                         .Include(q => q.TakeQuizs)
+                            .ThenInclude(tq => tq.TakeAnswers)
+                         .Include(q => q.TakeQuizs)
+                            .ThenInclude(tq => tq.User)
+                         .FirstOrDefaultAsync(q => q.Id == id);
+            if (quiz == null)
+            {
+                return View("NoQuizFound");
+            }
+            foreach (TakeQuiz takeQuiz in quiz.TakeQuizs)
+            {
+                _context.TakeAnswers.RemoveRange(takeQuiz.TakeAnswers);
+
+            }
+            _context.TakeQuizzes.RemoveRange(quiz.TakeQuizs);
+            _context.Quizzes.Remove(quiz);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
         public async Task<IActionResult> Statistics()
         {
 
