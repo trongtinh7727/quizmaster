@@ -188,7 +188,7 @@
                     <ul class="pagination justify-content-center">
                         <!-- Previous Button -->
                         <li class="page-item @((currentPage == 1) ? "disabled" : "")">
-                            <a class="page-link fw-semibold" href="@Url.Action("Library", new { pageIndex = currentPage - 1, pageSize = 16 })">
+                            <a class="page-link fw-semibold" href="@Url.Action("Library", new { pageIndex = currentPage - 1})">
                                 <i class="fa-solid fa-angles-left"></i>
                             </a>
                         </li>
@@ -197,13 +197,13 @@
                         @for (var i = 1; i <= totalPages; i++)
                         {
                             <li class="page-item @((i == currentPage) ? "active" : "")">
-                                <a class="page-link fw-semibold" href="@Url.Action("Library", new { pageIndex = i, pageSize = 16 })">@i</a>
+                                <a class="page-link fw-semibold" href="@Url.Action("Library", new { pageIndex = i})">@i</a>
                             </li>
                         }
 
                         <!-- Next Button -->
                         <li class="page-item @((currentPage == totalPages) ? "disabled" : "")">
-                            <a class="page-link fw-semibold" href="@Url.Action("Library", new { pageIndex = currentPage + 1, pageSize = 16 })">
+                            <a class="page-link fw-semibold" href="@Url.Action("Library", new { pageIndex = currentPage + 1})">
                                 <i class="fa-solid fa-angles-right"></i>
                             </a>
                         </li>
