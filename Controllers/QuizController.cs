@@ -57,7 +57,6 @@ namespace QuizMaster.Controllers
                          .FirstOrDefaultAsync(q => q.Id == id);
             if (quiz == null)
             {
-                /*return NotFound("Không tìm thấy bài quiz tương ứng");*/
                 return View("NoQuizFound");
             }
 

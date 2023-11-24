@@ -133,9 +133,23 @@ namespace QuizMaster.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-        public IActionResult Celebrate()
+        public IActionResult Celebrate(int takeQuizID)
         {
-            return View();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var quiz = _context.TakeQuizzes
+                .Where(t=>t.UserId == userId)
+                .Include(q => q.Quiz)
+                .Include(tq => tq.TakeAnswers)
+                    .ThenInclude(tq => tq.Answer)
+                .Include(tq => tq.TakeAnswers)
+                    .ThenInclude(qq => qq.QuizQuestion)
+                        .ThenInclude(qqq => qqq.Answers)
+                .SingleOrDefault(tq => tq.Id == takeQuizID);
+            if (quiz == null)
+            {
+                return View("NoQuizFound");
+            }
+            return View(quiz);
         }
     }
 }
