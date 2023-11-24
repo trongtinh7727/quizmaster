@@ -63,3 +63,14 @@
         cursor: pointer;
         transform: translateY(-2px);
     }
+
+/*Pagination*/
+.pagination .active .page-link {
+    background-color: var(--color3);
+    color: white;
+    border-color: var(--color3);
+}
+
+.pagination .page-link {
+    color: var(--color3);
+}

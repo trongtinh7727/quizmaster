@@ -49,15 +49,29 @@ namespace QuizMaster.Controllers
 
             return View(takeQuizzes);
         }
+
         [Authorize]
-        public IActionResult Library()
+        public async Task<IActionResult> Library(int pageIndex = 1, int pageSize = 16)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var quizzes = _context.Quizzes
-                                  .Where(q => q.AuthorId == userId)
-                                  .Include(q => q.QuizQuestions)
-                                  .Include(q => q.TakeQuizs)
-                                  .ToList();
+            var totalQuizzes = await _context.Quizzes
+                                                .Where(q => q.AuthorId == userId)
+                                                .CountAsync();
+
+            var totalPages = (int)Math.Ceiling((double)totalQuizzes / pageSize);
+
+            var quizzes = await _context.Quizzes
+                                        .Where(q => q.AuthorId == userId)
+                                        .Include(q => q.QuizQuestions)
+                                        .Include(q => q.TakeQuizs)
+                                        .OrderBy(q => q.Title)
+                                        .Skip((pageIndex - 1) * pageSize)
+                                        .Take(pageSize)
+                                        .ToListAsync();
+
+            ViewBag.TotalPages = totalPages;
+            ViewBag.CurrentPage = pageIndex;
+            ViewBag.PageSize = pageSize;
 
             return View(quizzes);
         }
@@ -96,9 +110,6 @@ namespace QuizMaster.Controllers
 
             return View(results);
         }
-
-
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
