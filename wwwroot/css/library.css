@@ -20,6 +20,13 @@
         transform: translateY(-2px);
     }
 
+.library-quiz-title,
+.library-quiz-summary {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 /*Code field*/
 .library-details-code-field {
     position: relative;

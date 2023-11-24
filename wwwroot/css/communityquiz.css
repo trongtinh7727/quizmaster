@@ -37,6 +37,13 @@
         outline: none;
     }
 
+.community-quiz-title,
+.community-quiz-summary {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 /*Rank*/
 .browse-quiz-details-ranking {
     transition: all 0.3s ease;

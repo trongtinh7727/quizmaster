@@ -44,6 +44,13 @@
         transform: translateY(-2px);
     }
 
+.browse-quiz-title,
+.browse-quiz-summary {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .ranking-item {
     padding: 1rem;
 }

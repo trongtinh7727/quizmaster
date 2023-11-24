@@ -13,3 +13,21 @@
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     transition: all 0.3s ease;
 }
+
+.history-quiz-title,
+.history-quiz-summary {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/*Pagination*/
+.pagination .active .page-link {
+    background-color: var(--color3);
+    color: white;
+    border-color: var(--color3);
+}
+
+.pagination .page-link {
+    color: var(--color3);
+}

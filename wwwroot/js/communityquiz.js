@@ -61,8 +61,7 @@
             data: {
                 searchQuery: searchQuery,
                 difficultyFilter: difficultyFilter,
-                pageIndex: pageIndex,
-                pageSize: 16
+                pageIndex: pageIndex
             },
             success: function (response) {
                 var output = ""
@@ -234,7 +233,7 @@
                     }
                     pageItem +=`
                     <li class="page-item ${isActive}">
-                        <a class="page-link fw-semibold" href="/Home/CommunityQuiz?difficultyFilter=${difficultyFilter}&searchQuery=${searchQuery}&pageIndex=${index}&pageSize=16">${index}</a>
+                        <a class="page-link fw-semibold" href="/Home/CommunityQuiz?difficultyFilter=${difficultyFilter}&searchQuery=${searchQuery}&pageIndex=${index}">${index}</a>
                     </li>
                     `
                 }
@@ -244,13 +243,13 @@
                     <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-center">
                             <li class="page-item ${disableBack}">
-                                <a class="page-link fw-semibold" href="/Home/CommunityQuiz?difficultyFilter=${difficultyFilter}&searchQuery=${searchQuery}&pageIndex=${currentPage-1}&pageSize=16">
+                                <a class="page-link fw-semibold" href="/Home/CommunityQuiz?difficultyFilter=${difficultyFilter}&searchQuery=${searchQuery}&pageIndex=${currentPage-1}">
                                     <i class="fa-solid fa-angles-left"></i>
                                 </a>
                             </li>
                                 ${pageItem}
                             <li class="page-item ${disableNext}">
-                                <a class="page-link fw-semibold" href="/Home/CommunityQuiz?difficultyFilter=${difficultyFilter}&searchQuery=${searchQuery}&pageIndex=${currentPage+1}&pageSize=16">
+                                <a class="page-link fw-semibold" href="/Home/CommunityQuiz?difficultyFilter=${difficultyFilter}&searchQuery=${searchQuery}&pageIndex=${currentPage+1}">
                                     <i class="fa-solid fa-angles-right"></i>
                                 </a>
                             </li>

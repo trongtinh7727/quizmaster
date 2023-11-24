@@ -38,22 +38,39 @@ namespace QuizMaster.Controllers
         }
 
         [Authorize]
-        public IActionResult History()
+        public async Task<IActionResult> History(int pageIndex = 1)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Get the user's ID
-            var takeQuizzes = _context.TakeQuizzes
-                                      .Where(t => t.UserId == userId)
-                                      .Include(t => t.Quiz)
-                                      .ThenInclude(q => q.QuizQuestions)
-                                      .ToList();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            int pageSize = 16;
+
+            var totalTakeQuizzes = await _context.TakeQuizzes
+                                                    .Where(t => t.UserId == userId)
+                                                    .CountAsync();
+            var totalPages = (int)Math.Ceiling((double)totalTakeQuizzes / pageSize);
+
+            var takeQuizzes = await _context.TakeQuizzes
+                                        .Where(t => t.UserId == userId)
+                                        .Include(t => t.Quiz)
+                                        .ThenInclude(q => q.QuizQuestions)
+                                        .OrderByDescending(t => t.Id)
+                                        .Skip((pageIndex - 1) * pageSize)
+                                        .Take(pageSize)
+                                        .ToListAsync();
+
+            ViewBag.TotalPages = totalPages;
+            ViewBag.CurrentPage = pageIndex;
+            ViewBag.PageSize = pageSize;
 
             return View(takeQuizzes);
         }
 
         [Authorize]
-        public async Task<IActionResult> Library(int pageIndex = 1, int pageSize = 16)
+        public async Task<IActionResult> Library(int pageIndex = 1)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            int pageSize = 16;
+
             var totalQuizzes = await _context.Quizzes
                                                 .Where(q => q.AuthorId == userId)
                                                 .CountAsync();
@@ -115,6 +132,10 @@ namespace QuizMaster.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        public IActionResult Celebrate()
+        {
+            return View();
         }
     }
 }

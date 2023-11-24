@@ -15,8 +15,9 @@ namespace QuizMaster.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> GetCommunityQuiz(int difficultyFilter = 0, string searchQuery = "", int pageIndex = 1, int pageSize = 16)
+        public async Task<IActionResult> GetCommunityQuiz(int difficultyFilter = 0, string searchQuery = "", int pageIndex = 1)
         {
+            int pageSize = 16;
             // Search and filter logic remains the same
             var query = _context.Quizzes
                  .Include(q => q.QuizQuestions)
