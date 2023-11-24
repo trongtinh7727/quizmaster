@@ -6,47 +6,47 @@
     <link rel="stylesheet" href="~/css/celebrate.css" />
 }
 
-<div class="container pt-4">
+<div class="container-fluid px-0">
 
-    <div class="text-center bg-gradient rounded-4">
+    <div class="text-center custom-bg-gradient py-5">
         <img src="/img/medal.png"/>
-
-        <h1 class="mt-4">Congratulations!</h1>
-        <h2>Your final score</h2>
-        <h1 class="fw-bold text-color3">50/100</h1>
+        <h1 class="mt-4 text-white">Congratulations!</h1>
+        <h2 class="text-white">Your final score</h2>
+        <h1 class="fw-bold text-color5">50/100</h1>
     </div>
 
-    <div class="text-center mt-5">
-        <button class="myButton myButton2-primary">Back to Homepage</button>
-    </div>
-
-    <div>
-        <p>See your answer details here</p>
-        @*Đúng thì hiện cái màu xanh này*@
-        <div>
-            <p class="default-question">Question 1</p>
-            <p class="default-answer">A. ga</p>
-            <p class="default-answer">B. sieu ga</p>
-            <p class="default-answer">C. qua ga</p>
-            <p class="default-answer">D. cuc ga</p>
-            <p class="choice-correct text-success">Your choice: A. ga</p>
-            <p class="answer-correct text-success">Correct answer: A. ga</p>
+    <div class="container">
+        <div class="text-center my-5">
+            <button class="myButton myButton2-primary">Back to Homepage</button>
         </div>
 
-        @*Sai thì hiện cái màu đỏ này*@
         <div>
-            <p class="default-question">Question 2</p>
-            <p class="default-answer">A. ga</p>
-            <p class="default-answer">B. sieu ga</p>
-            <p class="default-answer">C. qua ga</p>
-            <p class="default-answer">D. cuc ga</p>
-            <p class="choice-wrong text-danger">Your choice: B. sieu ga</p>
-            <p class="answer-wrong text-danger">Correct answer: A. ga</p>
+            <h3 class="text-center">See your result details here</h3>
+            @*Đúng thì hiện cái màu xanh này*@
+            <div class="myCard my-3">
+                <p class="default-question fs-5">Question 1</p>
+                <p class="default-answer">A. ga</p>
+                <p class="default-answer">B. sieu ga</p>
+                <p class="default-answer">C. qua ga</p>
+                <p class="default-answer">D. cuc ga</p>
+                <p class="choice-correct text-success fw-semibold">Your choice: A. ga</p>
+                <p class="answer-correct text-success fw-semibold">Correct answer: A. ga</p>
+            </div>
+
+            @*Sai thì hiện cái màu đỏ này*@
+            <div class="myCard my-3">
+                <p class="default-question fs-5">Question 2</p>
+                <p class="default-answer">A. ga</p>
+                <p class="default-answer">B. sieu ga</p>
+                <p class="default-answer">C. qua ga</p>
+                <p class="default-answer">D. cuc ga</p>
+                <p class="choice-wrong text-danger fw-semibold">Your choice: B. sieu ga</p>
+                <p class="answer-wrong text-danger fw-semibold">Correct answer: A. ga</p>
+            </div>
+        </div>
+
+        <div class="text-center my-5">
+            <button class="myButton myButton2-primary">Back to Homepage</button>
         </div>
     </div>
-
-    <div class="text-center mt-5">
-        <button class="myButton myButton2-primary">Back to Homepage</button>
-    </div>
-
 </div>
