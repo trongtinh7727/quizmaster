@@ -7,57 +7,56 @@
     <link rel="stylesheet" href="~/css/celebrate.css" />
 }
 
-<div class="container pt-4">
+<div class="container-fluid px-0">
 
-    <div class="text-center bg-gradient rounded-4">
-        <img src="/img/medal.png"/>
-
-        <h1 class="mt-4">Congratulations!</h1>
-        <h2>Your final score</h2>
-        <h1 class="fw-bold text-color3">50/100</h1>
+    <div class="text-center custom-bg-gradient py-5">
+        <img src="/img/medal.png" />
+        <h1 class="mt-4 text-white">Congratulations!</h1>
+        <h2 class="text-white">Your final score</h2>
+        <h1 class="fw-bold text-color5">50/100</h1>
     </div>
 
-    <div class="text-center mt-5">
-        <button class="myButton myButton2-primary">Back to Homepage</button>
-    </div>
+    <div class="container">
+        <div class="text-center my-5">
+            <button class="myButton myButton2-primary">Back to Homepage</button>
+        </div>
 
-    <div>
-        <p>See your answer details here</p>
-        @*Đúng thì hiện cái màu xanh này*@
-        @foreach (var takeAnswer in Model.TakeAnswers)
-        {
-            <div>
-                <p class="default-question">@takeAnswer.QuizQuestion.Content</p>
-                @{
-                    var answers = @takeAnswer.QuizQuestion.Answers.ToList();
-                    var correct = answers[0];
-                }
-                @foreach(var answer in answers)
-                {
-                    if (answer.Correct)
-                    {
-                        correct = answer;
+        <div>
+            <h3 class="text-center">See your result details here</h3>
+            @foreach (var takeAnswer in Model.TakeAnswers)
+            {
+                <div class="myCard my-3">
+                    <p class="default-question fs-5">@takeAnswer.QuizQuestion.Content</p>
+                    @{
+                        var answers = @takeAnswer.QuizQuestion.Answers.ToList();
+                        var correct = answers[0];
                     }
-                    <p class="default-answer">@answer.Content</p>
-                }
-                @if (correct.Content.Equals(takeAnswer.Answer.Content))
-                {
-                    <p class="choice-correct text-success">Your choice: @takeAnswer.Answer.Content</p>
-                    <p class="answer-correct text-success">Correct answer: @correct.Content</p>
-                }
-                else
-                {
-                    <p class="choice-correct text-danger">Your choice: @takeAnswer.Answer.Content</p>
-                    <p class="answer-correct text-danger">Correct answer: @correct.Content</p>
-                }
+                    @foreach(var answer in answers)
+                    {
+                        if (answer.Correct)
+                        {
+                            correct = answer;
+                        }
+                        <p class="default-answer">@answer.Content</p>
+                    }
+                    @if (correct.Content.Equals(takeAnswer.Answer.Content))
+                    {
+                        <p class="choice-correct text-success fw-semibold">Your choice: @takeAnswer.Answer.Content</p>
+                        <p class="answer-correct text-success fw-semibold">Correct answer: @correct.Content</p>
+                    }
+                    else
+                    {
+                        <p class="choice-correct text-danger fw-semibold">Your choice: @takeAnswer.Answer.Content</p>
+                        <p class="answer-correct text-danger fw-semibold">Correct answer: @correct.Content</p>
+                    }
 
-            </div>
-        }
+                </div>
+            }
        
-    </div>
+        </div>
 
-    <div class="text-center mt-5">
-        <button class="myButton myButton2-primary">Back to Homepage</button>
+        <div class="text-center my-5">
+            <button class="myButton myButton2-primary">Back to Homepage</button>
+        </div>
     </div>
-
 </div>
