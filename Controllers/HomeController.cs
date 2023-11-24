@@ -30,13 +30,14 @@ namespace QuizMaster.Controllers
                                         .Include(q => q.QuizQuestions)
                                         .Include(q => q.TakeQuizs) 
                                         .ThenInclude(tq => tq.User)
+                                        .Where(q => q.Published)
                                         .OrderByDescending(q => q.CreatedAt) 
                                         .ToListAsync();
 
             return View(quizzes);
         }
 
-
+        [Authorize]
         public IActionResult History()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Get the user's ID
@@ -48,7 +49,7 @@ namespace QuizMaster.Controllers
 
             return View(takeQuizzes);
         }
-
+        [Authorize]
         public IActionResult Library()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -63,8 +64,13 @@ namespace QuizMaster.Controllers
 
         public async Task<IActionResult> CommunityQuiz(int difficultyFilter = 0, string searchQuery = "", int pageIndex = 1, int pageSize = 16)
         {
-            // Search and filter
-            var query = _context.Quizzes.Include(q => q.QuizQuestions).AsQueryable();
+            var query = _context.Quizzes
+                 .Include(q => q.QuizQuestions)
+                .Include(q => q.TakeQuizs)
+                .ThenInclude(tq => tq.User)
+                .Where(q => q.Published)
+                .OrderByDescending(q => q.CreatedAt)
+                .AsQueryable();
 
             if (difficultyFilter != 0)
             {
@@ -74,10 +80,10 @@ namespace QuizMaster.Controllers
             if (!string.IsNullOrWhiteSpace(searchQuery))
             {
                 var lowerCaseSearchQuery = searchQuery.ToLower();
-
                 query = query.Where(q => q.Title.ToLower().Contains(lowerCaseSearchQuery)
                                       || q.Summary.ToLower().Contains(lowerCaseSearchQuery)
-                                      || q.Tag.ToLower().Contains(lowerCaseSearchQuery));
+                                      || q.Tag.ToLower().Contains(lowerCaseSearchQuery)
+                                      );
             }
 
             // Pager

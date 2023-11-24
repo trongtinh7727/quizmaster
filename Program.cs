@@ -70,7 +70,7 @@ namespace QuizMaster
             using (var scope = app.Services.CreateScope())
             {
                 var roleManager =
-                    scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+                scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
                 var roles = new[] { "Admin", "Manager", "Member" };
                 foreach (var role in roles)
                 {
@@ -82,12 +82,22 @@ namespace QuizMaster
 
                 var userManager =
                     scope.ServiceProvider.GetRequiredService<UserManager<QuizMasterUser>>();
-
+                var context = 
+                    scope.ServiceProvider.GetRequiredService<QuizMasterContext>();
                 string email = "ltphu2153@gmail.com";
                 var admin = await userManager.FindByEmailAsync(email);
 
                 if (admin != null)
                 {
+                    await  DatabaseSeeder.Seed(context, admin.Id);
+                    await userManager.AddToRoleAsync(admin, "Admin");
+                }                
+                 email = "trongtinh7727@gmail.com";
+                 admin = await userManager.FindByEmailAsync(email);
+
+                if (admin != null)
+                {
+                    await  DatabaseSeeder.Seed(context, admin.Id);
                     await userManager.AddToRoleAsync(admin, "Admin");
                 }
             }

@@ -22,6 +22,7 @@ namespace QuizMaster.Controllers
                  .Include(q => q.QuizQuestions)
                 .Include(q => q.TakeQuizs)
                 .ThenInclude(tq => tq.User)
+                .Where(q => q.Published)
                 .OrderByDescending(q => q.CreatedAt)
                 .AsQueryable();
 
@@ -35,7 +36,8 @@ namespace QuizMaster.Controllers
                 var lowerCaseSearchQuery = searchQuery.ToLower();
                 query = query.Where(q => q.Title.ToLower().Contains(lowerCaseSearchQuery)
                                       || q.Summary.ToLower().Contains(lowerCaseSearchQuery)
-                                      || q.Tag.ToLower().Contains(lowerCaseSearchQuery));
+                                      || q.Tag.ToLower().Contains(lowerCaseSearchQuery)
+                                      );
             }
 
             // Pager

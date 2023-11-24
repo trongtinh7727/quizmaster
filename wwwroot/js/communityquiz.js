@@ -48,8 +48,12 @@
     function searchQuizzes() {
         var searchQuery = $("#searchQuery").val();
         var difficultyFilter = $("#difficultyFilter").val();
-
-        // Khởi tạo output trước khi bắt đầu vòng lặp
+        let currentUrl = window.location.href
+        let url = new URL(currentUrl);
+        let searchParams = new URLSearchParams(url.search);
+        
+        // Get the pageIndex parameter
+        let pageIndex = searchParams.get('pageIndex');
 
         $.ajax({
             url: '/APIs/GetCommunityQuiz',
@@ -57,7 +61,7 @@
             data: {
                 searchQuery: searchQuery,
                 difficultyFilter: difficultyFilter,
-                pageIndex: 1,
+                pageIndex: pageIndex,
                 pageSize: 16
             },
             success: function (response) {
@@ -230,7 +234,7 @@
                     }
                     pageItem +=`
                     <li class="page-item ${isActive}">
-                        <a class="page-link fw-semibold" href="/Home/CommunityQuiz?difficultyFilter=${difficultyFilter}&searchQuery=${searchQuery}&pageIndex=${index}&pageSize=16">1</a>
+                        <a class="page-link fw-semibold" href="/Home/CommunityQuiz?difficultyFilter=${difficultyFilter}&searchQuery=${searchQuery}&pageIndex=${index}&pageSize=16">${index}</a>
                     </li>
                     `
                 }
