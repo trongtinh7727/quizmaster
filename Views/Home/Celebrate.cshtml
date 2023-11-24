@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Congratulations";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/celebrate.css" />
+}
+
+<div class="container pt-4">
+
+    <div class="text-center bg-gradient rounded-4">
+        <img src="/img/medal.png"/>
+
+        <h1 class="mt-4">Congratulations!</h1>
+        <h2>Your final score</h2>
+        <h1 class="fw-bold text-color3">50/100</h1>
+    </div>
+
+    <div class="text-center mt-5">
+        <button class="myButton myButton2-primary">Back to Homepage</button>
+    </div>
+
+    <div>
+        <p>See your answer details here</p>
+        @*Đúng thì hiện cái màu xanh này*@
+        <div>
+            <p>Question 1</p>
+            <p class="text-success">Your choice: A. ga</p>
+            <p class="text-success">Correct answer: A. ga</p>
+        </div>
+
+        @*Sai thì hiện cái màu đỏ này*@
+        <div>
+            <p>Question 2</p>
+            <p class="text-danger">Your choice: B. sieu ga</p>
+            <p class="text-danger">Correct answer: A. ga</p>
+        </div>
+    </div>
+
+    <div class="text-center mt-5">
+        <button class="myButton myButton2-primary">Back to Homepage</button>
+    </div>
+
+</div>
