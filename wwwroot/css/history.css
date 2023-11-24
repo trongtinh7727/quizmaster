@@ -14,6 +14,13 @@
     transition: all 0.3s ease;
 }
 
+.history-quiz-title,
+.history-quiz-summary {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 /*Pagination*/
 .pagination .active .page-link {
     background-color: var(--color3);
