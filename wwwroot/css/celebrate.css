@@ -1,3 +1,298 @@
 ﻿.custom-bg-gradient {
     background: linear-gradient(118deg, #0038FF 0%, #1DD3B0 100%);
+    position: relative
 }
+
+.big-circle {
+    background: linear-gradient(315deg, #F9D849 0%, #F99D49 100%);
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    position: relative;
+    z-index: 1;
+}
+
+    .big-circle::before {
+        content: '';
+        position: absolute;
+        top: -10px; /* Adjust the position and size to match the desired blur effect */
+        left: -10px;
+        right: -10px;
+        bottom: -10px;
+        background: inherit;
+        border-radius: 50%;
+        z-index: -1;
+        filter: blur(4px); /* Adjust the blur intensity */
+        box-shadow: 0px 0px 30px 20px rgba(249, 157, 73, 0.80);
+    }
+
+@keyframes moveDot1 {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+
+    25% {
+        transform: translate(20px, 30px);
+    }
+
+    50% {
+        transform: translate(-15px, -20px);
+    }
+
+    75% {
+        transform: translate(10px, 15px);
+    }
+}
+
+@keyframes moveDot2 {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+
+    25% {
+        transform: translate(15px, 25px);
+    }
+
+    50% {
+        transform: translate(-20px, -10px);
+    }
+
+    75% {
+        transform: translate(5px, 20px);
+    }
+}
+
+@keyframes moveDot3 {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+
+    25% {
+        transform: translate(-10px, 35px);
+    }
+
+    50% {
+        transform: translate(25px, -15px);
+    }
+
+    75% {
+        transform: translate(-5px, 10px);
+    }
+}
+
+@keyframes moveDot4 {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+
+    25% {
+        transform: translate(30px, 5px);
+    }
+
+    50% {
+        transform: translate(-5px, -25px);
+    }
+
+    75% {
+        transform: translate(15px, 15px);
+    }
+}
+
+@keyframes moveDot5 {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+
+    25% {
+        transform: translate(-20px, 20px);
+    }
+
+    50% {
+        transform: translate(10px, -30px);
+    }
+
+    75% {
+        transform: translate(20px, 5px);
+    }
+}
+
+@keyframes moveDot6 {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+
+    25% {
+        transform: translate(10px, 40px);
+    }
+
+    50% {
+        transform: translate(-30px, -5px);
+    }
+
+    75% {
+        transform: translate(20px, 10px);
+    }
+}
+
+@keyframes moveDot7 {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+
+    25% {
+        transform: translate(-15px, 30px);
+    }
+
+    50% {
+        transform: translate(25px, -20px);
+    }
+
+    75% {
+        transform: translate(-10px, 5px);
+    }
+}
+
+@keyframes moveDot8 {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+
+    25% {
+        transform: translate(5px, 50px);
+    }
+
+    50% {
+        transform: translate(-20px, -30px);
+    }
+
+    75% {
+        transform: translate(15px, 20px);
+    }
+}
+
+@keyframes moveDot9 {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+
+    25% {
+        transform: translate(20px, 10px);
+    }
+
+    50% {
+        transform: translate(-10px, -40px);
+    }
+
+    75% {
+        transform: translate(30px, 30px);
+    }
+}
+
+@keyframes moveDot10 {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+
+    25% {
+        transform: translate(-25px, 15px);
+    }
+
+    50% {
+        transform: translate(10px, -10px);
+    }
+
+    75% {
+        transform: translate(-5px, 35px);
+    }
+}
+
+
+
+.dot {
+    display: inline-block;
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-color: rgb(255, 255, 255, 0.8);
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+}
+
+    .dot:nth-child(1) {
+        animation: moveDot1 5s infinite;
+        top: 20%;
+        left: 20%;
+        width: 30px;
+        height: 30px;
+    }
+
+    .dot:nth-child(2) {
+        animation: moveDot2 6s infinite;
+        top: 10%;
+        left: 35%;
+        width: 40px;
+        height: 40px;
+    }
+
+    .dot:nth-child(3) {
+        animation: moveDot3 6s infinite;
+        top: 76%;
+        left: 75%;
+        width: 25px;
+        height: 25px;
+    }
+
+    .dot:nth-child(4) {
+        animation: moveDot4 6s infinite;
+        top: 68%;
+        left: 17%;
+        width: 50px;
+        height: 50px;
+    }
+
+    .dot:nth-child(5) {
+        animation: moveDot5 6s infinite;
+        top: 9%;
+        left: 76%;
+        width: 20px;
+        height: 20px;
+    }
+
+    .dot:nth-child(6) {
+        animation: moveDot6 7s infinite;
+        top: 32%;
+        left: 48%;
+        width: 10px;
+        height: 10px;
+    }
+
+    .dot:nth-child(7) {
+        animation: moveDot7 8s infinite;
+        top: 21%;
+        left: 65%;
+        width: 45px;
+        height: 45px;
+    }
+
+    .dot:nth-child(8) {
+        animation: moveDot8 9s infinite;
+        top: 45%;
+        left: 30%;
+        width: 35px;
+        height: 35px;
+    }
+
+    .dot:nth-child(9) {
+        animation: moveDot9 10s infinite;
+        top: 12%;
+        left: 82%;
+        width: 55px;
+        height: 55px;
+    }
+
+    .dot:nth-child(10) {
+        animation: moveDot10 11s infinite;
+        top: 50%;
+        left: 55%;
+        width: 22px;
+        height: 22px;
+    }
